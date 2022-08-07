@@ -1,0 +1,196 @@
+{
+    "success": true,
+    "code": 200,
+    "psdata": {
+        "id_product": 370,
+        "name": "Batman print hoodie and Trousers",
+        "available_for_order": "1",
+        "show_price": "1",
+        "new_products": "0",
+        "on_sale_products": "0",
+        "quantity": 500000,
+        "minimal_quantity": "5",
+        "allow_out_of_stock": "1",
+        "float_price": 5.4900000000000002131628207280300557613372802734375,
+        "price": "$5.49",
+        "discount_price": "",
+        "discount_percentage": "",
+        "images": [
+            {
+                "src": "https://www.grooget.com/1336-large_default/batman-print-hoodie-and-.jpg"
+            },
+            {
+                "src": "https://www.grooget.com/1337-large_default/batman-print-hoodie-and-.jpg"
+            },
+            {
+                "src": "https://www.grooget.com/1338-large_default/batman-print-hoodie-and-.jpg"
+            },
+            {
+                "src": "https://www.grooget.com/1339-large_default/batman-print-hoodie-and-.jpg"
+            },
+            {
+                "src": "https://www.grooget.com/1340-large_default/batman-print-hoodie-and-.jpg"
+            }
+        ],
+        "cover_image": "https://www.grooget.com/1336-large_default/batman-print-hoodie-and-.jpg",
+        "combinations": [
+            {
+                "id_product_attribute": 2996,
+                "quantity": 100000,
+                "price": "$5.49",
+                "float_price": 5.4900000000000002131628207280300557613372802734375,
+                "minimal_quantity": 5,
+                "combination_code": "11"
+            },
+            {
+                "id_product_attribute": 2997,
+                "quantity": 100000,
+                "price": "$5.49",
+                "float_price": 5.4900000000000002131628207280300557613372802734375,
+                "minimal_quantity": 5,
+                "combination_code": "5"
+            },
+            {
+                "id_product_attribute": 2993,
+                "quantity": 100000,
+                "price": "$5.49",
+                "float_price": 5.4900000000000002131628207280300557613372802734375,
+                "minimal_quantity": 5,
+                "combination_code": "16"
+            },
+            {
+                "id_product_attribute": 2995,
+                "quantity": 100000,
+                "price": "$5.49",
+                "float_price": 5.4900000000000002131628207280300557613372802734375,
+                "minimal_quantity": 5,
+                "combination_code": "10"
+            },
+            {
+                "id_product_attribute": 2994,
+                "quantity": 100000,
+                "price": "$5.49",
+                "float_price": 5.4900000000000002131628207280300557613372802734375,
+                "minimal_quantity": 5,
+                "combination_code": "14"
+            }
+        ],
+        "options": [
+            {
+                "id": 2,
+                "title": "Color",
+                "is_color_option": 1,
+                "items": [
+                    {
+                        "id": 11,
+                        "value": "Black",
+                        "hex_value": "#434A54"
+                    },
+                    {
+                        "id": 5,
+                        "value": "Grey",
+                        "hex_value": "#AAB2BD"
+                    },
+                    {
+                        "id": 16,
+                        "value": "Yellow",
+                        "hex_value": "#F1C40F"
+                    },
+                    {
+                        "id": 10,
+                        "value": "Red",
+                        "hex_value": "#E84C3D"
+                    },
+                    {
+                        "id": 14,
+                        "value": "Blue",
+                        "hex_value": "#5D9CEC"
+                    }
+                ]
+            }
+        ],
+        "description": "",
+        "description_short": "",
+        "reference": "34211",
+        "category_name": "pyjamas",
+        "manufacturer_name": false,
+        "product_info": [
+            {
+                "name": "SKU",
+                "value": "34211"
+            },
+            {
+                "name": "Condition",
+                "value": "New"
+            },
+            {
+                "name": "Origin Country",
+                "value": "Turkey"
+            },
+            {
+                "name": "Season",
+                "value": "Autumn"
+            },
+            {
+                "name": "Gender ",
+                "value": "Male"
+            }
+        ],
+        "accessories": [],
+        "customization_fields": {
+            "is_customizable": "0",
+            "customizable_items": []
+        },
+        "pack_products": [],
+        "seller_info": [],
+        "product_attachments_array": [],
+        "product_url": "https://www.grooget.com/en/pyjamas/370-batman-print-hoodie-and-.html",
+        "groups": {
+            "2": {
+                "group_name": "Color",
+                "name": "Color",
+                "group_type": "color",
+                "default": 16,
+                "attributes": {
+                    "11": {
+                        "name": "Black",
+                        "html_color_code": "#434A54",
+                        "texture": "",
+                        "selected": false
+                    },
+                    "5": {
+                        "name": "Grey",
+                        "html_color_code": "#AAB2BD",
+                        "texture": "",
+                        "selected": false
+                    },
+                    "16": {
+                        "name": "Yellow",
+                        "html_color_code": "#F1C40F",
+                        "texture": "",
+                        "selected": false
+                    },
+                    "10": {
+                        "name": "Red",
+                        "html_color_code": "#E84C3D",
+                        "texture": "",
+                        "selected": false
+                    },
+                    "14": {
+                        "name": "Blue",
+                        "html_color_code": "#5D9CEC",
+                        "texture": "",
+                        "selected": false
+                    }
+                },
+                "attributes_quantity": {
+                    "11": 100000,
+                    "5": 100000,
+                    "16": 100000,
+                    "10": 100000,
+                    "14": 100000
+                }
+            }
+        }
+    }
+}

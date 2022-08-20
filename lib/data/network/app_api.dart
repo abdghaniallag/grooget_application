@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
 
@@ -15,12 +13,19 @@ abstract class AppServiceClient {
     @Field("email") String email,
     @Field("password") String password,
   );
+  @GET('/accountInfo')
+  Future<AcountInformationResponse> getAcountInformaiton();
   @POST('/costumers/forgotpassword')
   Future<ForgotPasswordResponse> forgotPassword(
     @Field("email") String email,
   );
   @GET('/home')
   Future<HomeResponse> getHome();
+  @GET('/product')
+  Future<HomeResponse> getProduct(
+    @Query("product_id") String productId,
+  );
+
   @POST('/costumers/register')
   Future<AuthenticationRespons> register(
     @Field("country_mobile_code") String countryMobileCode,

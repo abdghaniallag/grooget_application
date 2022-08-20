@@ -7,12 +7,14 @@ import 'package:mvvm_first_c/presentation/register/register.dart';
 import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
 import 'package:mvvm_first_c/presentation/splash/splash.dart';
 
+import '../category/category_view.dart';
 import '../forgot_password/forgot_password.dart';
 
 class Routes {
   static const String splashRoute = "/";
   static const String onBoardingRoute = "/onBoarding";
   static const String loginRoute = "/login";
+  static const String categoriesRoute = "/categories";
   static const String registerRoute = "/register";
   static const String forgotPasswordRoute = "/ForgotPassword";
   static const String mainRoute = "/main";
@@ -24,6 +26,8 @@ class RouteGenerator {
     switch (routeSettings.name) {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => SplashView());
+      case Routes.categoriesRoute:
+        return MaterialPageRoute(builder: (_) => CategoryView());
       case Routes.forgotPasswordRoute:
         initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => ForgotPasswordView());

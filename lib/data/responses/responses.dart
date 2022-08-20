@@ -56,6 +56,54 @@ class CustomerResponse {
 }
 
 @JsonSerializable()
+class CustomerAcountInformationResponse {
+  @JsonKey(name: "id")
+  int? id;
+  @JsonKey(name: "id_shop")
+  String? id_shop;
+  @JsonKey(name: "id_shop_group")
+  String? id_shop_group;
+  @JsonKey(name: "id_gender")
+  String? id_gender;
+  @JsonKey(name: "id_lang")
+  String? id_lang;
+  @JsonKey(name: "lastname")
+  String? lastname;
+  @JsonKey(name: "firstname")
+  String? firstname;
+  @JsonKey(name: "birthday")
+  String? birthday;
+  @JsonKey(name: "email")
+  String? email;
+  @JsonKey(name: "newsletter")
+  String? newsletter;
+  @JsonKey(name: "logged")
+  bool? logged;
+  @JsonKey(name: "active")
+  String? active;
+  CustomerAcountInformationResponse(
+    this.id,
+    this.id_shop,
+    this.id_shop_group,
+    this.id_gender,
+    this.id_lang,
+    this.lastname,
+    this.firstname,
+    this.birthday,
+    this.email,
+    this.newsletter,
+    this.logged,
+    this.active,
+  );
+
+  factory CustomerAcountInformationResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$CustomerAcountInformationResponseFromJson(json);
+  Map<String, dynamic> toJson() =>
+      _$CustomerAcountInformationResponseToJson(this);
+}
+
+@JsonSerializable()
 class PrestashopLoginRespons extends BaseResponse {
   @JsonKey(name: "status")
   String? status;
@@ -86,6 +134,39 @@ class AuthenticationRespons extends BaseResponse {
   factory AuthenticationRespons.fromJson(Map<String, dynamic> json) =>
       _$AuthenticationResponsFromJson(json);
   Map<String, dynamic> toJson() => _$AuthenticationResponsToJson(this);
+}
+
+@JsonSerializable()
+class AcountInformationResponse extends BaseResponse {
+  @JsonKey(name: "psdata")
+  CustomerAcountInformationResponse? psdata;
+  AcountInformationResponse(this.psdata);
+
+  factory AcountInformationResponse.fromJson(Map<String, dynamic> json) =>
+      _$AcountInformationResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$AcountInformationResponseToJson(this);
+}
+
+@JsonSerializable()
+class ImageSourceResponse extends BaseResponse {
+  @JsonKey(name: "src")
+  String? src;
+  ImageSourceResponse(this.src);
+
+  factory ImageSourceResponse.fromJson(Map<String, dynamic> json) =>
+      _$ImageSourceResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ImageSourceResponseToJson(this);
+}
+
+@JsonSerializable()
+class ImagePrestashopResponse extends BaseResponse {
+  @JsonKey(name: "")
+  List<ImageSourceResponse>? src;
+  ImagePrestashopResponse(this.src);
+
+  factory ImagePrestashopResponse.fromJson(Map<String, dynamic> json) =>
+      _$ImagePrestashopResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ImagePrestashopResponseToJson(this);
 }
 
 @JsonSerializable()

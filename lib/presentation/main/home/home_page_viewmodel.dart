@@ -11,7 +11,8 @@ class HomePageViewModel extends BaseViewModel
     with HomeViewModelInputs, HomeViewModelOutputs {
   HomeUseCase _homeUseCase;
 
-  StreamController _homeObjectStreamController = BehaviorSubject<HomeData>();
+  StreamController _homeObjectStreamController =
+      BehaviorSubject<AcountInformation>();
 
   HomePageViewModel(this._homeUseCase);
 
@@ -30,11 +31,12 @@ class HomePageViewModel extends BaseViewModel
           StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
     }, (homeObject) {
       inputState.add(ContentState());
-      inputHome.add(HomeData(
-        homeObject.homeData.services,
-        homeObject.homeData.stores,
-        homeObject.homeData.banners,
-      ));
+      // inputHome.add(HomeData(
+      //   homeObject.homeData.services,
+      //   homeObject.homeData.stores,
+      //   homeObject.homeData.banners,
+      // ));
+      inputHome.add(homeObject);
     });
   }
 
@@ -48,7 +50,7 @@ class HomePageViewModel extends BaseViewModel
   Sink get inputHome => _homeObjectStreamController.sink;
 
   @override
-  Stream<HomeData> get outputHome =>
+  Stream<AcountInformation> get outputHome =>
       _homeObjectStreamController.stream.map((homeData) => homeData);
 }
 
@@ -57,5 +59,5 @@ abstract class HomeViewModelInputs {
 }
 
 abstract class HomeViewModelOutputs {
-  Stream<HomeData> get outputHome;
+  Stream<AcountInformation> get outputHome;
 }

@@ -6,6 +6,7 @@ class SliderObject {
 }
 
 class Customer {
+  // model user information
   String id;
   String id_shop;
   String id_shop_group;
@@ -34,6 +35,36 @@ class Customer {
   );
 }
 
+class CustomerAcountInformation {
+  //model of user acount information response
+  int id;
+  String id_shop;
+  String id_shop_group;
+  String id_gender;
+  String id_lang;
+  String lastname;
+  String firstname;
+  String birthday;
+  String email;
+  String newsletter;
+  bool logged;
+  String active;
+  CustomerAcountInformation(
+    this.id,
+    this.id_shop,
+    this.id_shop_group,
+    this.id_gender,
+    this.id_lang,
+    this.lastname,
+    this.firstname,
+    this.birthday,
+    this.email,
+    this.newsletter,
+    this.logged,
+    this.active,
+  );
+}
+
 class PrestashopLogin {
   String? status;
   String? message;
@@ -45,16 +76,48 @@ class PrestashopLogin {
       this.session_data, this.cart_count, this.user);
 }
 
-class Contacts {
-  String phone;
-  String link;
-  String email;
-  Contacts(this.phone, this.link, this.email);
-}
-
 class Authentication {
   PrestashopLogin? psdata;
   Authentication(this.psdata);
+}
+
+class AcountInformation {
+  CustomerAcountInformation? psdata;
+  AcountInformation(this.psdata);
+}
+
+class ProductInformation {
+  //model of product informattion
+  int id;
+  int quantity;
+  double float_price;
+  String id_shop;
+  String id_shop_group;
+  String id_gender;
+  String id_lang;
+  String price;
+  String name;
+  String birthday;
+  String email;
+  String newsletter;
+  bool logged;
+  String active;
+  ProductInformation(
+    this.id,
+    this.quantity,
+    this.float_price,
+    this.id_shop,
+    this.id_shop_group,
+    this.id_gender,
+    this.id_lang,
+    this.price,
+    this.name,
+    this.birthday,
+    this.email,
+    this.newsletter,
+    this.logged,
+    this.active,
+  );
 }
 
 class Service {
@@ -89,4 +152,14 @@ class HomeData {
 class HomeObject {
   HomeData homeData;
   HomeObject(this.homeData);
+}
+
+class ImageSource {
+  String src;
+  ImageSource(this.src);
+}
+
+class ImagePrestashop {
+  List<ImageSource> image;
+  ImagePrestashop(this.image);
 }

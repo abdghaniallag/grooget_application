@@ -1,23 +1,24 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:mvvm_first_c/app/app_preferences.dart';
-import 'package:mvvm_first_c/data/data_source/local_data_source.dart';
-import 'package:mvvm_first_c/data/data_source/remot_data_source.dart';
-import 'package:mvvm_first_c/data/network/app_api.dart';
-import 'package:mvvm_first_c/data/network/dio_factory.dart';
-import 'package:mvvm_first_c/data/network/network_info.dart';
-import 'package:mvvm_first_c/data/repository/repository_impl.dart';
-import 'package:mvvm_first_c/domain/repository.dart';
-import 'package:mvvm_first_c/domain/usecase/forgot_password_usecase.dart';
-import 'package:mvvm_first_c/domain/usecase/homePageUsecase.dart';
-import 'package:mvvm_first_c/domain/usecase/login_usecase.dart';
-import 'package:mvvm_first_c/presentation/forgot_password/forgot_password_view_model.dart';
-import 'package:mvvm_first_c/presentation/login/login_viewmodel.dart';
-import 'package:mvvm_first_c/presentation/main/home/home_page_viewmodel.dart';
+import '../app/app_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/data_source/local_data_source.dart';
+import '../data/data_source/remot_data_source.dart';
+import '../data/network/app_api.dart';
+import '../data/network/dio_factory.dart';
+import '../data/network/network_info.dart';
+import '../data/repository/repository_impl.dart';
+import '../domain/repository.dart';
+import '../domain/usecase/forgot_password_usecase.dart';
+import '../domain/usecase/homePageUsecase.dart';
+import '../domain/usecase/login_usecase.dart';
 import '../domain/usecase/register_usecase.dart';
+import '../presentation/forgot_password/forgot_password_view_model.dart';
+import '../presentation/login/login_viewmodel.dart';
+import '../presentation/main/home/home_page_viewmodel.dart';
 import '../presentation/register/registerViewModel.dart';
 
 final instance = GetIt.instance;
@@ -34,7 +35,7 @@ Future<void> initAppModule() async {
   // Dio
   instance.registerLazySingleton<DioFactoy>(() => DioFactoy(instance()));
   // App Service Client
-  final dio = await instance<DioFactoy>().getDio();
+  final Dio dio = await instance<DioFactoy>().getDio();
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
   // Remot Data Source
   instance.registerLazySingleton<RemotDataSource>(

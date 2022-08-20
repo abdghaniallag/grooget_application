@@ -48,6 +48,40 @@ Map<String, dynamic> _$CustomerResponseToJson(CustomerResponse instance) =>
       'active': instance.active,
     };
 
+CustomerAcountInformationResponse _$CustomerAcountInformationResponseFromJson(
+        Map<String, dynamic> json) =>
+    CustomerAcountInformationResponse(
+      json['id'] as int?,
+      json['id_shop'] as String?,
+      json['id_shop_group'] as String?,
+      json['id_gender'] as String?,
+      json['id_lang'] as String?,
+      json['lastname'] as String?,
+      json['firstname'] as String?,
+      json['birthday'] as String?,
+      json['email'] as String?,
+      json['newsletter'] as String?,
+      json['logged'] as bool?,
+      json['active'] as String?,
+    );
+
+Map<String, dynamic> _$CustomerAcountInformationResponseToJson(
+        CustomerAcountInformationResponse instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'id_shop': instance.id_shop,
+      'id_shop_group': instance.id_shop_group,
+      'id_gender': instance.id_gender,
+      'id_lang': instance.id_lang,
+      'lastname': instance.lastname,
+      'firstname': instance.firstname,
+      'birthday': instance.birthday,
+      'email': instance.email,
+      'newsletter': instance.newsletter,
+      'logged': instance.logged,
+      'active': instance.active,
+    };
+
 PrestashopLoginRespons _$PrestashopLoginResponsFromJson(
         Map<String, dynamic> json) =>
     PrestashopLoginRespons(
@@ -93,6 +127,58 @@ Map<String, dynamic> _$AuthenticationResponsToJson(
       'success': instance.success,
       'code': instance.code,
       'psdata': instance.psdata,
+    };
+
+AcountInformationResponse _$AcountInformationResponseFromJson(
+        Map<String, dynamic> json) =>
+    AcountInformationResponse(
+      json['psdata'] == null
+          ? null
+          : CustomerAcountInformationResponse.fromJson(
+              json['psdata'] as Map<String, dynamic>),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$AcountInformationResponseToJson(
+        AcountInformationResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'psdata': instance.psdata,
+    };
+
+ImageSourceResponse _$ImageSourceResponseFromJson(Map<String, dynamic> json) =>
+    ImageSourceResponse(
+      json['src'] as String?,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$ImageSourceResponseToJson(
+        ImageSourceResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'src': instance.src,
+    };
+
+ImagePrestashopResponse _$ImagePrestashopResponseFromJson(
+        Map<String, dynamic> json) =>
+    ImagePrestashopResponse(
+      (json[''] as List<dynamic>?)
+          ?.map((e) => ImageSourceResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$ImagePrestashopResponseToJson(
+        ImagePrestashopResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      '': instance.src,
     };
 
 ForgotPasswordResponse _$ForgotPasswordResponseFromJson(

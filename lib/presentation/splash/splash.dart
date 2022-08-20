@@ -23,23 +23,25 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() async {
-    Navigator.pushReplacementNamed(context, Routes.loginRoute);
-    /*
-            
-    _appPreferences.isUserLoggedIn().then((isUserLoggedIn) {
-      if (isUserLoggedIn) {
-        Navigator.pushReplacementNamed(context, Routes.mainRoute);
-      } else {
-        _appPreferences.isOnbordingViewed().then((isOnbordingViewed) {
-          if (isOnbordingViewed) {
-            Navigator.pushReplacementNamed(context, Routes.loginRoute);
-          } else {
-            Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
-          }
-        });
-      }
-    });
-            */
+    // Navigator.pushReplacementNamed(context, Routes.loginRoute);
+    Navigator.pushReplacementNamed(context, Routes.categoriesRoute);
+
+    // _appPreferences.isUserLoggedIn().then((isUserLoggedIn) {
+    //   if (isUserLoggedIn) {
+    //     Navigator.pushReplacementNamed(context, Routes.mainRoute);
+    //   } else
+    //   {
+    //     _appPreferences.isOnbordingViewed().then((isOnbordingViewed) {
+    //       if (isOnbordingViewed) {
+    //         Navigator.pushReplacementNamed(context, Routes.loginRoute);
+    //       } else {
+    //         Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
+    //       }
+    //     });
+    //   }
+    //   Navigator.pushReplacementNamed(context, Routes.loginRoute);
+    // }
+    // );
   }
 
   @override

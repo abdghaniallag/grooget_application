@@ -5,6 +5,7 @@ import 'package:mvvm_first_c/app/extentions.dart';
 
 const EMPTY = "";
 const ZERO = 0;
+const FALSE = false;
 
 extension CustomerResponseMapper on CustomerResponse? {
   Customer toDomain() {
@@ -20,6 +21,26 @@ extension CustomerResponseMapper on CustomerResponse? {
       this?.email?.orEmpty() ?? EMPTY,
       this?.newsletter?.orEmpty() ?? EMPTY,
       this?.logged?.orEmpty() ?? ZERO,
+      this?.active?.orEmpty() ?? EMPTY,
+    );
+  }
+}
+
+extension CustomerAcountInformationResponseMapper
+    on CustomerAcountInformationResponse? {
+  CustomerAcountInformation toDomain() {
+    return CustomerAcountInformation(
+      this?.id?.orEmpty() ?? ZERO,
+      this?.id_shop?.orEmpty() ?? EMPTY,
+      this?.id_shop_group?.orEmpty() ?? EMPTY,
+      this?.id_gender?.orEmpty() ?? EMPTY,
+      this?.id_lang?.orEmpty() ?? EMPTY,
+      this?.lastname?.orEmpty() ?? EMPTY,
+      this?.firstname?.orEmpty() ?? EMPTY,
+      this?.birthday?.orEmpty() ?? EMPTY,
+      this?.email?.orEmpty() ?? EMPTY,
+      this?.newsletter?.orEmpty() ?? EMPTY,
+      this?.logged?.orEmpty() ?? FALSE,
       this?.active?.orEmpty() ?? EMPTY,
     );
   }
@@ -43,9 +64,21 @@ extension AuthenticationResponsMapper on AuthenticationRespons? {
   }
 }
 
+extension AcountInformationResponsMapper on AcountInformationResponse? {
+  AcountInformation toDomain() {
+    return AcountInformation(this?.psdata?.toDomain());
+  }
+}
+
 extension ForgotPasswordResponseMapper on ForgotPasswordResponse? {
   String toDomain() {
     return this?.support?.orEmpty() ?? EMPTY;
+  }
+}
+
+extension ImageSourceResponseMapper on ImageSourceResponse? {
+  ImageSource toDomain() {
+    return ImageSource(this?.src?.orEmpty() ?? EMPTY);
   }
 }
 
@@ -53,6 +86,16 @@ extension ServiceResponseMapper on ServiceResponse? {
   Service toDomain() {
     return Service(this?.id?.orEmpty() ?? ZERO, this?.title?.orEmpty() ?? EMPTY,
         this?.image?.orEmpty() ?? EMPTY);
+  }
+}
+
+extension ImagePrestashopResponseMapper on ImagePrestashopResponse? {
+  ImagePrestashop toDomain() {
+    List<ImageSource> mappedImageSources =
+        (this?.src?.map((src) => src.toDomain()) ?? Iterable.empty())
+            .cast<ImageSource>()
+            .toList();
+    return ImagePrestashop(mappedImageSources);
   }
 }
 

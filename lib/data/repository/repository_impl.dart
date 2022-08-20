@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:mvvm_first_c/app/constant.dart';
 
 import '../../domain/model.dart';
 import '../../domain/repository.dart';
@@ -26,8 +28,6 @@ class RepositoryImpl extends Repository {
       try {
         final response = await _remoteDataSource.login(loginRequest);
         if (response.success == ApiInternalStatus.SUCCESS) {
-          // return data
-
           log("return data ");
           return Right(response.toDomain());
         } else {
@@ -38,10 +38,6 @@ class RepositoryImpl extends Repository {
               ResponseMessage.DEFAULT));
         }
       } catch (error) {
-        log("return left logic biz error " +
-            error.runtimeType.toString() +
-            ' ' +
-            error.toString());
         return Left(ErrorHandler.handle(error).failure);
       }
     } else {
@@ -123,6 +119,37 @@ class RepositoryImpl extends Repository {
             // return right
             // save data to cache
             _localDataSource.saveHomeData(response);
+            return Right(response.toDomain());
+          } else {
+            // return biz logic error
+            // return left
+            return Left(Failure(response.code ?? ApiInternalStatus.FAILURE,
+                ResponseMessage.DEFAULT));
+          }
+        } catch (error) {
+          return (Left(ErrorHandler.handle(error).failure));
+        }
+      } else {
+        // return connection error
+        return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, AcountInformation>> getAcountInformation() async {
+    {
+      if (await _networkInfo.isConnected) {
+        try {
+          // its safe to call the API
+          final response = await _remoteDataSource.getAcountInformation();
+
+          if (response.success == ApiInternalStatus.SUCCESS) // success
+          {
+            // return data (success)
+            // return right
+            // save data to cache
+            // _localDataSource.saveHomeData(response);
             return Right(response.toDomain());
           } else {
             // return biz logic error

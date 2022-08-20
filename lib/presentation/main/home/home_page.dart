@@ -1,13 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/app/di.dart';
-import 'package:mvvm_first_c/domain/model.dart';
-import 'package:mvvm_first_c/presentation/main/home/home_page_viewmodel.dart';
-import 'package:mvvm_first_c/presentation/resources/color_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/routes_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
-import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';
+import 'package:mvvm_first_c/data/mapper/mapper.dart';
+
+import '../../../app/di.dart';
+import '../../../domain/model.dart';
+import '../../resources/color_manager.dart';
+import '../../resources/routes_manager.dart';
+import '../../resources/strings_manager.dart';
+import '../../resources/values_manager.dart';
+import '../../state_renderer/state_renderer_implimenter.dart';
+import 'home_page_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -48,17 +50,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getContentWidgets() {
-    return StreamBuilder<HomeData>(
+    return StreamBuilder<AcountInformation>(
         stream: _viewModel.outputHome,
         builder: (context, snapshot) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _getBannersCarousel(snapshot.data?.banners),
-              _getSection(AppStrings.services),
-              _getServices(snapshot.data?.services),
-              _getSection(AppStrings.stories),
-              _getStores(snapshot.data?.stores)
+              _getUserInfo(snapshot.data),
+              // _getBannersCarousel(snapshot.data?.banners),
+              // _getSection(AppStrings.services),
+              // _getServices(snapshot.data?.services),
+              // _getSection(AppStrings.stories),
+              // _getStores(snapshot.data?.stores)
             ],
           );
         });
@@ -76,6 +79,27 @@ class _HomePageState extends State<HomePage> {
         style: Theme.of(context).textTheme.headline3,
       ),
     );
+  }
+
+  Widget _getUserInfo(AcountInformation? acount) {
+    if (acount == null) {
+      return Column();
+    } else {
+      return Column(
+        children: [
+          const Text("gthhtfhgho8iukgbikumgjb"),
+          Text(acount.psdata?.firstname.toString() ?? EMPTY),
+          Text(acount.psdata?.lastname.toString() ?? EMPTY),
+          Text(acount.psdata?.id.toString() ?? EMPTY),
+          Text(acount.psdata?.email.toString() ?? EMPTY),
+          Text(acount.psdata?.birthday.toString() ?? EMPTY),
+          Text(acount.psdata?.logged.toString() ?? EMPTY),
+          Text(acount.psdata?.firstname.toString() ?? EMPTY),
+          Text(acount.psdata?.firstname.toString() ?? EMPTY),
+          Text(acount.psdata?.firstname.toString() ?? EMPTY),
+        ],
+      );
+    }
   }
 
   Widget _getBannersCarousel(List<BannerAd>? banners) {

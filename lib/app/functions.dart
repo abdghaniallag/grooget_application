@@ -4,6 +4,7 @@ bool isEmailValid(String email) {
       .hasMatch(email);
 }
 
-String cookie(String responseCookie) {
-  return responseCookie.substring(0, responseCookie.indexOf(";"));
+String getCookie(String responseCookie) {
+  return responseCookie.substring(
+      responseCookie.indexOf("-"), responseCookie.indexOf(";"));
 }

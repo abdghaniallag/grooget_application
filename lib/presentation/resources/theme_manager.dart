@@ -44,8 +44,8 @@ ThemeData getAplicationTheme() {
     ),
 // Text theme
     textTheme: TextTheme(
-      headline1: getSemiBoldStyle(
-          color: ColorManager.darkGray, fontSize: FontSize.s16),
+      headline1:
+          getBoldStyle(color: ColorManager.darkGray, fontSize: FontSize.s18),
       headline2:
           getRegularStyle(color: ColorManager.white, fontSize: FontSize.s16),
       headline3:

@@ -81,14 +81,12 @@ class LoginViewModel extends BaseViewModel
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
       {
-        log("data " + data.toString());
+        log("Cookie " + Constants.token.toString());
         inputState.add(ContentState());
 
-        // navigate to main screen
         isUserLoggedInSuccessfullyController.add(true);
       }
     });
-    inputState.add(ContentState());
   }
 
 //outpputs

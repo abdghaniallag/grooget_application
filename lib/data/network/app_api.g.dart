@@ -6,6 +6,8 @@ part of 'app_api.dart';
 // RetrofitGenerator
 // **************************************************************************
 
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+
 class _AppServiceClient implements AppServiceClient {
   _AppServiceClient(this._dio, {this.baseUrl}) {
     baseUrl ??= 'https://www.grooget.com/rest';
@@ -64,34 +66,18 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<HomeResponse> getHome() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HomeResponse>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/home',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HomeResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<HomeResponse> getProduct(productId) async {
+  Future<ProductInformationResponse> getProductInformation(productId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'product_id': productId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HomeResponse>(
+        _setStreamType<ProductInformationResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/product',
+                .compose(_dio.options, '/productdetail',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = HomeResponse.fromJson(_result.data!);
+    final value = ProductInformationResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -116,6 +102,26 @@ class _AppServiceClient implements AppServiceClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = AuthenticationRespons.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ProductSearchListResponse> getProductSearchList(s,
+      {resultsPerPage = "10"}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r's': s,
+      r'resultsPerPage': resultsPerPage
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProductSearchListResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/productSearch',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProductSearchListResponse.fromJson(_result.data!);
     return value;
   }
 

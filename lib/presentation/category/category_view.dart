@@ -21,7 +21,7 @@ class _CategoryViewState extends State<CategoryView> {
                 child: TextFormField())),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: const ProductItem(),
+          child: Container(),
         ));
   }
 }

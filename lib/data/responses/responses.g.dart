@@ -163,22 +163,97 @@ Map<String, dynamic> _$ImageSourceResponseToJson(
       'src': instance.src,
     };
 
-ImagePrestashopResponse _$ImagePrestashopResponseFromJson(
-        Map<String, dynamic> json) =>
-    ImagePrestashopResponse(
-      (json[''] as List<dynamic>?)
+ProductResponse _$ProductResponseFromJson(Map<String, dynamic> json) =>
+    ProductResponse(
+      json['id_product'] as int?,
+      json['quantity'] as int?,
+      (json['float_price'] as num?)?.toDouble(),
+      json['price'] as String?,
+      json['name'] as String?,
+      json['minimal_quantity'] as String?,
+      json['cover_image'] as String?,
+      json['description'] as String?,
+      json['description_short'] as String?,
+      json['category_name'] as String?,
+      images: (json['images'] as List<dynamic>?)
           ?.map((e) => ImageSourceResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
     )
       ..success = json['success'] as bool?
       ..code = json['code'] as int?;
 
-Map<String, dynamic> _$ImagePrestashopResponseToJson(
-        ImagePrestashopResponse instance) =>
+Map<String, dynamic> _$ProductResponseToJson(ProductResponse instance) =>
     <String, dynamic>{
       'success': instance.success,
       'code': instance.code,
-      '': instance.src,
+      'id_product': instance.id_product,
+      'quantity': instance.quantity,
+      'float_price': instance.float_price,
+      'price': instance.price,
+      'name': instance.name,
+      'minimal_quantity': instance.minimal_quantity,
+      'cover_image': instance.cover_image,
+      'description': instance.description,
+      'description_short': instance.description_short,
+      'category_name': instance.category_name,
+      'images': instance.images,
+    };
+
+ProductInformationResponse _$ProductInformationResponseFromJson(
+        Map<String, dynamic> json) =>
+    ProductInformationResponse(
+      json['psdata'] == null
+          ? null
+          : ProductResponse.fromJson(json['psdata'] as Map<String, dynamic>),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$ProductInformationResponseToJson(
+        ProductInformationResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'psdata': instance.psdata,
+    };
+
+ProductSearchResponse _$ProductSearchResponseFromJson(
+        Map<String, dynamic> json) =>
+    ProductSearchResponse(
+      json['label'] as String?,
+      products: (json['products'] as List<dynamic>?)
+          ?.map((e) => ProductResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$ProductSearchResponseToJson(
+        ProductSearchResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'label': instance.label,
+      'products': instance.products,
+    };
+
+ProductSearchListResponse _$ProductSearchListResponseFromJson(
+        Map<String, dynamic> json) =>
+    ProductSearchListResponse(
+      json['psdata'] == null
+          ? null
+          : ProductSearchResponse.fromJson(
+              json['psdata'] as Map<String, dynamic>),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$ProductSearchListResponseToJson(
+        ProductSearchListResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'psdata': instance.psdata,
     };
 
 ForgotPasswordResponse _$ForgotPasswordResponseFromJson(
@@ -195,99 +270,4 @@ Map<String, dynamic> _$ForgotPasswordResponseToJson(
       'success': instance.success,
       'code': instance.code,
       'support': instance.support,
-    };
-
-ServiceResponse _$ServiceResponseFromJson(Map<String, dynamic> json) =>
-    ServiceResponse(
-      json['id'] as int?,
-      json['title'] as String?,
-      json['image'] as String?,
-    )
-      ..success = json['success'] as bool?
-      ..code = json['code'] as int?;
-
-Map<String, dynamic> _$ServiceResponseToJson(ServiceResponse instance) =>
-    <String, dynamic>{
-      'success': instance.success,
-      'code': instance.code,
-      'id': instance.id,
-      'title': instance.title,
-      'image': instance.image,
-    };
-
-StoresResponse _$StoresResponseFromJson(Map<String, dynamic> json) =>
-    StoresResponse(
-      json['id'] as int?,
-      json['title'] as String?,
-      json['image'] as String?,
-    )
-      ..success = json['success'] as bool?
-      ..code = json['code'] as int?;
-
-Map<String, dynamic> _$StoresResponseToJson(StoresResponse instance) =>
-    <String, dynamic>{
-      'success': instance.success,
-      'code': instance.code,
-      'id': instance.id,
-      'title': instance.title,
-      'image': instance.image,
-    };
-
-BannersResponse _$BannersResponseFromJson(Map<String, dynamic> json) =>
-    BannersResponse(
-      json['id'] as int?,
-      json['title'] as String?,
-      json['image'] as String?,
-      json['link'] as String?,
-    )
-      ..success = json['success'] as bool?
-      ..code = json['code'] as int?;
-
-Map<String, dynamic> _$BannersResponseToJson(BannersResponse instance) =>
-    <String, dynamic>{
-      'success': instance.success,
-      'code': instance.code,
-      'id': instance.id,
-      'title': instance.title,
-      'image': instance.image,
-      'link': instance.link,
-    };
-
-HomeDataResponse _$HomeDataResponseFromJson(Map<String, dynamic> json) =>
-    HomeDataResponse(
-      (json['services'] as List<dynamic>?)
-          ?.map((e) => ServiceResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      (json['stores'] as List<dynamic>?)
-          ?.map((e) => StoresResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      (json['banners'] as List<dynamic>?)
-          ?.map((e) => BannersResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    )
-      ..success = json['success'] as bool?
-      ..code = json['code'] as int?;
-
-Map<String, dynamic> _$HomeDataResponseToJson(HomeDataResponse instance) =>
-    <String, dynamic>{
-      'success': instance.success,
-      'code': instance.code,
-      'services': instance.services,
-      'stores': instance.stores,
-      'banners': instance.banners,
-    };
-
-HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) => HomeResponse(
-      json['data'] == null
-          ? null
-          : HomeDataResponse.fromJson(json['data'] as Map<String, dynamic>),
-    )
-      ..success = json['success'] as bool?
-      ..code = json['code'] as int?;
-
-Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
-    <String, dynamic>{
-      'success': instance.success,
-      'code': instance.code,
-      'data': instance.homeData,
     };

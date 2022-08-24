@@ -1,10 +1,6 @@
 // ignore_for_file: prefer_final_fields
 
 import 'dart:async';
-import 'dart:developer';
-
-import 'package:mvvm_first_c/app/constant.dart';
-
 import '../../presentation/base/base.dart';
 import '../../domain/usecase/login_usecase.dart';
 import '../common/freezed_data.dart';
@@ -76,12 +72,10 @@ class LoginViewModel extends BaseViewModel
     (await _loginUseCase.execute(
             LoginUseCaseInupt(loginObject.userName, loginObject.password)))
         .fold((failure) {
-      log("failure " + failure.message);
       inputState.add(
           ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
     }, (data) {
       {
-        log("Cookie " + Constants.token.toString());
         inputState.add(ContentState());
 
         isUserLoggedInSuccessfullyController.add(true);

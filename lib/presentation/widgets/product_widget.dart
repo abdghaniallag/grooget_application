@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../domain/models/product.dart';
 import '../resources/color_manager.dart';
 import '../resources/values_manager.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({Key? key}) : super(key: key);
-
+  const ProductItem(this._product, {Key? key}) : super(key: key);
+  final Product _product;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,21 +27,21 @@ class ProductItem extends StatelessWidget {
             width: AppSize.s130,
             child: Card(
               child: Image.network(
-                "https://m.media-amazon.com/images/I/91gSOL-ym0L._AC_UL320_.jpg",
+                _product.cover_image,
               ),
             ),
           ),
           Text(
-            "The Drop Women's Britt Tiered Maxi Tent Dress",
+            _product.name,
             maxLines: 2,
             style: Theme.of(context).textTheme.headline1,
           ),
           Text(
-            "\$59.90",
+            _product.price,
             style: Theme.of(context).textTheme.headline2,
           ),
           Text(
-            "Amazon brand",
+            _product.quantity.toString(),
             style: Theme.of(context).textTheme.headline2,
           ),
         ],

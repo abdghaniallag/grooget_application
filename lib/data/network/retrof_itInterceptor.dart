@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:mvvm_first_c/data/mapper/mapper.dart';
 import '../../app/functions.dart';
 import '../../app/app_preferences.dart';
 import '../../app/di.dart';
@@ -16,7 +15,7 @@ class ReceivedCookiesInterceptor implements Interceptor {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     String cookie = await _appPreferences.getToken();
-    if (cookie != EMPTY) {
+    if (cookie != "") {
       options.headers.remove("Cookie");
       options.headers.addAll({"Cookie": "PrestaShop" + cookie});
     }

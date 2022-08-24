@@ -1,5 +1,3 @@
-import 'package:mvvm_first_c/data/mapper/mapper.dart';
-
 import '../presentation/resources/languge_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,7 +24,7 @@ class AppPreferences {
   }
 
   Future<String> getToken() async {
-    return _sharedPreferences.getString(PREFS_KEY_TOKEN) ?? EMPTY;
+    return _sharedPreferences.getString(PREFS_KEY_TOKEN) ?? "";
   }
 
   Future<void> setOnbordingIsViewed() async {

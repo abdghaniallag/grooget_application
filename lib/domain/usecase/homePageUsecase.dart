@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../data/network/failure.dart';
-import '../model.dart';
+import '../models/user.dart';
 import '../repository.dart';
 import 'base_usecase.dart';
 

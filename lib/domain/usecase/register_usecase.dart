@@ -1,9 +1,9 @@
-import 'package:mvvm_first_c/data/network/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:mvvm_first_c/data/request/request.dart';
-import 'package:mvvm_first_c/domain/model.dart';
-import 'package:mvvm_first_c/domain/repository.dart';
-import 'package:mvvm_first_c/domain/usecase/base_usecase.dart';
+import '../../data/network/failure.dart';
+import '../../data/request/request.dart';
+import '../../domain/models/user.dart';
+import '../../domain/repository.dart';
+import '../../domain/usecase/base_usecase.dart';
 
 class RegisterUseCase
     implements BaseUseCase<RegisterUseCaseInupt, Authentication> {

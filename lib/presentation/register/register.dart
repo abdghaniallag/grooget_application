@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mvvm_first_c/data/mapper/mapper.dart';
+import 'package:mvvm_first_c/data/mapper/user_mapper.dart';
 import 'package:mvvm_first_c/presentation/register/registerViewModel.dart';
 
 import '../../app/app_preferences.dart';

@@ -8,6 +8,8 @@ extension NonNullSrting on String? {
     }
   }
 }
+
+// extension on int
 extension NonNullInteger on int? {
   int orEmpty() {
     if (this == null) {
@@ -18,6 +20,7 @@ extension NonNullInteger on int? {
   }
 }
 
+// extension on double
 extension NonNulldouble on double? {
   double orEmpty() {
     if (this == null) {
@@ -28,15 +31,13 @@ extension NonNulldouble on double? {
   }
 }
 
+// extension on bool
 extension NonNullbool on bool? {
   bool orEmpty() {
     if (this == null) {
-      return false ;
+      return false;
     } else {
       return this!;
     }
   }
-
 }
-
-

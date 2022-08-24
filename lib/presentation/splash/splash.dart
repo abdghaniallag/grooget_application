@@ -19,12 +19,12 @@ class _SplashViewState extends State<SplashView> {
   final AppPreferences _appPreferences = instance<AppPreferences>();
 
   _startDelay() {
-    _timer = Timer(const Duration(seconds: 3), _goNext);
+    _timer = Timer(const Duration(seconds: 0), _goNext);
   }
 
   _goNext() async {
     // Navigator.pushReplacementNamed(context, Routes.loginRoute);
-    Navigator.pushReplacementNamed(context, Routes.categoriesRoute);
+    Navigator.pushReplacementNamed(context, Routes.productRoute);
 
     // _appPreferences.isUserLoggedIn().then((isUserLoggedIn) {
     //   if (isUserLoggedIn) {

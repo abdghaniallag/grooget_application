@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mvvm_first_c/data/mapper/mapper.dart';
+import 'package:mvvm_first_c/data/mapper/user_mapper.dart';
 import 'package:mvvm_first_c/data/network/failure.dart';
 import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
 import 'package:mvvm_first_c/presentation/resources/color_manager.dart';

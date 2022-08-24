@@ -1,14 +1,14 @@
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
-import 'package:mvvm_first_c/app/constant.dart';
+import 'package:mvvm_first_c/data/responses/responses.dart';
 
-import '../../domain/model.dart';
+import '../../domain/models/product.dart';
+import '../../domain/models/user.dart';
 import '../../domain/repository.dart';
 import '../data_source/local_data_source.dart';
 import '../data_source/remot_data_source.dart';
-import '../mapper/mapper.dart';
+import '../mapper/user_mapper.dart';
+import '../mapper/product_mapper.dart';
 import '../network/error_handler.dart';
 import '../network/failure.dart';
 import '../network/network_info.dart';
@@ -101,24 +101,19 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, HomeObject>> getHome() async {
-    try {
-      // get data from cache
-      final response = await _localDataSource.getHomeData();
-
-      return Right(response.toDomain());
-    } catch (e) {
+  Future<Either<Failure, AcountInformation>> getAcountInformation() async {
+    {
       if (await _networkInfo.isConnected) {
         try {
           // its safe to call the API
-          final response = await _remoteDataSource.getHome();
+          final response = await _remoteDataSource.getAcountInformation();
 
           if (response.success == ApiInternalStatus.SUCCESS) // success
           {
             // return data (success)
             // return right
             // save data to cache
-            _localDataSource.saveHomeData(response);
+            // _localDataSource.saveHomeData(response);
             return Right(response.toDomain());
           } else {
             // return biz logic error
@@ -137,12 +132,46 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, AcountInformation>> getAcountInformation() async {
+  Future<Either<Failure, ProductInformation>> getProductInformation(
+      String id) async {
     {
       if (await _networkInfo.isConnected) {
         try {
           // its safe to call the API
-          final response = await _remoteDataSource.getAcountInformation();
+          final response = await _remoteDataSource.getProductInformation(id);
+
+          if (response.success == ApiInternalStatus.SUCCESS) // success
+          {
+            // return data (success)
+            // return right
+            // save data to cache
+            // _localDataSource.saveHomeData(response);
+            return Right(response.toDomain());
+          } else {
+            // return biz logic error
+            // return left
+            return Left(Failure(response.code ?? ApiInternalStatus.FAILURE,
+                ResponseMessage.DEFAULT));
+          }
+        } catch (error) {
+          return (Left(ErrorHandler.handle(error).failure));
+        }
+      } else {
+        // return connection error
+        return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, ProductSearchList>> getProductSearchList(String s,
+      {String resultsPerPage = "10"}) async {
+    {
+      if (await _networkInfo.isConnected) {
+        try {
+          // its safe to call the API
+          final response = await _remoteDataSource.getProductSearchList(s,
+              resultsPerPage: resultsPerPage);
 
           if (response.success == ApiInternalStatus.SUCCESS) // success
           {

@@ -19,10 +19,8 @@ abstract class AppServiceClient {
   Future<ForgotPasswordResponse> forgotPassword(
     @Field("email") String email,
   );
-  @GET('/home')
-  Future<HomeResponse> getHome();
-  @GET('/product')
-  Future<HomeResponse> getProduct(
+  @GET('/productdetail')
+  Future<ProductInformationResponse> getProductInformation(
     @Query("product_id") String productId,
   );
 
@@ -35,4 +33,8 @@ abstract class AppServiceClient {
     @Field("mobile_number") String mobile_number,
     @Field("profile_picture") String profilePicture,
   );
+//TODO
+  @GET('/productSearch')
+  Future<ProductSearchListResponse> getProductSearchList(@Query("s") String s,
+      {@Query("resultsPerPage") String resultsPerPage = "10"});
 }

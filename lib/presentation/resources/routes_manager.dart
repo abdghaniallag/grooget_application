@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/app/di.dart';
-import 'package:mvvm_first_c/presentation/login/login.dart';
-import 'package:mvvm_first_c/presentation/main/main.dart';
-import 'package:mvvm_first_c/presentation/onBoarding/onBording.dart';
-import 'package:mvvm_first_c/presentation/register/register.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
-import 'package:mvvm_first_c/presentation/splash/splash.dart';
-
+import 'package:mvvm_first_c/presentation/product/product_view.dart';
+import '../../app/di.dart';
+import '../../presentation/login/login.dart';
+import '../../presentation/main/main.dart';
+import '../../presentation/onBoarding/onBording.dart';
+import '../../presentation/register/register.dart';
+import '../../presentation/resources/strings_manager.dart';
+import '../../presentation/splash/splash.dart';
 import '../category/category_view.dart';
 import '../forgot_password/forgot_password.dart';
 
@@ -19,6 +19,7 @@ class Routes {
   static const String forgotPasswordRoute = "/ForgotPassword";
   static const String mainRoute = "/main";
   static const String storeDetailsRoute = "/storeDetails";
+  static const String productRoute = "/product";
 }
 
 class RouteGenerator {
@@ -28,6 +29,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SplashView());
       case Routes.categoriesRoute:
         return MaterialPageRoute(builder: (_) => CategoryView());
+      case Routes.productRoute:
+        initProductModule();
+        return MaterialPageRoute(builder: (_) => ProductView());
       case Routes.forgotPasswordRoute:
         initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => ForgotPasswordView());

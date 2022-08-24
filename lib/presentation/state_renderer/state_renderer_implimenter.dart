@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/data/mapper/mapper.dart';
 import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
 import 'package:mvvm_first_c/presentation/state_renderer/state_renderer.dart';
 
@@ -47,9 +46,11 @@ class SuccessState extends FlowState {
 
 //Content State
 class ContentState extends FlowState {
+  static const _EMPTY = "";
+
   ContentState();
   @override
-  String getMessage() => EMPTY;
+  String getMessage() => _EMPTY;
 
   @override
   StateRendererType getStateRendererType() =>
@@ -137,7 +138,7 @@ extension FlowStateExtension on FlowState {
       ModalRoute.of(context)?.isCurrent != true;
   _showPopup(
       BuildContext context, StateRendererType stateRendererType, String message,
-      {String title = EMPTY}) {
+      {String title = ""}) {
     WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
         context: context,
         builder: (BuildContext context) => StateRenderer(

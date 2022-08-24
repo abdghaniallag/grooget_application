@@ -1,14 +1,16 @@
-import 'package:mvvm_first_c/data/network/app_api.dart';
-import 'package:mvvm_first_c/data/request/request.dart';
-import 'package:mvvm_first_c/data/responses/responses.dart';
+import '../../data/network/app_api.dart';
+import '../../data/request/request.dart';
+import '../../data/responses/responses.dart';
 
 abstract class RemotDataSource {
   Future<AuthenticationRespons> login(LoginRequest loginRequest);
   Future<ForgotPasswordResponse> forgotPassword(String email);
-  Future<HomeResponse> getHome();
-  Future<HomeResponse> getProduct(String id);
   Future<AcountInformationResponse> getAcountInformation();
   Future<AuthenticationRespons> register(RegisterRequest registerRequest);
+
+  Future<ProductInformationResponse> getProductInformation(String id);
+  Future<ProductSearchListResponse> getProductSearchList(String s,
+      {String resultsPerPage = "10"});
 }
 
 class RemotDataSourceImpilenter implements RemotDataSource {
@@ -26,13 +28,8 @@ class RemotDataSourceImpilenter implements RemotDataSource {
   }
 
   @override
-  Future<HomeResponse> getHome() async {
-    return await _appServiceClient.getHome();
-  }
-
-  @override
-  Future<HomeResponse> getProduct(id) async {
-    return await _appServiceClient.getProduct(id);
+  Future<ProductInformationResponse> getProductInformation(String id) async {
+    return await _appServiceClient.getProductInformation(id);
   }
 
   @override
@@ -51,5 +48,12 @@ class RemotDataSourceImpilenter implements RemotDataSource {
       registerRequest.mobile_number,
       registerRequest.profilePicture,
     );
+  }
+
+  @override
+  Future<ProductSearchListResponse> getProductSearchList(String s,
+      {String resultsPerPage = "10"}) async {
+    return await _appServiceClient.getProductSearchList(s,
+        resultsPerPage: resultsPerPage);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
-import 'package:mvvm_first_c/presentation/state_renderer/state_renderer.dart';
+import '../../presentation/resources/strings_manager.dart';
+import '../../presentation/state_renderer/state_renderer.dart';
 
 abstract class FlowState {
   StateRendererType getStateRendererType();

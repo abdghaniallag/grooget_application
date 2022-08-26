@@ -1,7 +1,5 @@
-import 'package:mvvm_first_c/data/network/failure.dart';
-
 import 'package:dartz/dartz.dart';
-
+import '../../data/network/failure.dart';
 import '../repository.dart';
 import 'base_usecase.dart';
 

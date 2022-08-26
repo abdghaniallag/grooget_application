@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../app/di.dart';
 import '../../domain/models/product.dart';
 import '../../presentation/widgets/search_appbar.dart';
+import '../resources/routes_manager.dart';
 import '../resources/values_manager.dart';
 import '../widgets/product_widget.dart';
 import 'product_viewmodel.dart';
@@ -62,9 +63,15 @@ class _ProductViewState extends State<ProductView> {
     );
   }
 
-  List<Widget> getAllProduct(List<Product>? products) {
+  List<Widget> getAllProduct(List<ProductItem>? products) {
     if (products != null) {
-      return products.map((index) => ProductItem(index)).toList();
+      return products
+          .map((index) => GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.productDetailRoute);
+              },
+              child: ProductItemWidget(index)))
+          .toList();
     } else {
       return List<SizedBox>.generate(1, (index) => const SizedBox());
     }

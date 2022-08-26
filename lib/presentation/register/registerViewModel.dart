@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:mvvm_first_c/app/functions.dart';
-import 'package:mvvm_first_c/presentation/base/base.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
+import '../../app/functions.dart';
+import '../../presentation/base/base.dart';
+import '../../presentation/resources/strings_manager.dart';
 
 import '../../domain/usecase/register_usecase.dart';
 import '../common/freezed_data.dart';

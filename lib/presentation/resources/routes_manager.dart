@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/presentation/product/product_view.dart';
+import 'package:mvvm_first_c/presentation/product_detal/product_detal_view.dart';
+import '../../presentation/product/product_view.dart';
 import '../../app/di.dart';
 import '../../presentation/login/login.dart';
 import '../../presentation/main/main.dart';
@@ -20,6 +21,7 @@ class Routes {
   static const String mainRoute = "/main";
   static const String storeDetailsRoute = "/storeDetails";
   static const String productRoute = "/product";
+  static const String productDetailRoute = "/productDetail";
 }
 
 class RouteGenerator {
@@ -32,6 +34,9 @@ class RouteGenerator {
       case Routes.productRoute:
         initProductModule();
         return MaterialPageRoute(builder: (_) => ProductView());
+      case Routes.productDetailRoute:
+        initProductModule();
+        return MaterialPageRoute(builder: (_) => ProductDetailView());
       case Routes.forgotPasswordRoute:
         initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => ForgotPasswordView());

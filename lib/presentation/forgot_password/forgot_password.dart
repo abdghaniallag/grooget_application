@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/app/di.dart';
-import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/color_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
-import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';
+import '../../app/di.dart';
+import '../../presentation/resources/assets_manager.dart';
+import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/strings_manager.dart';
+import '../../presentation/resources/values_manager.dart';
+import '../../presentation/state_renderer/state_renderer_implimenter.dart';
 
 import 'forgot_password_view_model.dart';
 

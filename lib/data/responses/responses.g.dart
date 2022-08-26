@@ -163,40 +163,51 @@ Map<String, dynamic> _$ImageSourceResponseToJson(
       'src': instance.src,
     };
 
-ProductResponse _$ProductResponseFromJson(Map<String, dynamic> json) =>
-    ProductResponse(
-      json['id_product'] as int?,
-      json['quantity'] as int?,
-      (json['float_price'] as num?)?.toDouble(),
-      json['price'] as String?,
-      json['name'] as String?,
-      json['minimal_quantity'] as String?,
-      json['cover_image'] as String?,
-      json['description'] as String?,
-      json['description_short'] as String?,
-      json['category_name'] as String?,
-      images: (json['images'] as List<dynamic>?)
-          ?.map((e) => ImageSourceResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
+CoverResponse _$CoverResponseFromJson(Map<String, dynamic> json) =>
+    CoverResponse(
+      json['url'] as String?,
+      json['width'] as int?,
+      json['height'] as int?,
     )
       ..success = json['success'] as bool?
       ..code = json['code'] as int?;
 
-Map<String, dynamic> _$ProductResponseToJson(ProductResponse instance) =>
+Map<String, dynamic> _$CoverResponseToJson(CoverResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'url': instance.url,
+      'width': instance.width,
+      'height': instance.height,
+    };
+
+ProductItemResponse _$ProductItemResponseFromJson(Map<String, dynamic> json) =>
+    ProductItemResponse(
+      json['id_product'] as String?,
+      json['price'] as String?,
+      json['name'] as String?,
+      json['cover'] == null
+          ? null
+          : CoverResponse.fromJson(json['cover'] as Map<String, dynamic>),
+      json['description'] as String?,
+      json['description_short'] as String?,
+      json['category_name'] as String?,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$ProductItemResponseToJson(
+        ProductItemResponse instance) =>
     <String, dynamic>{
       'success': instance.success,
       'code': instance.code,
       'id_product': instance.id_product,
-      'quantity': instance.quantity,
-      'float_price': instance.float_price,
       'price': instance.price,
       'name': instance.name,
-      'minimal_quantity': instance.minimal_quantity,
-      'cover_image': instance.cover_image,
+      'cover': instance.cover,
       'description': instance.description,
       'description_short': instance.description_short,
       'category_name': instance.category_name,
-      'images': instance.images,
     };
 
 ProductInformationResponse _$ProductInformationResponseFromJson(
@@ -204,7 +215,8 @@ ProductInformationResponse _$ProductInformationResponseFromJson(
     ProductInformationResponse(
       json['psdata'] == null
           ? null
-          : ProductResponse.fromJson(json['psdata'] as Map<String, dynamic>),
+          : ProductItemResponse.fromJson(
+              json['psdata'] as Map<String, dynamic>),
     )
       ..success = json['success'] as bool?
       ..code = json['code'] as int?;
@@ -222,7 +234,7 @@ ProductSearchResponse _$ProductSearchResponseFromJson(
     ProductSearchResponse(
       json['label'] as String?,
       products: (json['products'] as List<dynamic>?)
-          ?.map((e) => ProductResponse.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ProductItemResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
     )
       ..success = json['success'] as bool?

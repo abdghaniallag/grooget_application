@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:mvvm_first_c/domain/usecase/forgot_password_usecase.dart';
-import 'package:mvvm_first_c/presentation/base/base.dart';
-import 'package:mvvm_first_c/presentation/state_renderer/state_renderer.dart';
-import 'package:mvvm_first_c/presentation/state_renderer/state_renderer_implimenter.dart';
+import '../../domain/usecase/forgot_password_usecase.dart';
+import '../../presentation/base/base.dart';
+import '../../presentation/state_renderer/state_renderer.dart';
+import '../../presentation/state_renderer/state_renderer_implimenter.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel
     with ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {

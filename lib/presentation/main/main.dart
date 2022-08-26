@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/presentation/main/home/home_page.dart';
-import 'package:mvvm_first_c/presentation/resources/color_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
+import '../../presentation/main/home/home_page.dart';
+import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/strings_manager.dart';
+import '../../presentation/resources/values_manager.dart';
 
 import 'notification/notifications.dart';
 import 'search/search.dart';

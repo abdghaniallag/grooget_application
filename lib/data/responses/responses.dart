@@ -160,50 +160,54 @@ class ImageSourceResponse extends BaseResponse {
 }
 
 @JsonSerializable()
-class ProductResponse extends BaseResponse {
+class CoverResponse extends BaseResponse {
+  @JsonKey(name: "url")
+  String? url;
+  @JsonKey(name: "width")
+  int? width;
+  @JsonKey(name: "height")
+  int? height;
+  CoverResponse(this.url, this.width, this.height);
+
+  factory CoverResponse.fromJson(Map<String, dynamic> json) =>
+      _$CoverResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CoverResponseToJson(this);
+}
+
+@JsonSerializable()
+class ProductItemResponse extends BaseResponse {
   @JsonKey(name: "id_product")
-  int? id_product;
-  @JsonKey(name: "quantity")
-  int? quantity;
-  @JsonKey(name: "float_price")
-  double? float_price;
+  String? id_product;
   @JsonKey(name: "price")
   String? price;
   @JsonKey(name: "name")
   String? name;
-  @JsonKey(name: "minimal_quantity")
-  String? minimal_quantity;
-  @JsonKey(name: "cover_image")
-  String? cover_image;
+  @JsonKey(name: "cover")
+  CoverResponse? cover;
   @JsonKey(name: "description")
   String? description;
   @JsonKey(name: "description_short")
   String? description_short;
   @JsonKey(name: "category_name")
   String? category_name;
-  @JsonKey(name: "images")
-  List<ImageSourceResponse>? images;
-  ProductResponse(
-      this.id_product,
-      this.quantity,
-      this.float_price,
-      this.price,
-      this.name,
-      this.minimal_quantity,
-      this.cover_image,
-      this.description,
-      this.description_short,
-      this.category_name,
-      {@required this.images});
-  factory ProductResponse.fromJson(Map<String, dynamic> json) =>
-      _$ProductResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$ProductResponseToJson(this);
+  ProductItemResponse(
+    this.id_product,
+    this.price,
+    this.name,
+    this.cover,
+    this.description,
+    this.description_short,
+    this.category_name,
+  );
+  factory ProductItemResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProductItemResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ProductItemResponseToJson(this);
 }
 
 @JsonSerializable()
 class ProductInformationResponse extends BaseResponse {
   @JsonKey(name: "psdata")
-  ProductResponse? psdata;
+  ProductItemResponse? psdata;
   ProductInformationResponse(this.psdata);
 
   factory ProductInformationResponse.fromJson(Map<String, dynamic> json) =>
@@ -215,7 +219,7 @@ class ProductInformationResponse extends BaseResponse {
 class ProductSearchResponse extends BaseResponse {
   @JsonKey(name: "label")
   String? label;
-  List<ProductResponse>? products;
+  List<ProductItemResponse>? products;
   ProductSearchResponse(this.label, {@required this.products});
 
   factory ProductSearchResponse.fromJson(Map<String, dynamic> json) =>

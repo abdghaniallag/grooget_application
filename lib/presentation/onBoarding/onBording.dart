@@ -3,15 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mvvm_first_c/app/app_preferences.dart';
-import 'package:mvvm_first_c/app/di.dart';
-import 'package:mvvm_first_c/domain/model.dart';
-import 'package:mvvm_first_c/presentation/onBoarding/onboarding_viewmodel.dart';
-import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/color_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/routes_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
+import '../../app/app_preferences.dart';
+import '../../app/di.dart';
+import '../../domain/model.dart';
+import '../../presentation/onBoarding/onboarding_viewmodel.dart';
+import '../../presentation/resources/assets_manager.dart';
+import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/routes_manager.dart';
+import '../../presentation/resources/strings_manager.dart';
+import '../../presentation/resources/values_manager.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({Key? key}) : super(key: key);
@@ -21,11 +21,10 @@ class OnBoardingView extends StatefulWidget {
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
-
   PageController _pageController = PageController(initialPage: 0);
   OnboardingViewModel _viewModel = OnboardingViewModel();
-   AppPreferences _appPreferences=instance<AppPreferences>();
- 
+  AppPreferences _appPreferences = instance<AppPreferences>();
+
   _bind() {
     _appPreferences.setOnbordingIsViewed();
     _viewModel.start();

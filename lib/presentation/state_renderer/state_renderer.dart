@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mvvm_first_c/data/mapper/user_mapper.dart';
-import 'package:mvvm_first_c/data/network/failure.dart';
-import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/color_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/styles_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
+import '../../data/mapper/user_mapper.dart';
+import '../../data/network/failure.dart';
+import '../../presentation/resources/assets_manager.dart';
+import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/strings_manager.dart';
+import '../../presentation/resources/styles_manager.dart';
+import '../../presentation/resources/values_manager.dart';
 
 enum StateRendererType {
   //POPUP STATES

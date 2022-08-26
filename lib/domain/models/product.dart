@@ -36,9 +36,38 @@ class ProductInformation {
   ProductInformation(this.psdata);
 }
 
+//----------------- search product objects ---------------------------------------------
+
+class Cover {
+  String url;
+  int width;
+  int height;
+  Cover(this.url, this.width, this.height);
+}
+
+class ProductItem {
+  //model of product when the request is search for product informattion
+  String id_product;
+  String price;
+  String name;
+  Cover? cover;
+  String description;
+  String description_short;
+  String category_name;
+  ProductItem(
+    this.id_product,
+    this.price,
+    this.name,
+    this.cover,
+    this.description,
+    this.description_short,
+    this.category_name,
+  );
+}
+
 class ProductSearch {
   String? label;
-  List<Product>? products;
+  List<ProductItem>? products;
   ProductSearch(this.label, this.products);
 }
 

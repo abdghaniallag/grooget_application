@@ -3,9 +3,9 @@ import '../../domain/models/product.dart';
 import '../resources/color_manager.dart';
 import '../resources/values_manager.dart';
 
-class ProductItem extends StatelessWidget {
-  const ProductItem(this._product, {Key? key}) : super(key: key);
-  final Product _product;
+class ProductItemWidget extends StatelessWidget {
+  const ProductItemWidget(this._productItem, {Key? key}) : super(key: key);
+  final ProductItem _productItem;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,21 +27,25 @@ class ProductItem extends StatelessWidget {
             width: AppSize.s130,
             child: Card(
               child: Image.network(
-                _product.cover_image,
+                _productItem.cover!.url,
               ),
             ),
           ),
           Text(
-            _product.name,
+            _productItem.name,
             maxLines: 2,
             style: Theme.of(context).textTheme.headline1,
           ),
           Text(
-            _product.price,
+            _productItem.price,
             style: Theme.of(context).textTheme.headline2,
           ),
           Text(
-            _product.quantity.toString(),
+            _productItem.description_short,
+            style: Theme.of(context).textTheme.headline2,
+          ),
+          Text(
+            _productItem.description,
             style: Theme.of(context).textTheme.headline2,
           ),
         ],

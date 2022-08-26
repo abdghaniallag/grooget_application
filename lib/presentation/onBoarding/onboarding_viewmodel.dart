@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:mvvm_first_c/domain/model.dart';
-import 'package:mvvm_first_c/presentation/base/base.dart';
-import 'package:mvvm_first_c/presentation/resources/assets_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
+import '../../domain/model.dart';
+import '../../presentation/base/base.dart';
+import '../../presentation/resources/assets_manager.dart';
+import '../../presentation/resources/strings_manager.dart';
 
 class OnboardingViewModel extends BaseViewModel
     with OnboardingViewModelInputs, OnboardingViewModelOutputs {

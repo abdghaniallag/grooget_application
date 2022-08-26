@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:mvvm_first_c/data/network/failure.dart';
+import '../../data/network/failure.dart';
 
 enum DataSource {
   SUCCESS,

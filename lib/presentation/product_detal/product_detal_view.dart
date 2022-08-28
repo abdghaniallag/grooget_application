@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:mvvm_first_c/domain/models/product.dart';
+import 'package:mvvm_first_c/presentation/resources/routes_manager.dart';
 
 class ProductDetailView extends StatefulWidget {
-  const ProductDetailView({Key? key}) : super(key: key);
+  ProductDetailView({Key? key}) : super(key: key);
 
   @override
   State<ProductDetailView> createState() => _ProductDetailState();
@@ -12,8 +12,23 @@ class ProductDetailView extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetailView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text("Product detail"),
+    final product =
+        (ModalRoute.of(context)!.settings.arguments as ProductRouteArguments)
+            .product;
+
+    return Scaffold(
+      body: Column(
+        children: const [
+          Text("share"),
+          Text("Name"),
+          Text("Image"),
+          Text("favourit"),
+          Text("Color"),
+          Text("Size"),
+          Text("price"),
+          Text("Add to cart"),
+        ],
+      ),
     );
   }
 }

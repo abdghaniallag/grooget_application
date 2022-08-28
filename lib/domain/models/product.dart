@@ -23,11 +23,11 @@ class Product {
     this.price,
     this.name,
     this.minimal_quantity,
-    this.images,
     this.cover_image,
     this.description,
     this.description_short,
     this.category_name,
+    this.images,
   );
 }
 

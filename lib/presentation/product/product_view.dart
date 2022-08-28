@@ -44,7 +44,7 @@ class _ProductViewState extends State<ProductView> {
     // List<Product> product = List<Product>.empty(growable: true);
     return Scaffold(
       appBar: SearchAppBar().getAppBar(controller,
-          () => {_viewModel.search(controller.text)}, const Text("Go")),
+          () => {_viewModel.search(controller.text)}, const Text("")),
       body: StreamBuilder<ProductSearchList>(
           stream: _viewModel.outputsProduct,
           builder: (context, snapshot) {
@@ -64,11 +64,19 @@ class _ProductViewState extends State<ProductView> {
   }
 
   List<Widget> getAllProduct(List<ProductItem>? products) {
+    Stream<ProductInformation> _productStream = _viewModel.outputsProductDetail;
+
     if (products != null) {
       return products
           .map((index) => GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, Routes.productDetailRoute);
+                _viewModel.getProductDetail(index.id_product);
+                _viewModel.outputsProductDetail.listen((product) {
+                  if (product.psdata != null) {
+                    Navigator.pushNamed(context, Routes.productDetailRoute,
+                        arguments: ProductRouteArguments(product.psdata!));
+                  }
+                });
               },
               child: ProductItemWidget(index)))
           .toList();
@@ -76,8 +84,6 @@ class _ProductViewState extends State<ProductView> {
       return List<SizedBox>.generate(1, (index) => const SizedBox());
     }
   }
-
-  onPressed() {}
 
   Widget Section(String title) {
     return SizedBox(

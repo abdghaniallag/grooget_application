@@ -205,9 +205,49 @@ class ProductItemResponse extends BaseResponse {
 }
 
 @JsonSerializable()
+class ProductResponse extends BaseResponse {
+  @JsonKey(name: "id_product")
+  int? id_product;
+  @JsonKey(name: "quantity")
+  int? quantity;
+  @JsonKey(name: "float_price")
+  double? float_price;
+  @JsonKey(name: "price")
+  String? price;
+  @JsonKey(name: "name")
+  String? name;
+  @JsonKey(name: "minimal_quantity")
+  String? minimal_quantity;
+  @JsonKey(name: "cover_image")
+  String? cover_image;
+  @JsonKey(name: "description")
+  String? description;
+  @JsonKey(name: "description_short")
+  String? description_short;
+  @JsonKey(name: "category_name")
+  String? category_name;
+  List<ImageSourceResponse?>? images;
+  ProductResponse(
+      this.id_product,
+      this.quantity,
+      this.float_price,
+      this.price,
+      this.name,
+      this.minimal_quantity,
+      this.cover_image,
+      this.description,
+      this.description_short,
+      this.category_name,
+      {@required this.images});
+  factory ProductResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProductResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ProductResponseToJson(this);
+}
+
+@JsonSerializable()
 class ProductInformationResponse extends BaseResponse {
   @JsonKey(name: "psdata")
-  ProductItemResponse? psdata;
+  ProductResponse? psdata;
   ProductInformationResponse(this.psdata);
 
   factory ProductInformationResponse.fromJson(Map<String, dynamic> json) =>

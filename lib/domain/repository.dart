@@ -11,7 +11,7 @@ abstract class Repository {
   Future<Either<Failure, Authentication>> register(
       RegisterRequest registerRequest);
   Future<Either<Failure, AcountInformation>> getAcountInformation();
-  // Future<Either<Failure, ProductInformation>> getProductInformation(String id);
+  Future<Either<Failure, ProductInformation>> getProductInformation(String id);
   Future<Either<Failure, ProductSearchList>> getProductSearchList(String s,
       {String resultsPerPage = "10"});
 }

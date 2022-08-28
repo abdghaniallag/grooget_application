@@ -129,38 +129,38 @@ class RepositoryImpl extends Repository {
       }
     }
   }
-//TODO
-  // @override
-  // Future<Either<Failure, ProductInformation>> getProductInformation(
-  //     String id) async {
-  //   {
-  //     if (await _networkInfo.isConnected) {
-  //       try {
-  //         // its safe to call the API
-  //         final response = await _remoteDataSource.getProductInformation(id);
 
-  //         if (response.success == ApiInternalStatus.SUCCESS) // success
-  //         {
-  //           // return data (success)
-  //           // return right
-  //           // save data to cache
-  //           // _localDataSource.saveHomeData(response);
-  //           return Right(ProductInformation(response.psdata.toDomain()));
-  //         } else {
-  //           // return biz logic error
-  //           // return left
-  //           return Left(Failure(response.code ?? ApiInternalStatus.FAILURE,
-  //               ResponseMessage.DEFAULT));
-  //         }
-  //       } catch (error) {
-  //         return (Left(ErrorHandler.handle(error).failure));
-  //       }
-  //     } else {
-  //       // return connection error
-  //       return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
-  //     }
-  //   }
-  // }
+  @override
+  Future<Either<Failure, ProductInformation>> getProductInformation(
+      String id) async {
+    {
+      if (await _networkInfo.isConnected) {
+        try {
+          // its safe to call the API
+          final response = await _remoteDataSource.getProductInformation(id);
+
+          if (response.success == ApiInternalStatus.SUCCESS) // success
+          {
+            // return data (success)
+            // return right
+            // save data to cache
+            // _localDataSource.saveHomeData(response);
+            return Right(ProductInformation(response.psdata.toDomain()));
+          } else {
+            // return biz logic error
+            // return left
+            return Left(Failure(response.code ?? ApiInternalStatus.FAILURE,
+                ResponseMessage.DEFAULT));
+          }
+        } catch (error) {
+          return (Left(ErrorHandler.handle(error).failure));
+        }
+      } else {
+        // return connection error
+        return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+      }
+    }
+  }
 
   @override
   Future<Either<Failure, ProductSearchList>> getProductSearchList(String s,

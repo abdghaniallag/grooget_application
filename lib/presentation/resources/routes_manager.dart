@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/presentation/product_detal/product_detal_view.dart';
+import 'package:mvvm_first_c/domain/models/product.dart';
+import '../../presentation/product_detal/product_detal_view.dart';
 import '../../presentation/product/product_view.dart';
 import '../../app/di.dart';
 import '../../presentation/login/login.dart';
@@ -65,4 +66,9 @@ class RouteGenerator {
               body: Center(child: Text(AppStrings.noRoutFound)),
             ));
   }
+}
+
+class ProductRouteArguments {
+  Product product;
+  ProductRouteArguments(this.product);
 }

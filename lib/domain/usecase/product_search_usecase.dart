@@ -14,3 +14,12 @@ class ProductSearchUseCase extends BaseUseCase<String, ProductSearchList> {
     return await _repository.getProductSearchList(s, resultsPerPage: "10");
   }
 }
+
+class ProductDetailUseCase extends BaseUseCase<String, ProductInformation> {
+  Repository _repository;
+  ProductDetailUseCase(this._repository);
+  @override
+  Future<Either<Failure, ProductInformation>> execute(String s) async {
+    return await _repository.getProductInformation(s);
+  }
+}

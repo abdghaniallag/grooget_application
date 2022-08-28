@@ -9,11 +9,33 @@ const ZERO = 0;
 const DZERO = 0.0;
 const FALSE = false;
 
-// extension ProductInformationResponseMapper on ProductInformationResponse? {
-//   ProductInformation toDomain() {
-//     return ProductInformation(this?.psdata?.toDomain());
-//   }
-// }
+extension ProductMapper on ProductResponse? {
+  Product toDomain() {
+    List<ImageSource> mappedImages =
+        (this?.images?.map((image) => image.toDomain()) ?? Iterable.empty())
+            .cast<ImageSource>()
+            .toList();
+    return Product(
+      this?.id_product?.orEmpty() ?? ZERO,
+      this?.quantity?.orEmpty() ?? ZERO,
+      this?.float_price?.orEmpty() ?? DZERO,
+      this?.price?.orEmpty() ?? EMPTY,
+      this?.name?.orEmpty() ?? EMPTY,
+      this?.minimal_quantity?.orEmpty() ?? EMPTY,
+      this?.cover_image?.orEmpty() ?? EMPTY,
+      this?.description?.orEmpty() ?? EMPTY,
+      this?.description_short?.orEmpty() ?? EMPTY,
+      this?.category_name?.orEmpty() ?? EMPTY,
+      mappedImages,
+    );
+  }
+}
+
+extension ProductInformationResponseMapper on ProductInformationResponse? {
+  ProductInformation toDomain() {
+    return ProductInformation(this?.psdata?.toDomain());
+  }
+}
 
 extension ImagesMapper on ImageSourceResponse? {
   ImageSource toDomain() {

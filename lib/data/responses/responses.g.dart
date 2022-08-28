@@ -210,13 +210,50 @@ Map<String, dynamic> _$ProductItemResponseToJson(
       'category_name': instance.category_name,
     };
 
+ProductResponse _$ProductResponseFromJson(Map<String, dynamic> json) =>
+    ProductResponse(
+      json['id_product'] as int?,
+      json['quantity'] as int?,
+      (json['float_price'] as num?)?.toDouble(),
+      json['price'] as String?,
+      json['name'] as String?,
+      json['minimal_quantity'] as String?,
+      json['cover_image'] as String?,
+      json['description'] as String?,
+      json['description_short'] as String?,
+      json['category_name'] as String?,
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : ImageSourceResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$ProductResponseToJson(ProductResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'id_product': instance.id_product,
+      'quantity': instance.quantity,
+      'float_price': instance.float_price,
+      'price': instance.price,
+      'name': instance.name,
+      'minimal_quantity': instance.minimal_quantity,
+      'cover_image': instance.cover_image,
+      'description': instance.description,
+      'description_short': instance.description_short,
+      'category_name': instance.category_name,
+      'images': instance.images,
+    };
+
 ProductInformationResponse _$ProductInformationResponseFromJson(
         Map<String, dynamic> json) =>
     ProductInformationResponse(
       json['psdata'] == null
           ? null
-          : ProductItemResponse.fromJson(
-              json['psdata'] as Map<String, dynamic>),
+          : ProductResponse.fromJson(json['psdata'] as Map<String, dynamic>),
     )
       ..success = json['success'] as bool?
       ..code = json['code'] as int?;

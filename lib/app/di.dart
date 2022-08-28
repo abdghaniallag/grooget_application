@@ -88,7 +88,17 @@ initProductModule() {
   if (!GetIt.I.isRegistered<ProductSearchUseCase>()) {
     instance.registerFactory<ProductSearchUseCase>(
         () => ProductSearchUseCase(instance()));
-    instance
-        .registerFactory<ProductViewModel>(() => ProductViewModel(instance()));
+    if (GetIt.I.isRegistered<ProductDetailUseCase>()) {
+      instance.registerFactory<ProductViewModel>(
+          () => ProductViewModel(instance(), instance()));
+    }
+  }
+  if (!GetIt.I.isRegistered<ProductDetailUseCase>()) {
+    instance.registerFactory<ProductDetailUseCase>(
+        () => ProductDetailUseCase(instance()));
+    if (GetIt.I.isRegistered<ProductSearchUseCase>()) {
+      instance.registerFactory<ProductViewModel>(
+          () => ProductViewModel(instance(), instance()));
+    }
   }
 }

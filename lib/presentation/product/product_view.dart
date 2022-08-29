@@ -71,11 +71,11 @@ class _ProductViewState extends State<ProductView> {
           .map((index) => GestureDetector(
               onTap: () {
                 _viewModel.getProductDetail(index.id_product);
-                _viewModel.outputsProductDetail.listen((product) {
-                  if (product.psdata != null) {
-                    Navigator.pushNamed(context, Routes.productDetailRoute,
-                        arguments: ProductRouteArguments(product.psdata!));
-                  }
+                _viewModel.outputsProductDetail.listen((product) async {
+                  ProductRouteArguments productRouteArguments =
+                      ProductRouteArguments(product);
+                  Navigator.pushNamed(context, Routes.productDetailRoute,
+                      arguments: productRouteArguments);
                 });
               },
               child: ProductItemWidget(index)))

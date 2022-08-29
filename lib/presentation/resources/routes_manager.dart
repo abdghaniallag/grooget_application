@@ -37,7 +37,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ProductView());
       case Routes.productDetailRoute:
         initProductModule();
-        return MaterialPageRoute(builder: (_) => ProductDetailView());
+        return MaterialPageRoute(
+            builder: (_) => ProductDetailView(), settings: routeSettings);
       case Routes.forgotPasswordRoute:
         initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => ForgotPasswordView());
@@ -69,6 +70,6 @@ class RouteGenerator {
 }
 
 class ProductRouteArguments {
-  Product product;
+  final ProductInformation product;
   ProductRouteArguments(this.product);
 }

@@ -50,6 +50,7 @@ dependencies:
   carousel_slider: ^4.1.1
   internet_connection_checker: ^0.0.1+4
   analyzer: ^4.6.0
+  url_launcher: ^6.1.5
   
   
 
@@ -87,6 +88,7 @@ flutter:
      - assets/images/left_arrow_ic.svg
      - assets/images/right_arrow_ic.svg
      - assets/images/camera.svg
+     - assets/images/title.svg
      - assets/json/loading.json
      - assets/json/error.json 
      - assets/json/not_found.json

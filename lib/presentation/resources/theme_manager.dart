@@ -17,7 +17,7 @@ ThemeData getAplicationTheme() {
     cardTheme: CardTheme(
       color: ColorManager.white,
       shadowColor: ColorManager.gray,
-      elevation: AppSize.s4,
+      elevation: AppSize.s8,
     ),
 // app bar theme
     appBarTheme: AppBarTheme(

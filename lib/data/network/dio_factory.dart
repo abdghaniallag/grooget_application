@@ -31,7 +31,7 @@ class DioFactoy {
       DEFAULT_LANGUAGE: LanguageType.ENGLISH.getValue(),
     };
     dio.options = BaseOptions(
-        baseUrl: Constants.baseUrl,
+        baseUrl: Constants.baseUrl + _language + Constants.baseUrl,
         connectTimeout: _timeOut,
         receiveTimeout: _timeOut,
         headers: headers);

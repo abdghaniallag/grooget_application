@@ -2,77 +2,66 @@
     "success": true,
     "code": 200,
     "psdata": {
-        "id_product": 370,
-        "name": "Batman print hoodie and Trousers",
+        "id_product": 700,
+        "name": "Men Solid Button Up Shirt",
         "available_for_order": "1",
         "show_price": "1",
         "new_products": "0",
         "on_sale_products": "0",
-        "quantity": 500000,
+        "quantity": 10000,
         "minimal_quantity": "5",
         "allow_out_of_stock": "1",
-        "float_price": 5.4900000000000002131628207280300557613372802734375,
-        "price": "$5.49",
+        "float_price": 10,
+        "price": "$10.00",
         "discount_price": "",
         "discount_percentage": "",
         "images": [
             {
-                "src": "https://www.grooget.com/1336-large_default/batman-print-hoodie-and-.jpg"
+                "src": "https://www.grooget.com/3149-large_default/new-.jpg"
             },
             {
-                "src": "https://www.grooget.com/1337-large_default/batman-print-hoodie-and-.jpg"
+                "src": "https://www.grooget.com/3150-large_default/new-.jpg"
             },
             {
-                "src": "https://www.grooget.com/1338-large_default/batman-print-hoodie-and-.jpg"
+                "src": "https://www.grooget.com/3151-large_default/new-.jpg"
             },
             {
-                "src": "https://www.grooget.com/1339-large_default/batman-print-hoodie-and-.jpg"
-            },
-            {
-                "src": "https://www.grooget.com/1340-large_default/batman-print-hoodie-and-.jpg"
+                "src": "https://www.grooget.com/3152-large_default/new-.jpg"
             }
         ],
-        "cover_image": "https://www.grooget.com/1336-large_default/batman-print-hoodie-and-.jpg",
+        "cover_image": "https://www.grooget.com/3149-large_default/new-.jpg",
         "combinations": [
             {
-                "id_product_attribute": 2996,
-                "quantity": 100000,
-                "price": "$5.49",
-                "float_price": 5.4900000000000002131628207280300557613372802734375,
+                "id_product_attribute": 4124,
+                "quantity": 2500,
+                "price": "$10.00",
+                "float_price": 10,
                 "minimal_quantity": 5,
-                "combination_code": "11"
+                "combination_code": "11_34"
             },
             {
-                "id_product_attribute": 2997,
-                "quantity": 100000,
-                "price": "$5.49",
-                "float_price": 5.4900000000000002131628207280300557613372802734375,
+                "id_product_attribute": 4123,
+                "quantity": 2500,
+                "price": "$10.00",
+                "float_price": 10,
                 "minimal_quantity": 5,
-                "combination_code": "5"
+                "combination_code": "17_34"
             },
             {
-                "id_product_attribute": 2993,
-                "quantity": 100000,
-                "price": "$5.49",
-                "float_price": 5.4900000000000002131628207280300557613372802734375,
+                "id_product_attribute": 4122,
+                "quantity": 2500,
+                "price": "$10.00",
+                "float_price": 10,
                 "minimal_quantity": 5,
-                "combination_code": "16"
+                "combination_code": "8_34"
             },
             {
-                "id_product_attribute": 2995,
-                "quantity": 100000,
-                "price": "$5.49",
-                "float_price": 5.4900000000000002131628207280300557613372802734375,
+                "id_product_attribute": 4125,
+                "quantity": 2500,
+                "price": "$10.00",
+                "float_price": 10,
                 "minimal_quantity": 5,
-                "combination_code": "10"
-            },
-            {
-                "id_product_attribute": 2994,
-                "quantity": 100000,
-                "price": "$5.49",
-                "float_price": 5.4900000000000002131628207280300557613372802734375,
-                "minimal_quantity": 5,
-                "combination_code": "14"
+                "combination_code": "9_34"
             }
         ],
         "options": [
@@ -87,37 +76,43 @@
                         "hex_value": "#434A54"
                     },
                     {
-                        "id": 5,
-                        "value": "Grey",
-                        "hex_value": "#AAB2BD"
+                        "id": 17,
+                        "value": "Brown",
+                        "hex_value": "#964B00"
                     },
                     {
-                        "id": 16,
-                        "value": "Yellow",
-                        "hex_value": "#F1C40F"
+                        "id": 8,
+                        "value": "White",
+                        "hex_value": "#ffffff"
                     },
                     {
-                        "id": 10,
-                        "value": "Red",
-                        "hex_value": "#E84C3D"
-                    },
+                        "id": 9,
+                        "value": "Off White",
+                        "hex_value": "#faebd7"
+                    }
+                ]
+            },
+            {
+                "id": 1,
+                "title": "Sizes",
+                "is_color_option": 0,
+                "items": [
                     {
-                        "id": 14,
-                        "value": "Blue",
-                        "hex_value": "#5D9CEC"
+                        "id": 34,
+                        "value": "S M L XL XXL"
                     }
                 ]
             }
         ],
         "description": "",
         "description_short": "",
-        "reference": "34211",
-        "category_name": "pyjamas",
+        "reference": "782R5727",
+        "category_name": "shirts",
         "manufacturer_name": false,
         "product_info": [
             {
                 "name": "SKU",
-                "value": "34211"
+                "value": "782R5727"
             },
             {
                 "name": "Condition",
@@ -128,12 +123,20 @@
                 "value": "Turkey"
             },
             {
+                "name": "Age",
+                "value": "More than 15 years old"
+            },
+            {
                 "name": "Season",
                 "value": "Autumn"
             },
             {
                 "name": "Gender ",
                 "value": "Male"
+            },
+            {
+                "name": "Fabric Type",
+                "value": "Cotton"
             }
         ],
         "accessories": [],
@@ -144,13 +147,13 @@
         "pack_products": [],
         "seller_info": [],
         "product_attachments_array": [],
-        "product_url": "https://www.grooget.com/en/pyjamas/370-batman-print-hoodie-and-.html",
+        "product_url": "https://www.grooget.com/en/shirts/700-new-.html",
         "groups": {
             "2": {
                 "group_name": "Color",
                 "name": "Color",
                 "group_type": "color",
-                "default": 16,
+                "default": 8,
                 "attributes": {
                     "11": {
                         "name": "Black",
@@ -158,37 +161,47 @@
                         "texture": "",
                         "selected": false
                     },
-                    "5": {
-                        "name": "Grey",
-                        "html_color_code": "#AAB2BD",
+                    "17": {
+                        "name": "Brown",
+                        "html_color_code": "#964B00",
                         "texture": "",
                         "selected": false
                     },
-                    "16": {
-                        "name": "Yellow",
-                        "html_color_code": "#F1C40F",
+                    "8": {
+                        "name": "White",
+                        "html_color_code": "#ffffff",
                         "texture": "",
                         "selected": false
                     },
-                    "10": {
-                        "name": "Red",
-                        "html_color_code": "#E84C3D",
-                        "texture": "",
-                        "selected": false
-                    },
-                    "14": {
-                        "name": "Blue",
-                        "html_color_code": "#5D9CEC",
+                    "9": {
+                        "name": "Off White",
+                        "html_color_code": "#faebd7",
                         "texture": "",
                         "selected": false
                     }
                 },
                 "attributes_quantity": {
-                    "11": 100000,
-                    "5": 100000,
-                    "16": 100000,
-                    "10": 100000,
-                    "14": 100000
+                    "11": 2500,
+                    "17": 2500,
+                    "8": 2500,
+                    "9": 2500
+                }
+            },
+            "1": {
+                "group_name": "Sizes By Letters",
+                "name": "Sizes",
+                "group_type": "select",
+                "default": 34,
+                "attributes": {
+                    "34": {
+                        "name": "S M L XL XXL",
+                        "html_color_code": "",
+                        "texture": "",
+                        "selected": false
+                    }
+                },
+                "attributes_quantity": {
+                    "34": 10000
                 }
             }
         }

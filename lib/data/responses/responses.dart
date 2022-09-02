@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'responses.g.dart';
 
@@ -160,6 +161,73 @@ class ImageSourceResponse extends BaseResponse {
 }
 
 @JsonSerializable()
+class CombinationsItemResponse extends BaseResponse {
+  @JsonKey(name: "id_product_attribute")
+  int? id_product_attribute;
+  @JsonKey(name: "quantity")
+  int? quantity;
+  @JsonKey(name: "price")
+  String? price;
+  @JsonKey(name: "float_price")
+  double? float_price;
+  @JsonKey(name: "minimal_quantity")
+  int? minimal_quantity;
+  @JsonKey(name: "combination_code")
+  String? combination_code;
+  CombinationsItemResponse(this.id_product_attribute, this.quantity, this.price,
+      this.float_price, this.combination_code);
+
+  factory CombinationsItemResponse.fromJson(Map<String, dynamic> json) =>
+      _$CombinationsItemResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CombinationsItemResponseToJson(this);
+}
+
+@JsonSerializable()
+class OptionItemResponse extends BaseResponse {
+  @JsonKey(name: "id")
+  int? id;
+  @JsonKey(name: "value")
+  String? value;
+  @JsonKey(name: "hex_value")
+  String? hex_value;
+  OptionItemResponse(this.id, this.value, this.hex_value);
+
+  factory OptionItemResponse.fromJson(Map<String, dynamic> json) =>
+      _$OptionItemResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$OptionItemResponseToJson(this);
+}
+
+@JsonSerializable()
+class OptionResponse extends BaseResponse {
+  @JsonKey(name: "id")
+  int? id;
+  @JsonKey(name: "title")
+  String? title;
+  @JsonKey(name: "is_color_option")
+  int? is_color_option;
+  List<OptionItemResponse?>? items;
+  OptionResponse(this.id, this.title, this.is_color_option,
+      {@required this.items});
+
+  factory OptionResponse.fromJson(Map<String, dynamic> json) =>
+      _$OptionResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$OptionResponseToJson(this);
+}
+
+@JsonSerializable()
+class ProductInfoItemResponse extends BaseResponse {
+  @JsonKey(name: "name")
+  String? name;
+  @JsonKey(name: "value")
+  String? value;
+  ProductInfoItemResponse(this.name, this.value);
+
+  factory ProductInfoItemResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProductInfoItemResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ProductInfoItemResponseToJson(this);
+}
+
+@JsonSerializable()
 class CoverResponse extends BaseResponse {
   @JsonKey(name: "url")
   String? url;
@@ -214,6 +282,8 @@ class ProductResponse extends BaseResponse {
   double? float_price;
   @JsonKey(name: "price")
   String? price;
+  @JsonKey(name: "available_for_order")
+  String? available_for_order;
   @JsonKey(name: "name")
   String? name;
   @JsonKey(name: "minimal_quantity")
@@ -226,19 +296,28 @@ class ProductResponse extends BaseResponse {
   String? description_short;
   @JsonKey(name: "category_name")
   String? category_name;
+  List<CombinationsItemResponse?>? combinations;
+  List<OptionResponse?>? options;
   List<ImageSourceResponse?>? images;
+  String? reference;
+  List<ProductInfoItemResponse?>? product_info;
   ProductResponse(
       this.id_product,
       this.quantity,
       this.float_price,
       this.price,
+      this.available_for_order,
       this.name,
       this.minimal_quantity,
       this.cover_image,
       this.description,
       this.description_short,
       this.category_name,
-      {@required this.images});
+      this.reference,
+      {@required this.combinations,
+      this.options,
+      this.images,
+      this.product_info});
   factory ProductResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ProductResponseToJson(this);

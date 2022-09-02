@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../presentation/resources/color_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../domain/models/product.dart';
 import '../../presentation/resources/values_manager.dart';
 
@@ -19,17 +21,18 @@ class _ProductImagesState extends State<ProductImages> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
+      alignment: AlignmentDirectional.bottomCenter,
       children: [
         Stack(
-          alignment: AlignmentDirectional.bottomCenter,
+          alignment: AlignmentDirectional.topEnd,
           children: [
             Container(
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
                     blurRadius: AppSize.s12,
                     spreadRadius: 0.1,
-                    offset: Offset(-3, 3),
+                    offset: const Offset(-3, 3),
                     color: Colors.grey[500]!)
               ]),
               width: AppSize.s400,
@@ -40,40 +43,75 @@ class _ProductImagesState extends State<ProductImages> {
                     fit: BoxFit.cover),
               ),
             ),
-            SizedBox(
-              width: AppSize.s340,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: AppPadding.p12),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...List.generate(widget.images.length,
-                        (index) => buildSmallProductPreview(index)),
-                  ],
+            Padding(
+              padding: const EdgeInsets.only(
+                  right: AppPadding.p12, top: AppPadding.p8),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: ColorManager.primary,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSize.s28)),
+                ),
+                onPressed: _launch,
+                child: Icon(
+                  Icons.share_rounded,
+                  color: ColorManager.white,
+                  size: AppSize.s40,
                 ),
               ),
-            )
+            ),
           ],
         ),
+        SizedBox(
+          width: AppSize.s340,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(bottom: AppPadding.p12),
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                ...List.generate(widget.images.length,
+                    (index) => buildSmallProductPreview(index)),
+              ],
+            ),
+          ),
+        )
       ],
     );
   }
 
+  void _launch() async {
+    final Uri _url = Uri.parse('https://flutter.dev');
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
+    }
+  }
+
   GestureDetector buildSmallProductPreview(int index) {
+    Color selectedColor = ColorManager.primary;
+    double width = 2;
     return GestureDetector(
       onTap: () {
         setState(() {
           selectedImage = index;
         });
       },
-      child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4),
-          child: SizedBox(
-            width: AppSize.s80,
-            child: Card(
-                child: Image.network(widget.images[index]!.src,
-                    fit: BoxFit.cover)),
-          )),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: AppSize.s8),
+        decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: AppSize.s4,
+                  spreadRadius: 0.1,
+                  offset: const Offset(-1, 1),
+                  color: ColorManager.primaryOpacity70)
+            ],
+            border: Border.all(color: selectedColor, width: width),
+            borderRadius: BorderRadius.circular(AppSize.s40)),
+        width: AppSize.s80,
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Image.network(widget.images[index]!.src)),
+      ),
     );
   }
 }

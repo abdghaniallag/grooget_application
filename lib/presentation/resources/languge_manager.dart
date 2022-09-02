@@ -1,14 +1,18 @@
-enum LanguageType { ENGLISH, ARABIC }
-const String ENGLISH="en";
-const String ARABIC="ar";
+enum LanguageType { ENGLISH, ARABIC, TURKY }
+
+const String ENGLISH = "en";
+const String ARABIC = "ar";
+const String TURKY = "tr";
 
 extension LanguageTypeExtention on LanguageType {
   String getValue() {
     switch (this) {
       case LanguageType.ENGLISH:
-        return  ARABIC;
+        return ARABIC;
       case LanguageType.ARABIC:
-        return  ARABIC;
+        return ARABIC;
+      case LanguageType.TURKY:
+        return TURKY;
     }
   }
 }

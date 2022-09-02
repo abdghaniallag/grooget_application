@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/presentation/resources/color_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
+import '../../presentation/resources/values_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../resources/routes_manager.dart';
 import '../widgets/image_slider.dart';
@@ -31,32 +30,18 @@ class _ProductDetailState extends State<ProductDetailView> {
                 ProductImages(
                   images: product.product.psdata?.images ?? [],
                 ),
-                ElevatedButton.icon(
-                  icon: Icon(
-                    Icons.share_rounded,
-                    color: ColorManager.white,
-                  ),
-                  label: const Text("share"),
-                  onPressed: _launch,
-                ),
-                Text("Name ${product.product.psdata?.name ?? "fff    szxsx"}"),
-                Text("favourit"),
-                Text("Color"),
-                Text("Size"),
-                Text("price"),
-                Text("Add to cart"),
+                Text(product.product.psdata?.price ?? " "),
+                Text(product.product.psdata?.quantity.toString() ?? " "),
+                Text(product.product.psdata?.category_name ?? " "),
+                Text(product.product.psdata?.description ?? " "),
+                Text(product.product.psdata?.description_short ?? " "),
+                Text(product.product.psdata?.float_price.toString() ?? " "),
+                Text(product.product.psdata?.minimal_quantity ?? " "),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  void _launch() async {
-    final Uri _url = Uri.parse('https://flutter.dev');
-    if (!await launchUrl(_url)) {
-      throw 'Could not launch $_url';
-    }
   }
 }

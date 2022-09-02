@@ -30,7 +30,7 @@ class _SplashViewState extends State<SplashView> {
     await initProductModule();
     ProductDetailUseCase _productDetailUseCase =
         instance<ProductDetailUseCase>();
-    (await _productDetailUseCase.execute("331")).fold((failure) {}, (product) {
+    (await _productDetailUseCase.execute("700")).fold((failure) {}, (product) {
       ProductRouteArguments productRouteArguments =
           ProductRouteArguments(product);
       Navigator.pushNamed(context, Routes.productDetailRoute,

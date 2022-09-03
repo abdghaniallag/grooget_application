@@ -146,3 +146,136 @@ extension ProductSearchListResponseMapper on ProductSearchListResponse? {
     return ProductSearchList(this?.psdata?.toDomain());
   }
 }
+
+//---------------category mapper -----------------------------
+
+extension CategoryProductItemMapper on CategoryProductItemResponse? {
+  CategoryProductItem toDomain() {
+    return CategoryProductItem(
+      this?.id_product?.orEmpty() ?? EMPTY,
+      this?.price?.orEmpty() ?? EMPTY,
+      this?.name?.orEmpty() ?? EMPTY,
+      this?.cover?.toDomain(),
+      this?.description?.orEmpty() ?? EMPTY,
+      this?.description_short?.orEmpty() ?? EMPTY,
+      this?.category_name?.orEmpty() ?? EMPTY,
+    );
+  }
+}
+
+extension CategoryImageMapper on CategoryImageResponse? {
+  CategoryImage toDomain() {
+    return CategoryImage(
+      this?.small?.toDomain(),
+      this?.medium?.toDomain(),
+      this?.large?.toDomain(),
+    );
+  }
+}
+
+extension CategoryImageSourceMapper on CategoryImageSourceResponse? {
+  CategoryImageSource toDomain() {
+    return CategoryImageSource(
+      this?.url?.orEmpty() ?? EMPTY,
+      this?.width?.orEmpty() ?? ZERO,
+      this?.height?.orEmpty() ?? ZERO,
+    );
+  }
+}
+
+extension SortOrderRMapper on SortOrderResponse? {
+  SortOrder toDomain() {
+    return SortOrder(
+      this?.entity?.orEmpty() ?? EMPTY,
+      this?.field?.orEmpty() ?? EMPTY,
+      this?.direction?.orEmpty() ?? EMPTY,
+      this?.label?.orEmpty() ?? EMPTY,
+      this?.urlParameter?.orEmpty() ?? EMPTY,
+      this?.current?.orEmpty() ?? FALSE,
+    );
+  }
+}
+
+extension PaginationMapper on PaginationResponse? {
+  Pagination toDomain() {
+    return Pagination(
+      this?.total_items?.orEmpty() ?? ZERO,
+      this?.items_shown_from?.orEmpty() ?? ZERO,
+      this?.items_shown_to?.orEmpty() ?? ZERO,
+      this?.current_page?.orEmpty() ?? ZERO,
+      this?.pages_count?.orEmpty() ?? ZERO,
+    );
+  }
+}
+
+extension PropertyMapper on PropertyResponse? {
+  Property toDomain() {
+    return Property();
+  }
+}
+
+extension FiltersMapper on FiltersResponse? {
+  Filters toDomain() {
+    return Filters(
+      this?.label?.orEmpty() ?? EMPTY,
+      this?.type?.orEmpty() ?? EMPTY,
+      this?.active?.orEmpty() ?? ZERO,
+      this?.displayed?.orEmpty() ?? ZERO,
+      this?.magnitude?.orEmpty() ?? ZERO,
+      this?.value?.orEmpty() ?? FALSE,
+      this?.properties?.toDomain(),
+    );
+  }
+}
+
+extension FacetsMapper on FacetsResponse? {
+  Facets toDomain() {
+    List<Filters> mappedFilters =
+        (this?.filters?.map((filter) => filter.toDomain()) ?? Iterable.empty())
+            .cast<Filters>()
+            .toList();
+    return Facets(
+      this?.label?.orEmpty() ?? EMPTY,
+      this?.displayed?.orEmpty() ?? FALSE,
+      this?.type?.orEmpty() ?? EMPTY,
+      this?.multipleSelectionAllowed?.orEmpty() ?? FALSE,
+      this?.widgetType?.orEmpty() ?? EMPTY,
+      mappedFilters,
+    );
+  }
+}
+
+extension CategoryMapper on CategoryResponse? {
+  Category toDomain() {
+    List<CategoryProductItem> mappedProducts =
+        (this?.products?.map((product) => product.toDomain()) ??
+                Iterable.empty())
+            .cast<CategoryProductItem>()
+            .toList();
+    List<SortOrder> mappedSortOrders =
+        (this?.sort_orders?.map((sort_order) => sort_order.toDomain()) ??
+                Iterable.empty())
+            .cast<SortOrder>()
+            .toList();
+    List<Facets> mappedFacets =
+        (this?.facets?.map((facet) => facet.toDomain()) ?? Iterable.empty())
+            .cast<Facets>()
+            .toList();
+    return Category(
+      this?.description?.orEmpty() ?? EMPTY,
+      this?.active?.orEmpty() ?? EMPTY,
+      this?.cover.toDomain(),
+      this?.label?.orEmpty() ?? EMPTY,
+      this?.pagination?.toDomain(),
+      mappedProducts,
+      mappedSortOrders,
+      mappedFacets,
+    );
+  }
+}
+
+extension CategoryListMapper on CategoryListResponse? {
+  CategoryList toDomain() {
+    return CategoryList(this?.psdata?.toDomain());
+  }
+}

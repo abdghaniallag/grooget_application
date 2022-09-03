@@ -148,6 +148,22 @@ Map<String, dynamic> _$AcountInformationResponseToJson(
       'psdata': instance.psdata,
     };
 
+ForgotPasswordResponse _$ForgotPasswordResponseFromJson(
+        Map<String, dynamic> json) =>
+    ForgotPasswordResponse(
+      json['support'] as String?,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$ForgotPasswordResponseToJson(
+        ForgotPasswordResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'support': instance.support,
+    };
+
 ImageSourceResponse _$ImageSourceResponseFromJson(Map<String, dynamic> json) =>
     ImageSourceResponse(
       json['src'] as String?,
@@ -413,18 +429,269 @@ Map<String, dynamic> _$ProductSearchListResponseToJson(
       'psdata': instance.psdata,
     };
 
-ForgotPasswordResponse _$ForgotPasswordResponseFromJson(
+CategoryImageSourceResponse _$CategoryImageSourceResponseFromJson(
         Map<String, dynamic> json) =>
-    ForgotPasswordResponse(
-      json['support'] as String?,
+    CategoryImageSourceResponse(
+      json['url'] as String?,
+      json['width'] as int?,
+      json['height'] as int?,
     )
       ..success = json['success'] as bool?
       ..code = json['code'] as int?;
 
-Map<String, dynamic> _$ForgotPasswordResponseToJson(
-        ForgotPasswordResponse instance) =>
+Map<String, dynamic> _$CategoryImageSourceResponseToJson(
+        CategoryImageSourceResponse instance) =>
     <String, dynamic>{
       'success': instance.success,
       'code': instance.code,
-      'support': instance.support,
+      'url': instance.url,
+      'width': instance.width,
+      'height': instance.height,
+    };
+
+CategoryImageResponse _$CategoryImageResponseFromJson(
+        Map<String, dynamic> json) =>
+    CategoryImageResponse(
+      json['small'] == null
+          ? null
+          : CategoryImageSourceResponse.fromJson(
+              json['small'] as Map<String, dynamic>),
+      json['medium'] == null
+          ? null
+          : CategoryImageSourceResponse.fromJson(
+              json['medium'] as Map<String, dynamic>),
+      json['large'] == null
+          ? null
+          : CategoryImageSourceResponse.fromJson(
+              json['large'] as Map<String, dynamic>),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$CategoryImageResponseToJson(
+        CategoryImageResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'small': instance.small,
+      'medium': instance.medium,
+      'large': instance.large,
+    };
+
+SortOrderResponse _$SortOrderResponseFromJson(Map<String, dynamic> json) =>
+    SortOrderResponse(
+      json['entity'] as String?,
+      json['field'] as String?,
+      json['direction'] as String?,
+      json['label'] as String?,
+      json['urlParameter'] as String?,
+      json['current'] as bool?,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$SortOrderResponseToJson(SortOrderResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'entity': instance.entity,
+      'field': instance.field,
+      'direction': instance.direction,
+      'label': instance.label,
+      'urlParameter': instance.urlParameter,
+      'current': instance.current,
+    };
+
+PaginationResponse _$PaginationResponseFromJson(Map<String, dynamic> json) =>
+    PaginationResponse(
+      json['total_items'] as int?,
+      json['items_shown_from'] as int?,
+      json['items_shown_to'] as int?,
+      json['current_page'] as int?,
+      json['pages_count'] as int?,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$PaginationResponseToJson(PaginationResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'total_items': instance.total_items,
+      'items_shown_from': instance.items_shown_from,
+      'items_shown_to': instance.items_shown_to,
+      'current_page': instance.current_page,
+      'pages_count': instance.pages_count,
+    };
+
+PropertyResponse _$PropertyResponseFromJson(Map<String, dynamic> json) =>
+    PropertyResponse(
+      color: json['color'] as String? ?? "",
+      symbol: json['symbol'] as String? ?? "",
+      min: json['min'] as int? ?? 0,
+      max: json['max'] as int? ?? 20000,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$PropertyResponseToJson(PropertyResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'color': instance.color,
+      'symbol': instance.symbol,
+      'min': instance.min,
+      'max': instance.max,
+    };
+
+FiltersResponse _$FiltersResponseFromJson(Map<String, dynamic> json) =>
+    FiltersResponse(
+      json['label'] as String?,
+      json['type'] as String?,
+      json['active'] as int?,
+      json['displayed'] as int?,
+      json['magnitude'] as int?,
+      json['value'],
+      json['properties'] == null
+          ? null
+          : PropertyResponse.fromJson(
+              json['properties'] as Map<String, dynamic>),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$FiltersResponseToJson(FiltersResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'label': instance.label,
+      'type': instance.type,
+      'active': instance.active,
+      'displayed': instance.displayed,
+      'magnitude': instance.magnitude,
+      'value': instance.value,
+      'properties': instance.properties,
+    };
+
+FacetsResponse _$FacetsResponseFromJson(Map<String, dynamic> json) =>
+    FacetsResponse(
+      json['label'] as String?,
+      json['displayed'] as bool?,
+      json['type'] as String?,
+      json['multipleSelectionAllowed'] as bool?,
+      json['widgetType'] as String?,
+      (json['filters'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : FiltersResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$FacetsResponseToJson(FacetsResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'label': instance.label,
+      'displayed': instance.displayed,
+      'type': instance.type,
+      'multipleSelectionAllowed': instance.multipleSelectionAllowed,
+      'widgetType': instance.widgetType,
+      'filters': instance.filters,
+    };
+
+CategoryProductItemResponse _$CategoryProductItemResponseFromJson(
+        Map<String, dynamic> json) =>
+    CategoryProductItemResponse(
+      json['id_product'] as String?,
+      json['price'] as String?,
+      json['name'] as String?,
+      json['cover'] == null
+          ? null
+          : CategoryImageResponse.fromJson(
+              json['cover'] as Map<String, dynamic>),
+      json['description'] as String?,
+      json['description_short'] as String?,
+      json['category_name'] as String?,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$CategoryProductItemResponseToJson(
+        CategoryProductItemResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'id_product': instance.id_product,
+      'price': instance.price,
+      'name': instance.name,
+      'cover': instance.cover,
+      'description': instance.description,
+      'description_short': instance.description_short,
+      'category_name': instance.category_name,
+    };
+
+CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) =>
+    CategoryResponse(
+      json['description'] as String?,
+      json['active'] as String?,
+      json['cover'] == null
+          ? null
+          : CategoryImageResponse.fromJson(
+              json['cover'] as Map<String, dynamic>),
+      json['label'] as String?,
+      json['Pagination'] == null
+          ? null
+          : PaginationResponse.fromJson(
+              json['Pagination'] as Map<String, dynamic>),
+      products: (json['products'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : CategoryProductItemResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      sort_orders: (json['sort_orders'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : SortOrderResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      facets: (json['facets'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : FacetsResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'description': instance.description,
+      'active': instance.active,
+      'cover': instance.cover,
+      'label': instance.label,
+      'Pagination': instance.pagination,
+      'products': instance.products,
+      'sort_orders': instance.sort_orders,
+      'facets': instance.facets,
+    };
+
+CategoryListResponse _$CategoryListResponseFromJson(
+        Map<String, dynamic> json) =>
+    CategoryListResponse(
+      json['psdata'] == null
+          ? null
+          : CategoryResponse.fromJson(json['psdata'] as Map<String, dynamic>),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$CategoryListResponseToJson(
+        CategoryListResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'psdata': instance.psdata,
     };

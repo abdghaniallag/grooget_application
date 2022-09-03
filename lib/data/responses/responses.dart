@@ -150,6 +150,22 @@ class AcountInformationResponse extends BaseResponse {
 }
 
 @JsonSerializable()
+class ForgotPasswordResponse extends BaseResponse {
+  @JsonKey(name: 'support')
+  String? support;
+
+  ForgotPasswordResponse(this.support);
+
+// toJson
+  Map<String, dynamic> toJson() => _$ForgotPasswordResponseToJson(this);
+
+//fromJson
+  factory ForgotPasswordResponse.fromJson(Map<String, dynamic> json) =>
+      _$ForgotPasswordResponseFromJson(json);
+}
+
+//------------------ product responses ---------------------------------
+@JsonSerializable()
 class ImageSourceResponse extends BaseResponse {
   @JsonKey(name: "src")
   String? src;
@@ -357,17 +373,232 @@ class ProductSearchListResponse extends BaseResponse {
   Map<String, dynamic> toJson() => _$ProductSearchListResponseToJson(this);
 }
 
+//----------------- category responses --------------------------------
+
 @JsonSerializable()
-class ForgotPasswordResponse extends BaseResponse {
-  @JsonKey(name: 'support')
-  String? support;
+class CategoryImageSourceResponse extends BaseResponse {
+  @JsonKey(name: "url")
+  String? url;
+  @JsonKey(name: "width")
+  int? width;
+  @JsonKey(name: "height")
+  int? height;
+  CategoryImageSourceResponse(this.url, this.width, this.height);
 
-  ForgotPasswordResponse(this.support);
+  factory CategoryImageSourceResponse.fromJson(Map<String, dynamic> json) =>
+      _$CategoryImageSourceResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CategoryImageSourceResponseToJson(this);
+}
 
-// toJson
-  Map<String, dynamic> toJson() => _$ForgotPasswordResponseToJson(this);
+@JsonSerializable()
+class CategoryImageResponse extends BaseResponse {
+  @JsonKey(name: "small")
+  CategoryImageSourceResponse? small;
+  @JsonKey(name: "medium")
+  CategoryImageSourceResponse? medium;
+  @JsonKey(name: "large")
+  CategoryImageSourceResponse? large;
+  CategoryImageResponse(this.small, this.medium, this.large);
 
-//fromJson
-  factory ForgotPasswordResponse.fromJson(Map<String, dynamic> json) =>
-      _$ForgotPasswordResponseFromJson(json);
+  factory CategoryImageResponse.fromJson(Map<String, dynamic> json) =>
+      _$CategoryImageResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CategoryImageResponseToJson(this);
+}
+
+@JsonSerializable()
+class SortOrderResponse extends BaseResponse {
+  @JsonKey(name: "entity")
+  String? entity;
+  @JsonKey(name: "field")
+  String? field;
+  @JsonKey(name: "direction")
+  String? direction;
+  @JsonKey(name: "label")
+  String? label;
+  @JsonKey(name: "urlParameter")
+  String? urlParameter;
+  @JsonKey(name: "current")
+  bool? current;
+  SortOrderResponse(
+    this.entity,
+    this.field,
+    this.direction,
+    this.label,
+    this.urlParameter,
+    this.current,
+  );
+
+  factory SortOrderResponse.fromJson(Map<String, dynamic> json) =>
+      _$SortOrderResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$SortOrderResponseToJson(this);
+}
+
+@JsonSerializable()
+class PaginationResponse extends BaseResponse {
+  @JsonKey(name: "total_items")
+  int? total_items;
+  @JsonKey(name: "items_shown_from")
+  int? items_shown_from;
+  @JsonKey(name: "items_shown_to")
+  int? items_shown_to;
+  @JsonKey(name: "current_page")
+  int? current_page;
+  @JsonKey(name: "pages_count")
+  int? pages_count;
+  PaginationResponse(
+    this.total_items,
+    this.items_shown_from,
+    this.items_shown_to,
+    this.current_page,
+    this.pages_count,
+  );
+
+  factory PaginationResponse.fromJson(Map<String, dynamic> json) =>
+      _$PaginationResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$PaginationResponseToJson(this);
+}
+
+@JsonSerializable()
+class PropertyResponse extends BaseResponse {
+  @JsonKey(name: "color")
+  String? color;
+  @JsonKey(name: "symbol")
+  String? symbol;
+  @JsonKey(name: "min")
+  int? min;
+  @JsonKey(name: "max")
+  int? max;
+  PropertyResponse({
+    this.color = "",
+    this.symbol = "",
+    this.min = 0,
+    this.max = 20000,
+  });
+
+  factory PropertyResponse.fromJson(Map<String, dynamic> json) =>
+      _$PropertyResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$PropertyResponseToJson(this);
+}
+
+@JsonSerializable()
+class FiltersResponse extends BaseResponse {
+  @JsonKey(name: "label")
+  String? label;
+  @JsonKey(name: "type")
+  String? type;
+  @JsonKey(name: "active")
+  int? active;
+  @JsonKey(name: "displayed")
+  int? displayed;
+  @JsonKey(name: "magnitude")
+  int? magnitude;
+  @JsonKey(name: "value")
+  dynamic? value;
+  @JsonKey(name: "properties")
+  PropertyResponse? properties;
+  FiltersResponse(
+    this.label,
+    this.type,
+    this.active,
+    this.displayed,
+    this.magnitude,
+    this.value,
+    this.properties,
+  );
+
+  factory FiltersResponse.fromJson(Map<String, dynamic> json) =>
+      _$FiltersResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$FiltersResponseToJson(this);
+}
+
+@JsonSerializable()
+class FacetsResponse extends BaseResponse {
+  @JsonKey(name: "label")
+  String? label;
+  @JsonKey(name: "displayed")
+  bool? displayed;
+  @JsonKey(name: "type")
+  String? type;
+  @JsonKey(name: "multipleSelectionAllowed")
+  bool? multipleSelectionAllowed;
+  @JsonKey(name: "widgetType")
+  String? widgetType;
+  @JsonKey(name: "filters")
+  List<FiltersResponse?>? filters;
+  FacetsResponse(
+    this.label,
+    this.displayed,
+    this.type,
+    this.multipleSelectionAllowed,
+    this.widgetType,
+    this.filters,
+  );
+
+  factory FacetsResponse.fromJson(Map<String, dynamic> json) =>
+      _$FacetsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$FacetsResponseToJson(this);
+}
+
+@JsonSerializable()
+class CategoryProductItemResponse extends BaseResponse {
+  @JsonKey(name: "id_product")
+  String? id_product;
+  @JsonKey(name: "price")
+  String? price;
+  @JsonKey(name: "name")
+  String? name;
+  @JsonKey(name: "cover")
+  CategoryImageResponse? cover;
+  @JsonKey(name: "description")
+  String? description;
+  @JsonKey(name: "description_short")
+  String? description_short;
+  @JsonKey(name: "category_name")
+  String? category_name;
+  CategoryProductItemResponse(
+    this.id_product,
+    this.price,
+    this.name,
+    this.cover,
+    this.description,
+    this.description_short,
+    this.category_name,
+  );
+  factory CategoryProductItemResponse.fromJson(Map<String, dynamic> json) =>
+      _$CategoryProductItemResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CategoryProductItemResponseToJson(this);
+}
+
+@JsonSerializable()
+class CategoryResponse extends BaseResponse {
+  @JsonKey(name: "description")
+  String? description;
+  @JsonKey(name: "active")
+  String? active;
+  @JsonKey(name: "cover")
+  CategoryImageResponse? cover;
+  @JsonKey(name: "label")
+  String? label;
+  @JsonKey(name: "Pagination")
+  PaginationResponse? pagination;
+  List<CategoryProductItemResponse?>? products;
+  List<SortOrderResponse?>? sort_orders;
+  List<FacetsResponse?>? facets;
+  CategoryResponse(
+      this.description, this.active, this.cover, this.label, this.pagination,
+      {@required this.products, this.sort_orders, this.facets});
+  factory CategoryResponse.fromJson(Map<String, dynamic> json) =>
+      _$CategoryResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CategoryResponseToJson(this);
+}
+
+@JsonSerializable()
+class CategoryListResponse extends BaseResponse {
+  @JsonKey(name: "psdata")
+  CategoryResponse? psdata;
+  CategoryListResponse(this.psdata);
+
+  factory CategoryListResponse.fromJson(Map<String, dynamic> json) =>
+      _$CategoryListResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CategoryListResponseToJson(this);
 }

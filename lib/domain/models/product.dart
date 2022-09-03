@@ -119,6 +119,40 @@ class ProductSearchList {
 }
 
 //-------------------------- category models ----------------------------
+
+class CategoryImageSource {
+  String? url;
+  int? width;
+  int? height;
+  CategoryImageSource(this.url, this.width, this.height);
+}
+
+class CategoryImage {
+  CategoryImageSource? small;
+  CategoryImageSource? medium;
+  CategoryImageSource? large;
+  CategoryImage(this.small, this.medium, this.large);
+}
+
+class CategoryProductItem {
+  String id_product;
+  String price;
+  String name;
+  CategoryImage? cover;
+  String description;
+  String description_short;
+  String category_name;
+  CategoryProductItem(
+    this.id_product,
+    this.price,
+    this.name,
+    this.cover,
+    this.description,
+    this.description_short,
+    this.category_name,
+  );
+}
+
 class SortOrder {
   String entity;
   String field;
@@ -162,7 +196,7 @@ class Filters {
   int displayed;
   int magnitude;
   dynamic value;
-  Property properties;
+  Property? properties;
   Filters(this.label, this.type, this.active, this.displayed, this.magnitude,
       this.value, this.properties);
 }
@@ -172,8 +206,34 @@ class Facets {
   bool displayed;
   String type;
   bool multipleSelectionAllowed;
-  int widgetType;
+  String widgetType;
   List<Filters> filters;
   Facets(this.label, this.displayed, this.type, this.multipleSelectionAllowed,
       this.widgetType, this.filters);
+}
+
+class Category {
+  String description;
+  String active;
+  CategoryImage? images;
+  String label;
+  Pagination? pagination;
+  List<CategoryProductItem?>? products;
+  List<SortOrder?>? sort_orders;
+  List<Facets?>? facets;
+  Category(
+    this.description,
+    this.active,
+    this.images,
+    this.label,
+    this.pagination,
+    this.products,
+    this.sort_orders,
+    this.facets,
+  );
+}
+
+class CategoryList {
+  Category? psdata;
+  CategoryList(this.psdata);
 }

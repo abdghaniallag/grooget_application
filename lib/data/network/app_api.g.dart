@@ -10,7 +10,7 @@ part of 'app_api.dart';
 
 class _AppServiceClient implements AppServiceClient {
   _AppServiceClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://www.grooget.com/rest';
+    baseUrl ??= 'https://www.grooget.com/';
   }
 
   final Dio _dio;

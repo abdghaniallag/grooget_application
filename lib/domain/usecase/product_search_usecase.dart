@@ -23,3 +23,18 @@ class ProductDetailUseCase extends BaseUseCase<String, ProductInformation> {
     return await _repository.getProductInformation(s);
   }
 }
+
+class CategoryUseCase extends BaseUseCase<String, CategoryList> {
+  Repository _repository;
+  CategoryUseCase(this._repository);
+  @override
+  Future<Either<Failure, CategoryList>> execute(String productId,
+      {int page = 0,
+      int resultsPerPage = 1,
+      bool with_category_tree = false}) async {
+    return await _repository.getCategoryList(productId,
+        page: page,
+        resultsPerPage: resultsPerPage,
+        with_category_tree: with_category_tree);
+  }
+}

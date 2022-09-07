@@ -21,7 +21,7 @@ class DioFactoy {
   Future<Dio> getDio() async {
     Dio dio = Dio();
 
-    int _timeOut = 2 * 1000;
+    int _timeOut = 20 * 1000;
     String _language = await _appPreferences.getAppLangague();
 
     Map<String, String> headers = {
@@ -31,14 +31,13 @@ class DioFactoy {
       DEFAULT_LANGUAGE: LanguageType.ENGLISH.getValue(),
     };
     dio.options = BaseOptions(
-        baseUrl: Constants.baseUrl + _language + Constants.baseUrl,
+        baseUrl: Constants.baseUrl,
         connectTimeout: _timeOut,
         receiveTimeout: _timeOut,
         headers: headers);
     dio.interceptors.add(_cookiesInterceptor);
 
     if (kReleaseMode) {
-      print("release mode no logs");
     } else {
       dio.interceptors.add(PrettyDioLogger(
           requestHeader: true, requestBody: true, responseHeader: true));

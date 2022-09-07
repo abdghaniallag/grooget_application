@@ -19,10 +19,19 @@ abstract class AppServiceClient {
   Future<ForgotPasswordResponse> forgotPassword(
     @Field("email") String email,
   );
+
   @GET('/productdetail')
   Future<ProductInformationResponse> getProductInformation(
     @Query("product_id") String productId,
   );
+
+  @GET('/categoryProducts')
+  Future<CategoryListResponse> getCategories(
+    @Query("id_category") String productId, {
+    @Query("page") int page = 0,
+    @Query("resultsPerPage") int resultsPerPage = 1,
+    @Query("with_category_tree") bool with_category_tree = false,
+  });
 
   @POST('/costumers/register')
   Future<AuthenticationRespons> register(

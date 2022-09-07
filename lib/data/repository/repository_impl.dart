@@ -194,4 +194,41 @@ class RepositoryImpl extends Repository {
       }
     }
   }
+
+  @override
+  Future<Either<Failure, CategoryList>> getCategoryList(String productId,
+      {int page = 0,
+      int resultsPerPage = 1,
+      bool with_category_tree = false}) async {
+    {
+      if (await _networkInfo.isConnected) {
+        try {
+          // its safe to call the API
+          final response = await _remoteDataSource.getCategoryList(productId,
+              page: page,
+              resultsPerPage: resultsPerPage,
+              with_category_tree: with_category_tree);
+
+          if (response.success == ApiInternalStatus.SUCCESS) // success
+          {
+            // return data (success)
+            // return right
+            // save data to cache
+            // _localDataSource.saveHomeData(response);
+            return Right(response.toDomain());
+          } else {
+            // return biz logic error
+            // return left
+            return Left(Failure(response.code ?? ApiInternalStatus.FAILURE,
+                ResponseMessage.DEFAULT));
+          }
+        } catch (error) {
+          return (Left(ErrorHandler.handle(error).failure));
+        }
+      } else {
+        // return connection error
+        return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+      }
+    }
+  }
 }

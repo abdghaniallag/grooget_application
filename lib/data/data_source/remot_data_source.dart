@@ -11,6 +11,9 @@ abstract class RemotDataSource {
   Future<ProductInformationResponse> getProductInformation(String id);
   Future<ProductSearchListResponse> getProductSearchList(String s,
       {String resultsPerPage = "10"});
+
+  Future<CategoryListResponse> getCategoryList(String productId,
+      {int page = 0, int resultsPerPage = 1, bool with_category_tree = false});
 }
 
 class RemotDataSourceImpilenter implements RemotDataSource {
@@ -55,5 +58,16 @@ class RemotDataSourceImpilenter implements RemotDataSource {
       {String resultsPerPage = "10"}) async {
     return await _appServiceClient.getProductSearchList(s,
         resultsPerPage: resultsPerPage);
+  }
+
+  @override
+  Future<CategoryListResponse> getCategoryList(String productId,
+      {int page = 0,
+      int resultsPerPage = 1,
+      bool with_category_tree = false}) async {
+    return await _appServiceClient.getCategories(productId,
+        page: page,
+        resultsPerPage: resultsPerPage,
+        with_category_tree: with_category_tree);
   }
 }

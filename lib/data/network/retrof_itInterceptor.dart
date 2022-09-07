@@ -17,7 +17,7 @@ class ReceivedCookiesInterceptor implements Interceptor {
     String cookie = await _appPreferences.getToken();
     if (cookie != "") {
       options.headers.remove("Cookie");
-      options.headers.addAll({"Cookie": "PrestaShop" + cookie});
+      options.headers.addAll({"Cookie": "PrestaShop$cookie"});
     }
     return handler.next(options);
   }

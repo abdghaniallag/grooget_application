@@ -45,11 +45,11 @@ ThemeData getAplicationTheme() {
 // Text theme
     textTheme: TextTheme(
       headline1:
-          getBoldStyle(color: ColorManager.darkGray, fontSize: FontSize.s18),
-      headline2:
-          getRegularStyle(color: ColorManager.white, fontSize: FontSize.s16),
+          getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s20),
+      headline2: getRegularStyle(
+          color: ColorManager.primaryOpacity70, fontSize: FontSize.s16),
       headline3:
-          getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s16),
+          getBoldStyle(color: ColorManager.darkGray, fontSize: FontSize.s16),
       subtitle1:
           getMediumStyle(color: ColorManager.lightGray, fontSize: FontSize.s14),
       subtitle2:

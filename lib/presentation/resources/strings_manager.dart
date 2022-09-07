@@ -46,4 +46,13 @@ class AppStrings {
   static const String haveAnAccount = "Already have an account? Login";
   static const String pictureGallery = 'Picture from gallery';
   static const String pictureCamera = 'Picture from camera';
+  static const String addToWishList = 'Add to wishlist';
+  static const String productDetails = 'Product details';
+  static const String availability = 'AVAILABILITY:';
+  static const String category = 'CATEGORIES:';
+  static const String image = 'Image';
+  static const String color = 'Color';
+  static const String sizes = 'Sizes';
+  static const String minQty = 'Min Qty';
+  static const String packQuantity = 'Pack Quantity';
 }

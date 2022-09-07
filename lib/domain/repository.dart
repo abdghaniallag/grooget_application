@@ -14,4 +14,6 @@ abstract class Repository {
   Future<Either<Failure, ProductInformation>> getProductInformation(String id);
   Future<Either<Failure, ProductSearchList>> getProductSearchList(String s,
       {String resultsPerPage = "10"});
+  Future<Either<Failure, CategoryList>> getCategoryList(String productId,
+      {int page = 0, int resultsPerPage = 1, bool with_category_tree = false});
 }

@@ -56,7 +56,24 @@ class _ProductImagesState extends State<ProductImages> {
                 child: Icon(
                   Icons.share_rounded,
                   color: ColorManager.white,
-                  size: AppSize.s40,
+                  size: AppSize.s28,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  right: AppPadding.p12, top: AppPadding.p60),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: ColorManager.primary,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSize.s28)),
+                ),
+                onPressed: _launch,
+                child: Icon(
+                  Icons.favorite_border,
+                  color: ColorManager.white,
+                  size: AppSize.s28,
                 ),
               ),
             ),

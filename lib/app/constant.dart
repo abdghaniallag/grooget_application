@@ -217,4 +217,35 @@ class Constants {
     ["", "Bedding and room essentials", "Textile", "Home"],
     ["", "Bathroom accessories", "Textile", "Home"]
   ];
+  static List<Map<int, String>> mainCategoris = [
+    {10: "Men"},
+    {48: "Women"},
+    {91: "Boys"},
+    {125: "Girls"},
+    {162: "Baby Boys"},
+    {199: "Baby Girls"},
+    {238: "Textile"},
+  ];
+
+  static const Map<String, String> categoryImages = {
+    'Men': 'https://www.grooget.com/c/48-category_default/women.jpg',
+    'Women': 'https://www.grooget.com/c/91-category_default/boys.jpg',
+    'Boys': 'https://www.grooget.com/c/125-category_default/girls.jpg',
+    'Girls': 'https://www.grooget.com/c/10-category_default/-.jpg',
+    'Baby Boys': 'https://www.grooget.com/c/162-category_default/baby-boys.jpg',
+    'Baby Girls':
+        'https://www.grooget.com/c/199-category_default/baby-girls.jpg',
+    'Textile': 'https://www.grooget.com/c/238-category_default/textile.jpg'
+  };
+
+  static const Map<String, String> bannarImages = {
+    'sell-on-grroget':
+        'https://www.grooget.com/modules/jscomposer/uploads/grooget%20services/sell-on-grroget.jpeg',
+    'median and product control':
+        'https://www.grooget.com/modules/jscomposer/uploads/grooget%20services/responsi.jpeg',
+    'Pay bills and money transfer':
+        'https://www.grooget.com/modules/jscomposer/uploads/grooget%20services/mony.jpeg',
+    'Shipping worldwide GROOGET CARGO':
+        'https://www.grooget.com/modules/jscomposer/uploads/grooget%20services/shipping-.jpeg',
+  };
 }

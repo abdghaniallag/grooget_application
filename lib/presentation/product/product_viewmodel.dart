@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:rxdart/rxdart.dart';
 import '../../domain/models/product.dart';
 import '../../domain/usecase/product_search_usecase.dart';
@@ -25,10 +26,11 @@ class ProductViewModel extends BaseViewModel
   @override
   void start() {
     inputState.add(ContentState());
+    search("bat");
   }
 
   _getProduct() async {
-    int productCount = 0;
+    int productCount = Random(300).nextInt(700);
     while (productCount < 10) {
       (await _productSearchUseCase.execute((370 + productCount).toString()))
           .fold((failure) {

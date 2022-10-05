@@ -4,9 +4,30 @@
     <item android:drawable="@color/red" />
     
     <!-- You can insert your own image assets here -->
-    <!-- <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@mipmap/launch_image" />
+<!--     
+     <item android:top="0dp" android:height="116dp">
+        <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+            android:gravity="fill_horizontal" 
+            android:src="@drawable/bg_launcher" />
+    </item>
+    <item android:top="116dp" android:height="116dp">
+        <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+            android:gravity="fill_horizontal" android:src="@drawable/bg_launcher" />
+    </item>
+    <item android:top="232dp" android:height="116dp">
+        <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+            android:gravity="fill_horizontal" android:src="@drawable/bg_launcher" />
+    </item>
+    <item android:top="348dp" android:height="116dp">
+        <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+            android:gravity="fill_horizontal" android:src="@drawable/bg_launcher" />
+    </item>
+    <item android:top="464dp" android:height="116dp">
+        <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+            android:gravity="fill_horizontal" android:src="@drawable/bg_launcher" />
+    </item>
+    <item android:top="580dp" android:height="116dp">
+        <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+            android:gravity="fill_horizontal" android:src="@drawable/bg_launcher" />
     </item> -->
 </layer-list>

@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_final_fields
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,7 +30,9 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  _bind() {
+  _bind() async {
+    bool logedIn = await _appPreferences.isUserLoggedIn();
+    log(logedIn.toString());
     _viewModel.start();
     _userNameController
         .addListener(() => _viewModel.setUserName(_userNameController.text));
@@ -37,8 +41,10 @@ class _LoginViewState extends State<LoginView> {
     _viewModel.isUserLoggedInSuccessfullyController.stream
         .listen((isSuccessFullyLoge) {
 //      navigate to main screen
-      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
         _appPreferences.setUserLoggedIn();
+        bool logedIn = await _appPreferences.isUserLoggedIn();
+        log(logedIn.toString());
         Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
       });
     });

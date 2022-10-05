@@ -1,4 +1,4 @@
-import 'package:mvvm_first_c/app/extentions.dart';
+import '../../app/extentions.dart';
 
 import '../../domain/models/product.dart';
 import '../responses/responses.dart';
@@ -219,11 +219,10 @@ extension FiltersMapper on FiltersResponse? {
     return Filters(
       this?.label?.orEmpty() ?? EMPTY,
       this?.type?.orEmpty() ?? EMPTY,
-      this?.active?.orEmpty() ?? ZERO,
-      this?.displayed?.orEmpty() ?? ZERO,
+      this?.active?.orEmpty() ?? FALSE,
+      this?.displayed?.orEmpty() ?? FALSE,
       this?.magnitude?.orEmpty() ?? ZERO,
-      this?.value?.orEmpty() ?? FALSE,
-      this?.properties?.toDomain(),
+      this?.value,
     );
   }
 }

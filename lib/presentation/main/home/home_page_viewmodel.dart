@@ -1,22 +1,23 @@
 import 'dart:async';
-import 'dart:ffi';
+import 'package:flutter/material.dart';
+import 'package:mvvm_first_c/presentation/resources/routes_manager.dart';
 
-import '../../../domain/usecase/homePageUsecase.dart';
-import '../../../presentation/base/base.dart';
-import '../../../presentation/state_renderer/state_renderer.dart';
-import '../../../presentation/state_renderer/state_renderer_implimenter.dart';
+import '../../../domain/models/product.dart';
+import '../../../domain/usecase/product_search_usecase.dart';
+import '../../../app/constant.dart';
+import '../../base/base.dart';
+import '../../state_renderer/state_renderer.dart';
+import '../../state_renderer/state_renderer_implimenter.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../../../domain/models/user.dart';
 
 class HomePageViewModel extends BaseViewModel
     with HomeViewModelInputs, HomeViewModelOutputs {
-  HomeUseCase _homeUseCase;
+  CategoryUseCase _categoryUseCase;
+  StreamController _categoryStreamController = BehaviorSubject<CategoryList>();
+  StreamController _productStreamController =
+      BehaviorSubject<CategoryProductItem>();
 
-  StreamController _homeObjectStreamController =
-      BehaviorSubject<AcountInformation>();
-
-  HomePageViewModel(this._homeUseCase);
+  HomePageViewModel(this._categoryUseCase);
 
   // inputs
   @override
@@ -25,41 +26,83 @@ class HomePageViewModel extends BaseViewModel
   }
 
   _getHome() async {
-    inputState.add(LoadingState(
-        stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
 
-    (await _homeUseCase.execute(Void)).fold((failure) {
-      inputState.add(ErrorState(
-          StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
-    }, (homeObject) {
-      inputState.add(ContentState());
-      // inputHome.add(HomeData(
-      //   homeObject.homeData.services,
-      //   homeObject.homeData.stores,
-      //   homeObject.homeData.banners,
-      // ));
-      inputHome.add(homeObject);
-    });
+    _getCategories();
+
+    getProducts();
   }
 
   @override
   void dispose() {
-    _homeObjectStreamController.close();
+    _categoryStreamController.close();
     super.dispose();
   }
 
   @override
-  Sink get inputHome => _homeObjectStreamController.sink;
+  Sink get inputCategory => _categoryStreamController.sink;
 
   @override
-  Stream<AcountInformation> get outputHome =>
-      _homeObjectStreamController.stream.map((homeData) => homeData);
+  Sink get inputProduct => _productStreamController.sink;
+
+  @override
+  Stream<CategoryList> get outputCategory =>
+      _categoryStreamController.stream.map((cactegory) => cactegory);
+
+  @override
+  Stream<CategoryProductItem> get outputProduct =>
+      _productStreamController.stream.map((product) => product);
+
+  void _getCategories() async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    for (var element in Constants.mainCategoris) {
+      (await _categoryUseCase.execute(element.keys.first.toString())).fold(
+          (failure) {
+        inputState.add(ErrorState(
+            StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
+      }, (category) {
+        inputState.add(ContentState());
+        inputCategory.add(category);
+      });
+    }
+  }
+
+  @override
+  getProducts() async {
+    for (var i = 0; i < 11; i++) {
+      (await _categoryUseCase.execute("2", resultsPerPage: 1, page: i)).fold(
+          (failure) {
+        inputState.add(
+            ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
+      }, (category) {
+        inputState.add(ContentState());
+        inputProduct.add(category.psdata!.products?.first);
+      });
+    }
+  }
+
+  @override
+  openProductDetail(BuildContext context, String id) {
+    Navigator.pushNamed(context, Routes.productDetailRoute, arguments: id);
+  }
+
+  @override
+  openCategoryDetail(BuildContext context, String id) {
+    Navigator.pushNamed(context, Routes.categoriesRoute, arguments: id);
+  }
 }
 
 abstract class HomeViewModelInputs {
-  Sink get inputHome;
+  getProducts();
+  openProductDetail(BuildContext context, String id);
+  openCategoryDetail(BuildContext context, String id);
+  Sink get inputCategory;
+  Sink get inputProduct;
 }
 
 abstract class HomeViewModelOutputs {
-  Stream<AcountInformation> get outputHome;
+  Stream<CategoryList> get outputCategory;
+  Stream<CategoryProductItem> get outputProduct;
 }

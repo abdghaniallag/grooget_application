@@ -487,15 +487,13 @@ class FiltersResponse extends BaseResponse {
   @JsonKey(name: "type")
   String? type;
   @JsonKey(name: "active")
-  int? active;
+  bool? active;
   @JsonKey(name: "displayed")
-  int? displayed;
+  bool? displayed;
   @JsonKey(name: "magnitude")
   int? magnitude;
   @JsonKey(name: "value")
-  dynamic? value;
-  @JsonKey(name: "properties")
-  PropertyResponse? properties;
+  dynamic value;
   FiltersResponse(
     this.label,
     this.type,
@@ -503,7 +501,6 @@ class FiltersResponse extends BaseResponse {
     this.displayed,
     this.magnitude,
     this.value,
-    this.properties,
   );
 
   factory FiltersResponse.fromJson(Map<String, dynamic> json) =>
@@ -548,7 +545,7 @@ class CategoryProductItemResponse extends BaseResponse {
   @JsonKey(name: "name")
   String? name;
   @JsonKey(name: "cover")
-  CategoryImageResponse? cover;
+  CategoryImageSourceResponse? cover;
   @JsonKey(name: "description")
   String? description;
   @JsonKey(name: "description_short")
@@ -601,4 +598,171 @@ class CategoryListResponse extends BaseResponse {
   factory CategoryListResponse.fromJson(Map<String, dynamic> json) =>
       _$CategoryListResponseFromJson(json);
   Map<String, dynamic> toJson() => _$CategoryListResponseToJson(this);
+}
+
+//-------------------------------- Cart responses  -------------------------------------------------
+@JsonSerializable()
+class TotalResponse extends BaseResponse {
+  @JsonKey(name: "type")
+  String? type;
+  @JsonKey(name: "label")
+  String? label;
+  @JsonKey(name: "amount")
+  int? amount;
+  @JsonKey(name: "value")
+  String? value;
+  TotalResponse(this.type, this.label, this.amount, this.value);
+  factory TotalResponse.fromJson(Map<String, dynamic> json) =>
+      _$TotalResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TotalResponseToJson(this);
+}
+
+@JsonSerializable()
+class TotalsResponse extends BaseResponse {
+  @JsonKey(name: "total")
+  TotalResponse? total;
+  @JsonKey(name: "total_including_tax")
+  TotalResponse? total_including_tax;
+  @JsonKey(name: "total_excluding_tax")
+  TotalResponse? total_excluding_tax;
+  TotalsResponse(
+      this.total, this.total_including_tax, this.total_excluding_tax);
+  factory TotalsResponse.fromJson(Map<String, dynamic> json) =>
+      _$TotalsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TotalsResponseToJson(this);
+}
+
+@JsonSerializable()
+class SubtotalsResponse extends BaseResponse {
+  @JsonKey(name: "products")
+  TotalResponse? products;
+  @JsonKey(name: "shipping")
+  TotalResponse? shipping;
+  @JsonKey(name: "tax")
+  TotalResponse? tax;
+  SubtotalsResponse(this.products, this.shipping, this.tax);
+  factory SubtotalsResponse.fromJson(Map<String, dynamic> json) =>
+      _$SubtotalsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$SubtotalsResponseToJson(this);
+}
+
+@JsonSerializable()
+class LabelsResponse extends BaseResponse {
+  @JsonKey(name: "tax_short")
+  String? tax_short;
+  @JsonKey(name: "tax_long")
+  String? tax_long;
+  LabelsResponse(this.tax_short, this.tax_long);
+  factory LabelsResponse.fromJson(Map<String, dynamic> json) =>
+      _$LabelsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$LabelsResponseToJson(this);
+}
+
+@JsonSerializable()
+class VouchersResponse extends BaseResponse {
+  @JsonKey(name: "allowed")
+  String? allowed;
+  @JsonKey(name: "tax_long")
+  List<dynamic>? added;
+  VouchersResponse(this.allowed, this.added);
+  factory VouchersResponse.fromJson(Map<String, dynamic> json) =>
+      _$VouchersResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$VouchersResponseToJson(this);
+}
+
+@JsonSerializable()
+class ProductCartResponse extends BaseResponse {
+  @JsonKey(name: "id_product_attribute")
+  String? id_product_attribute;
+  @JsonKey(name: "id_product")
+  String? id_product;
+  @JsonKey(name: "cart_quantity")
+  String? cart_quantity;
+  @JsonKey(name: "id_shop")
+  String? id_shop;
+  @JsonKey(name: "name")
+  String? name;
+  @JsonKey(name: "description_short")
+  String? description_short;
+  @JsonKey(name: "id_category_default")
+  String? id_category_default;
+  @JsonKey(name: "price")
+  double? price;
+  @JsonKey(name: "date_add")
+  String? date_add;
+  @JsonKey(name: "date_upd")
+  String? date_upd;
+  @JsonKey(name: "quantity")
+  int? quantity;
+  @JsonKey(name: "total")
+  int? total;
+  @JsonKey(name: "total_wt")
+  int? total_wt;
+  @JsonKey(name: "price_wt")
+  int? price_wt;
+  @JsonKey(name: "attributes_small")
+  String? attributes_small;
+  @JsonKey(name: "price_with_reduction_without_tax")
+  int? price_with_reduction_without_tax;
+  @JsonKey(name: "image_url")
+  String? image_url;
+  @JsonKey(name: "reference")
+  String? reference;
+  ProductCartResponse(
+    this.id_product_attribute,
+    this.id_product,
+    this.cart_quantity,
+    this.id_shop,
+    this.name,
+    this.description_short,
+    this.id_category_default,
+    this.price,
+    this.date_add,
+    this.date_upd,
+    this.quantity,
+    this.total,
+    this.total_wt,
+    this.price_wt,
+    this.attributes_small,
+    this.price_with_reduction_without_tax,
+    this.image_url,
+    this.reference,
+  );
+  factory ProductCartResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProductCartResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ProductCartResponseToJson(this);
+}
+
+@JsonSerializable()
+class CartResponse extends BaseResponse {
+  @JsonKey(name: "totals")
+  TotalsResponse? totals;
+  @JsonKey(name: "subtotals")
+  TotalsResponse? subtotals;
+  @JsonKey(name: "products_count")
+  int? products_count;
+  @JsonKey(name: "labels")
+  LabelsResponse? labels;
+  @JsonKey(name: "vouchers")
+  VouchersResponse? vouchers;
+  List<ProductCartResponse?>? products;
+  List<String?>? errors;
+  CartResponse(this.totals, this.subtotals, this.products_count, this.labels,
+      this.vouchers,
+      {@required this.products, this.errors});
+  factory CartResponse.fromJson(Map<String, dynamic> json) =>
+      _$CartResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CartResponseToJson(this);
+}
+
+@JsonSerializable()
+class UserCartResponse extends BaseResponse {
+  @JsonKey(name: "psdata")
+  CartResponse? psdata;
+  List<String?>? errors;
+  UserCartResponse(this.psdata, {@required this.errors});
+
+  factory UserCartResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserCartResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$UserCartResponseToJson(this);
 }

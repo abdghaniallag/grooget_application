@@ -19,3 +19,21 @@ class RegisterRequest {
   RegisterRequest(this.countryMobileCode, this.userName, this.email,
       this.password, this.mobile_number, this.profilePicture);
 }
+
+class UpdateCartRequest {
+  String? update;
+  int? id_product;
+  int? id_product_attribute;
+  String? op;
+  String? action;
+  int? qty;
+
+  UpdateCartRequest({
+    this.update,
+    this.id_product,
+    this.id_product_attribute,
+    this.op,
+    this.action,
+    this.qty,
+  });
+}

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../../app/di.dart';
 import '../../domain/models/product.dart';
@@ -41,17 +43,16 @@ class _ProductViewState extends State<ProductView> {
   }
 
   Widget getProductContent() {
-    // List<Product> product = List<Product>.empty(growable: true);
     return Scaffold(
-      appBar: SearchAppBar().getAppBar(controller,
-          () => {_viewModel.search(controller.text)}, const Text("")),
+      appBar: SearchAppBar()
+          .getAppBar(controller, () => {_viewModel.search(controller.text)}),
       body: StreamBuilder<ProductSearchList>(
           stream: _viewModel.outputsProduct,
           builder: (context, snapshot) {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  Section(snapshot.data?.psdata?.label ?? ""),
+                  getSection(snapshot.data?.psdata?.label ?? ""),
                   Wrap(
                       spacing: AppPadding.p2,
                       runSpacing: AppPadding.p8,
@@ -72,10 +73,9 @@ class _ProductViewState extends State<ProductView> {
               onTap: () {
                 _viewModel.getProductDetail(index.id_product);
                 _viewModel.outputsProductDetail.listen((product) async {
-                  ProductRouteArguments productRouteArguments =
-                      ProductRouteArguments(product);
                   Navigator.pushNamed(context, Routes.productDetailRoute,
-                      arguments: productRouteArguments);
+                      arguments:
+                          IdArguments(product.psdata!.id_product.toString()));
                 });
               },
               child: ProductItemWidget(index)))
@@ -85,7 +85,7 @@ class _ProductViewState extends State<ProductView> {
     }
   }
 
-  Widget Section(String title) {
+  Widget getSection(String title) {
     return SizedBox(
       height: AppSize.s20,
       child: Text(title),

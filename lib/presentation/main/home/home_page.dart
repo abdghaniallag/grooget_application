@@ -1,18 +1,24 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
+import '../../../app/constant.dart';
+import '../../../domain/models/product.dart';
+import '../../main/home/home_page_viewmodel.dart';
+import '../../resources/color_manager.dart';
+import '../../resources/strings_manager.dart';
 import '../../../app/di.dart';
-import 'home_page_viewmodel.dart';
+import '../../resources/values_manager.dart';
+import '../../widgets/category_widget.dart';
+import '../../widgets/product_widget.dart';
+import '../../resources/routes_manager.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   HomePageViewModel _viewModel = instance<HomePageViewModel>();
-
   @override
   void initState() {
     _bind();
@@ -25,209 +31,155 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center();
+    return _getContentWidgets();
   }
 
-//   Widget _getContentWidgets() {
-//     return StreamBuilder<AcountInformation>(
-//         stream: _viewModel.outputHome,
-//         builder: (context, snapshot) {
-//           return Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               _getUserInfo(snapshot.data),
-//               // _getBannersCarousel(snapshot.data?.banners),
-//               // _getSection(AppStrings.services),
-//               // _getServices(snapshot.data?.services),
-//               // _getSection(AppStrings.stories),
-//               // _getStores(snapshot.data?.stores)
-//             ],
-//           );
-//         });
-//   }
+  Widget _getContentWidgets() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _getBanners(),
+        _getCategoryList(),
+        _getSection(AppStrings.product),
+        _getTopProducts(),
+        _getSection(AppStrings.category),
+        _getTopCategories(),
+        _getSection(''),
+      ],
+    );
+  }
 
-//   Widget _getSection(String title) {
-//     return Padding(
-//       padding: const EdgeInsets.only(
-//           top: AppPadding.p12,
-//           left: AppPadding.p12,
-//           right: AppPadding.p12,
-//           bottom: AppPadding.p2),
-//       child: Text(
-//         title,
-//         style: Theme.of(context).textTheme.headline3,
-//       ),
-//     );
-//   }
+  Widget _getTopCategories() {
+    return Column(
+        children: Constants.mainCategoris
+            .map((category) => CategoryWidget(category.keys.first.toString(),
+                Constants.categoryImages[category.values.first]!))
+            .toList());
+  }
 
-//   Widget _getUserInfo(AcountInformation? acount) {
-//     if (acount == null) {
-//       return Column();
-//     } else {
-//       return Column(
-//         children: [
-//           const Text("gthhtfhgho8iukgbikumgjb"),
-//           Text(acount.psdata?.firstname.toString() ?? EMPTY),
-//           Text(acount.psdata?.lastname.toString() ?? EMPTY),
-//           Text(acount.psdata?.id.toString() ?? EMPTY),
-//           Text(acount.psdata?.email.toString() ?? EMPTY),
-//           Text(acount.psdata?.birthday.toString() ?? EMPTY),
-//           Text(acount.psdata?.logged.toString() ?? EMPTY),
-//           Text(acount.psdata?.firstname.toString() ?? EMPTY),
-//           Text(acount.psdata?.firstname.toString() ?? EMPTY),
-//           Text(acount.psdata?.firstname.toString() ?? EMPTY),
-//         ],
-//       );
-//     }
-//   }
+  Widget _getTopProducts() {
+    List<CategoryProductItem?>? products = [];
+    return StreamBuilder<CategoryProductItem>(
+        stream: _viewModel.outputProduct,
+        builder: (context, snapshot) {
+          int index = 0;
+          if (snapshot.data != null) {
+            products.add(snapshot.data);
+          }
+          return Center(
+            child: Wrap(
+              children: products.map((product) {
+                index++;
+                final Cover cover = Cover(product!.cover!.url.toString(),
+                    product.cover!.width!, product.cover!.height!);
+                final ProductItem productItem = ProductItem(
+                    product.id_product,
+                    product.price,
+                    product.name,
+                    cover,
+                    product.description,
+                    product.description_short,
+                    product.category_name);
+                if (index % 2 != 0) {
+                  return ProductItemWidget(productItem);
+                } else {
+                  return Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ProductItemWidget(productItem)
+                    ],
+                  );
+                }
+              }).toList(),
+            ),
+          );
+        });
+  }
 
-//   Widget _getBannersCarousel(List<BannerAd>? banners) {
-//     if (banners == null) {
-//       return Column();
-//     } else {
-//       return _getBanner(banners);
-//     }
-//   }
+  Widget _getBanners() {
+    return CarouselSlider(
+      items: Constants.bannarImages.values
+          .map((banner) => SizedBox(
+                width: double.infinity,
+                child: Card(
+                  elevation: AppSize.s1_5,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSize.s12),
+                      side: BorderSide(
+                          color: ColorManager.white, width: AppSize.s1_5)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(AppSize.s12),
+                    child: Image.network(
+                      banner,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ))
+          .toList(),
+      options: CarouselOptions(
+          height: AppSize.s180,
+          autoPlay: true,
+          enlargeCenterPage: true,
+          enableInfiniteScroll: true),
+    );
+  }
 
-//   Widget _getBanner(List<BannerAd>? banners) {
-//     if (banners != null) {
-//       return CarouselSlider(
-//           items: banners
-//               .map((banner) => SizedBox(
-//                     width: double.infinity,
-//                     child: Card(
-//                       elevation: AppSize.s1_5,
-//                       shape: RoundedRectangleBorder(
-//                           borderRadius: BorderRadius.circular(AppSize.s12),
-//                           side: BorderSide(
-//                               color: ColorManager.white, width: AppSize.s1_5)),
-//                       child: ClipRRect(
-//                         borderRadius: BorderRadius.circular(AppSize.s12),
-//                         child: Image.network(
-//                           banner.image,
-//                           fit: BoxFit.cover,
-//                         ),
-//                       ),
-//                     ),
-//                   ))
-//               .toList(),
-//           options: CarouselOptions(
-//               height: AppSize.s180,
-//               autoPlay: true,
-//               enableInfiniteScroll: true,
-//               enlargeCenterPage: true));
-//     } else {
-//       return Container();
-//     }
-//   }
+  Widget _getSection(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(
+          top: AppPadding.p2,
+          left: AppPadding.p12,
+          right: AppPadding.p12,
+          bottom: AppPadding.p2),
+      child: Text(
+        title,
+        textAlign: TextAlign.left,
+        style: Theme.of(context).textTheme.headline1,
+      ),
+    );
+  }
 
-//   Widget _getServices(List<Service>? services) {
-//     if (services == null) {
-//       return Column();
-//     } else {
-//       return _getServicesWidget(services);
-//     }
-//   }
-
-//   Widget _getServicesWidget(List<Service>? services) {
-//     if (services != null) {
-//       return Padding(
-//         padding:
-//             const EdgeInsets.only(left: AppPadding.p12, right: AppPadding.p12),
-//         child: Container(
-//           height: AppSize.s140,
-//           margin: const EdgeInsets.symmetric(vertical: AppMargin.m12),
-//           child: ListView(
-//             scrollDirection: Axis.horizontal,
-//             children: services
-//                 .map((service) => Card(
-//                       elevation: AppSize.s4,
-//                       shape: RoundedRectangleBorder(
-//                           borderRadius: BorderRadius.circular(AppSize.s12),
-//                           side: BorderSide(
-//                               color: ColorManager.white, width: AppSize.s1_5)),
-//                       child: Column(
-//                         children: [
-//                           ClipRRect(
-//                             borderRadius: BorderRadius.circular(AppSize.s12),
-//                             child: Image.network(
-//                               service.image,
-//                               fit: BoxFit.cover,
-//                               width: AppSize.s100,
-//                               height: AppSize.s100,
-//                             ),
-//                           ),
-//                           Padding(
-//                             padding: const EdgeInsets.only(top: AppPadding.p8),
-//                             child: Align(
-//                               alignment: Alignment.center,
-//                               child: Text(
-//                                 service.title,
-//                                 textAlign: TextAlign.center,
-//                               ),
-//                             ),
-//                           )
-//                         ],
-//                       ),
-//                     ))
-//                 .toList(),
-//           ),
-//         ),
-//       );
-//     } else {
-//       return Container();
-//     }
-//   }
-
-//   Widget _getStores(List<Stores>? stores) {
-//     if (stores == null) {
-//       return Column();
-//     } else {
-//       return _getStoresWidget(stores);
-//     }
-//   }
-
-//   Widget _getStoresWidget(List<Stores>? stores) {
-//     if (stores != null) {
-//       return Padding(
-//         padding: const EdgeInsets.only(
-//             left: AppPadding.p12, right: AppPadding.p12, top: AppPadding.p12),
-//         child: Flex(
-//           direction: Axis.vertical,
-//           children: [
-//             GridView.count(
-//               crossAxisSpacing: AppSize.s8,
-//               mainAxisSpacing: AppSize.s8,
-//               physics: const ScrollPhysics(),
-//               shrinkWrap: true,
-//               crossAxisCount: 2,
-//               children: List.generate(stores.length, (index) {
-//                 return InkWell(
-//                   onTap: () {
-//                     // navigate to store details screen
-//                     Navigator.of(context).pushNamed(Routes.storeDetailsRoute);
-//                   },
-//                   child: Card(
-//                     elevation: AppSize.s4,
-//                     child: Image.network(
-//                       stores[index].image,
-//                       fit: BoxFit.cover,
-//                     ),
-//                   ),
-//                 );
-//               }),
-//             )
-//           ],
-//         ),
-//       );
-//     } else {
-//       return Container();
-//     }
-//   }
-
-//   @override
-//   void dispose() {
-//     _viewModel.dispose();
-//     super.dispose();
-//   }
+  SizedBox _getCategoryList() {
+    return SizedBox(
+      height: AppSize.s56,
+      child: ListView.separated(
+          shrinkWrap: true,
+          clipBehavior: Clip.antiAlias,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                        top: AppSize.s8, left: AppSize.s4),
+                    height: AppSize.s40,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: AppPadding.p2),
+                    decoration: BoxDecoration(
+                        color: ColorManager.white,
+                        boxShadow: const [
+                          BoxShadow(
+                            spreadRadius: 0.9,
+                            offset: Offset(-1, 2.5),
+                            color: Color.fromARGB(255, 224, 224, 224),
+                          )
+                        ],
+                        borderRadius: BorderRadius.circular(AppPadding.p2)),
+                    child: Center(
+                      child: Text(
+                        Constants.categoryImages.keys.toList()[index],
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+          separatorBuilder: (context, index) => const SizedBox(
+                width: AppSize.s20,
+              ),
+          itemCount: Constants.categoryImages.keys.length),
+    );
+  }
 }

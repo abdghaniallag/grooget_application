@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm_first_c/app/constant.dart';
+import 'package:mvvm_first_c/presentation/main/cart/cart_page.dart';
 import '../../presentation/main/home/home_page.dart';
 import '../../presentation/resources/color_manager.dart';
 import '../../presentation/resources/strings_manager.dart';
 import '../../presentation/resources/values_manager.dart';
 
-import 'notification/notifications.dart';
+import '../widgets/search_appbar.dart';
+import 'categories/categories_page.dart';
 import 'search/search.dart';
 import 'settings/setting.dart';
 
@@ -18,27 +21,34 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   List<Widget> pages = [
     HomePage(),
-    NotificationPage(),
+    CategoriesPage(),
     SearchPage(),
+    CartPage(),
     SettingPage()
   ];
   List<String> titles = [
     AppStrings.home,
+    AppStrings.category,
     AppStrings.search,
-    AppStrings.notifications,
+    AppStrings.cart,
     AppStrings.settings,
   ];
-  var _title = AppStrings.home;
   var _currentIndex = 0;
+
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text(
-          _title,
-          style: Theme.of(context).textTheme.headline2,
-        )),
-        body: pages[_currentIndex],
+        backgroundColor: const Color.fromARGB(255, 243, 243, 243),
+        appBar: SearchAppBar().getAppBar(_controller, search),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              pages[_currentIndex],
+            ],
+          ),
+        ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             boxShadow: [
@@ -54,10 +64,13 @@ class _MainViewState extends State<MainView> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.home), label: AppStrings.home),
               BottomNavigationBarItem(
+                  icon: Icon(Icons.category_rounded),
+                  label: AppStrings.category),
+              BottomNavigationBarItem(
                   icon: Icon(Icons.search), label: AppStrings.search),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications),
-                  label: AppStrings.notifications),
+                  icon: Icon(Icons.card_travel_rounded),
+                  label: AppStrings.cart),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: AppStrings.settings),
             ],
@@ -68,7 +81,8 @@ class _MainViewState extends State<MainView> {
   onTap(int index) {
     setState(() {
       _currentIndex = index;
-      _title = titles[index];
     });
   }
+
+  search() {}
 }

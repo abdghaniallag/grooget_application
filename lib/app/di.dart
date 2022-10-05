@@ -2,8 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:mvvm_first_c/domain/models/product.dart';
+import 'package:mvvm_first_c/presentation/category/category_view.dart';
+import 'package:mvvm_first_c/presentation/product_detal/product_detal_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../domain/usecase/cart_usecase.dart';
 import '../domain/usecase/product_search_usecase.dart';
 import '../../presentation/product/product_viewmodel.dart';
 import '../app/app_preferences.dart';
@@ -38,7 +42,8 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton<DioFactoy>(() => DioFactoy(instance()));
   // App Service Client
   final Dio dio = await instance<DioFactoy>().getDio();
-  instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
+  instance.registerLazySingleton<AppServiceClient>(
+      () => AppServiceClient(dio, baseUrl: dio.options.baseUrl));
   // Remot Data Source
   instance.registerLazySingleton<RemotDataSource>(
       () => RemotDataSourceImpilenter(instance()));
@@ -76,11 +81,34 @@ initForgotPasswordModule() {
   }
 }
 
-initHomeModule() {
+initHomeModule() async {
+  await initCategoryModule();
+  await initProductModule();
   if (!GetIt.I.isRegistered<HomeUseCase>()) {
     instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
+
     instance.registerFactory<HomePageViewModel>(
         () => HomePageViewModel(instance()));
+  }
+}
+
+initCategoryModule() {
+  if (!GetIt.I.isRegistered<CategoryUseCase>()) {
+    instance
+        .registerFactory<CategoryUseCase>(() => CategoryUseCase(instance()));
+    // TODO
+    // instance.registerFactory<CategoryViewModel>(
+    //     () => CategoryViewModel( instance()));
+  }
+}
+
+initCartModule() {
+  initProductModule();
+  if (!GetIt.I.isRegistered<CartUseCase>()) {
+    instance.registerFactory<CartUseCase>(() => CartUseCase(instance()));
+    // TODO Cardviewmodel
+    // instance.registerFactory<HomePageViewModel>(
+    //     () => HomePageViewModel(instance()));
   }
 }
 
@@ -89,16 +117,16 @@ initProductModule() {
     instance.registerFactory<ProductSearchUseCase>(
         () => ProductSearchUseCase(instance()));
     if (GetIt.I.isRegistered<ProductDetailUseCase>()) {
-      instance.registerFactory<ProductViewModel>(
-          () => ProductViewModel(instance(), instance()));
+      instance.registerFactory<ProductDetailViewModel>(
+          () => ProductDetailViewModel(instance()));
     }
   }
   if (!GetIt.I.isRegistered<ProductDetailUseCase>()) {
     instance.registerFactory<ProductDetailUseCase>(
         () => ProductDetailUseCase(instance()));
     if (GetIt.I.isRegistered<ProductSearchUseCase>()) {
-      instance.registerFactory<ProductViewModel>(
-          () => ProductViewModel(instance(), instance()));
+      instance.registerFactory<ProductDetailViewModel>(
+          () => ProductDetailViewModel(instance()));
     }
   }
 }

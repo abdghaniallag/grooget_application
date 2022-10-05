@@ -1,13 +1,13 @@
-10;Men;;0;1
-48;Women;;1;1
-91;Boys;;2;1
-125;Girls;;3;1
-162;"Baby Boys";;4;1
-199;"Baby Girls";;5;1
-238;Textile;;6;1
-243;"New arrival";;7;0
-244;"Best seller";;8;0
-245;Trending;;9;0
-246;Sale;;10;0
-276;"large Quantities";;11;0
-292;Shipping;;12;1
+10:"Men",
+48:"Women",
+91:"Boys",
+125:"Girls",
+162:"Baby Boys",
+199:"Baby Girls",
+238:"Textile",
+243:"New arrival",
+244:"Best seller",
+245:"Trending",
+246:"Sale",
+276:"large Quantities",
+292:"Shipping"

@@ -17,7 +17,7 @@ ThemeData getAplicationTheme() {
     cardTheme: CardTheme(
       color: ColorManager.white,
       shadowColor: ColorManager.gray,
-      elevation: AppSize.s8,
+      elevation: AppSize.s12,
     ),
 // app bar theme
     appBarTheme: AppBarTheme(
@@ -46,16 +46,16 @@ ThemeData getAplicationTheme() {
     textTheme: TextTheme(
       headline1:
           getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s20),
-      headline2: getRegularStyle(
+      headline2: getBoldStyle(
           color: ColorManager.primaryOpacity70, fontSize: FontSize.s16),
       headline3:
           getBoldStyle(color: ColorManager.darkGray, fontSize: FontSize.s16),
       subtitle1:
-          getMediumStyle(color: ColorManager.lightGray, fontSize: FontSize.s14),
+          getBoldStyle(color: ColorManager.lightGray, fontSize: FontSize.s14),
       subtitle2:
-          getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s14),
-      caption: getRegularStyle(color: ColorManager.gray1),
-      bodyText1: getRegularStyle(color: ColorManager.gray),
+          getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s14),
+      caption: getBoldStyle(color: ColorManager.gray1),
+      bodyText1: getBoldStyle(color: ColorManager.gray),
     ),
 // input decoration theme(text form field )
     inputDecorationTheme: InputDecorationTheme(

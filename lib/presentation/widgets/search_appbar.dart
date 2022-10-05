@@ -3,8 +3,7 @@ import '../../presentation/resources/color_manager.dart';
 import '../resources/values_manager.dart';
 
 class SearchAppBar {
-  AppBar getAppBar(TextEditingController controller, Function() onPressed,
-          Widget label) =>
+  AppBar getAppBar(TextEditingController controller, Function() onPressed) =>
       AppBar(
           actions: [
             ElevatedButton.icon(
@@ -13,7 +12,7 @@ class SearchAppBar {
                   Icons.search_rounded,
                   color: ColorManager.white,
                 ),
-                label: label)
+                label: const Text(""))
           ],
           title: Container(
               padding: const EdgeInsets.all(AppPadding.p12),

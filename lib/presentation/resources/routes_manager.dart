@@ -31,7 +31,8 @@ class RouteGenerator {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => SplashView());
       case Routes.categoriesRoute:
-        return MaterialPageRoute(builder: (_) => CategoryView());
+        return MaterialPageRoute(
+            builder: (_) => CategoryView(), settings: routeSettings);
       case Routes.productRoute:
         initProductModule();
         return MaterialPageRoute(builder: (_) => ProductView());
@@ -69,7 +70,7 @@ class RouteGenerator {
   }
 }
 
-class ProductRouteArguments {
-  final ProductInformation product;
-  ProductRouteArguments(this.product);
+class IdArguments {
+  final String id;
+  IdArguments(this.id);
 }

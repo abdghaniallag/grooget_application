@@ -10,9 +10,7 @@ class ProductUseCase extends BaseUseCase<String, ProductInformation> {
   ProductUseCase(this._repository);
 
   @override
-  Future<Either<Failure, ProductInformation>> execute(String id) {
-    // TODO: implement execute
-    //   return await _repository.getProductInformation(id);
-    throw UnimplementedError();
+  Future<Either<Failure, ProductInformation>> execute(String id) async {
+    return await _repository.getProductInformation(id);
   }
 }

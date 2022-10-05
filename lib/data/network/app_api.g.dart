@@ -82,8 +82,33 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<UserCartResponse> updateCart(
+      {update, id_product, id_product_attribute, op, action, qty}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'update': update,
+      r'id_product': id_product,
+      r'id_product_attribute': id_product_attribute,
+      r'op': op,
+      r'action': action,
+      r'qty': qty
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserCartResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/cart',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserCartResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<CategoryListResponse> getCategories(productId,
-      {page = 0, resultsPerPage = 1, with_category_tree = false}) async {
+      {page = 0, resultsPerPage = 1, with_category_tree = 0}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'id_category': productId,

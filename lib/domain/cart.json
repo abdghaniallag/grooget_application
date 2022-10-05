@@ -3,40 +3,166 @@
     "success": true,
     "message": "cart operation successfully done",
     "psdata": {
-        "products": [],
+        "products": [
+            {
+                "id_product_attribute": "7080",
+                "id_product": "1670",
+                "cart_quantity": "50",
+                "id_shop": "1",
+                "id_customization": null,
+                "name": "Men 2pies Embroidery Graphic Top & Plaid Pants PJ Set",
+                "is_virtual": "0",
+                "description_short": "",
+                "available_now": "",
+                "available_later": "",
+                "id_category_default": "30",
+                "id_supplier": "0",
+                "id_manufacturer": "0",
+                "manufacturer_name": null,
+                "on_sale": "0",
+                "ecotax": "0.000000",
+                "additional_shipping_cost": "0.000000",
+                "available_for_order": "1",
+                "show_price": "1",
+                "price": 11,
+                "active": "1",
+                "unity": "",
+                "unit_price_ratio": "0.000000",
+                "quantity_available": "10000",
+                "width": "0.000000",
+                "height": "0.000000",
+                "depth": "0.000000",
+                "out_of_stock": "2",
+                "weight": 0,
+                "available_date": "0000-00-00",
+                "date_add": "2021-09-21 16:42:08",
+                "date_upd": "2021-09-30 16:05:48",
+                "quantity": 50,
+                "link_rewrite": "pyjama",
+                "category": "pyjamas",
+                "unique_id": "0000001670000000708000",
+                "id_address_delivery": "0",
+                "advanced_stock_management": "0",
+                "supplier_reference": null,
+                "customization_quantity": null,
+                "price_attribute": "0.000000",
+                "ecotax_attr": "0.000000",
+                "reference": "74652783512",
+                "weight_attribute": 0,
+                "ean13": "",
+                "isbn": "",
+                "upc": "",
+                "mpn": "",
+                "minimal_quantity": "5",
+                "wholesale_price": "0.000000",
+                "id_image": "1670-6194",
+                "legend": "Men 2pies Embroidery Graphic Top & Plaid Pants PJ Set",
+                "reduction_type": 0,
+                "is_gift": false,
+                "reduction": 0,
+                "reduction_without_tax": 0,
+                "price_without_reduction": 11,
+                "specific_prices": [],
+                "stock_quantity": 10000,
+                "price_without_reduction_without_tax": 11,
+                "price_with_reduction": 11,
+                "price_with_reduction_without_tax": 11,
+                "total": 550,
+                "total_wt": 550,
+                "price_wt": 11,
+                "reduction_applies": false,
+                "quantity_discount_applies": false,
+                "allow_oosp": 1,
+                "features": [
+                    {
+                        "id_feature": "4",
+                        "id_product": "1670",
+                        "id_feature_value": "19"
+                    },
+                    {
+                        "id_feature": "5",
+                        "id_product": "1670",
+                        "id_feature_value": "23"
+                    },
+                    {
+                        "id_feature": "6",
+                        "id_product": "1670",
+                        "id_feature_value": "25"
+                    },
+                    {
+                        "id_feature": "7",
+                        "id_product": "1670",
+                        "id_feature_value": "28"
+                    },
+                    {
+                        "id_feature": "8",
+                        "id_product": "1670",
+                        "id_feature_value": "32"
+                    },
+                    {
+                        "id_feature": "18",
+                        "id_product": "1670",
+                        "id_feature_value": "63"
+                    },
+                    {
+                        "id_feature": "23",
+                        "id_product": "1670",
+                        "id_feature_value": "80"
+                    }
+                ],
+                "attributes": "Color : Grey- Sizes : S M L XL XXL",
+                "attributes_small": "Grey- S M L XL XXL",
+                "rate": 0,
+                "tax_name": "",
+                "image_url": "https://www.grooget.com/6194-small_default/pyjama.jpg",
+                "attributes_array": {
+                    "Color": "Grey",
+                    "Sizes": "S M L XL XXL"
+                },
+                "formatted_price": "$11.00",
+                "formatted_total": "$550.00",
+                "formatted_price_amount": "$11.00",
+                "formatted_price_tax_exc": "$11.00",
+                "formatted_regular_price": "$11.00",
+                "formatted_discount_to_display": null,
+                "formatted_discount_amount_to_display": null,
+                "formatted_discount_type": null,
+                "formatted_discount_percentage": null
+            }
+        ],
         "totals": {
             "total": {
                 "type": "total",
                 "label": "Total",
-                "amount": 0,
-                "value": "$0.00"
+                "amount": 550,
+                "value": "$550.00"
             },
             "total_including_tax": {
                 "type": "total",
                 "label": "Total (tax incl.)",
-                "amount": 0,
-                "value": "$0.00"
+                "amount": 550,
+                "value": "$550.00"
             },
             "total_excluding_tax": {
                 "type": "total",
                 "label": "Total (tax excl.)",
-                "amount": 0,
-                "value": "$0.00"
+                "amount": 550,
+                "value": "$550.00"
             }
         },
         "subtotals": {
             "products": {
                 "type": "products",
                 "label": "Subtotal",
-                "amount": 0,
-                "value": "$0.00"
+                "amount": 550,
+                "value": "$550.00"
             },
             "discounts": null,
             "shipping": {
                 "type": "shipping",
                 "label": "Shipping",
                 "amount": 0,
-                "value": ""
+                "value": "Free"
             },
             "tax": {
                 "type": "tax",
@@ -45,14 +171,14 @@
                 "value": "$0.00"
             }
         },
-        "products_count": 0,
-        "summary_string": "0 items",
+        "products_count": 50,
+        "summary_string": "50 items",
         "labels": {
             "tax_short": "(tax excl.)",
             "tax_long": "(tax excluded)"
         },
-        "id_address_delivery": 0,
-        "id_address_invoice": 0,
+        "id_address_delivery": "0",
+        "id_address_invoice": "0",
         "is_virtual": false,
         "vouchers": {
             "allowed": 0,

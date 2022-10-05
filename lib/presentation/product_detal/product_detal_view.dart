@@ -1,16 +1,15 @@
-import 'dart:developer';
-
-import 'package:dartz/dartz_unsafe.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/app/constant.dart';
-import 'package:mvvm_first_c/domain/models/product.dart';
-import 'package:mvvm_first_c/presentation/resources/color_manager.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
+import '../../app/app_preferences.dart';
+import '../../app/constant.dart';
+import '../../app/di.dart';
+import '../../domain/models/product.dart';
+import '../../presentation/resources/color_manager.dart';
+import '../../presentation/resources/strings_manager.dart';
 import '../../presentation/resources/values_manager.dart';
 import '../resources/routes_manager.dart';
 import '../widgets/image_slider.dart';
 import '../widgets/quick_add_widget.dart';
+import 'product_detal_viewmodel.dart';
 
 class ProductDetailView extends StatefulWidget {
   const ProductDetailView({Key? key}) : super(key: key);
@@ -20,141 +19,182 @@ class ProductDetailView extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetailView> {
+  ProductDetailViewModel _viewModel = instance<ProductDetailViewModel>();
+  AppPreferences _appPreferences = instance<AppPreferences>();
+  @override
+  void initState() {
+    _bind();
+    super.initState();
+  }
+
+  _bind() {
+    _viewModel.start();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final product =
-        ModalRoute.of(context)!.settings.arguments as ProductRouteArguments;
-    // for (List<String> categoryTree in Constants.categoryTree) {
-    //   if (categoryTree.contains(product.product.psdata!.category_name)) {
-    //     categoryList = categoryTree;
-
-    //     break;
-    //   }
-    // }
-
+    final productId = ModalRoute.of(context)!.settings.arguments as IdArguments;
+    _viewModel.getProduct(productId.id);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(color: Colors.grey[300]),
         child: SingleChildScrollView(
           child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SizedBox(
-                  height: AppPadding.p30,
-                ),
-                Container(
-                  width: AppSize.s400,
-                  padding: const EdgeInsets.only(bottom: AppPadding.p8),
-                  color: ColorManager.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.only(left: AppPadding.p8),
-                          child:
-                              Text(product.product.psdata!.description_short)),
-                      ProductImages(
-                        images: product.product.psdata!.images,
-                      ),
-                      const SizedBox(
-                        height: AppPadding.p20,
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.only(left: AppPadding.p8),
-                          child: Text(product.product.psdata!.name,
-                              style: Theme.of(context).textTheme.headline1)),
-                      const SizedBox(
-                        height: AppPadding.p8,
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.only(left: AppPadding.p8),
-                          child:
-                              Text(product.product.psdata!.description_short)),
-                      const SizedBox(
-                        height: AppPadding.p8,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                addToWishList();
-                              },
-                              child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: AppPadding.p8),
-                                  child: Text(AppStrings.addToWishList,
+            child: StreamBuilder<ProductInformation>(
+                stream: _viewModel.outputProduct,
+                builder: (context, snapshot) {
+                  return snapshot.data == null
+                      ? Text('loading............')
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const SizedBox(
+                              height: AppPadding.p30,
+                            ),
+                            Container(
+                              width: AppSize.s400,
+                              padding:
+                                  const EdgeInsets.only(bottom: AppPadding.p8),
+                              color: ColorManager.white,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _getDescriptionShort(snapshot.data!.psdata!),
+                                  ProductImages(
+                                    images: snapshot.data!.psdata!.images,
+                                  ),
+                                  const SizedBox(
+                                    height: AppPadding.p20,
+                                  ),
+                                  _getProductName(snapshot.data!.psdata!),
+                                  const SizedBox(
+                                    height: AppPadding.p8,
+                                  ),
+                                  _getDescription(snapshot.data!.psdata!),
+                                  const SizedBox(
+                                    height: AppPadding.p8,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      GestureDetector(
+                                          onTap: () {
+                                            addToWishList();
+                                          },
+                                          child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: AppPadding.p8),
+                                              child: Text(
+                                                  AppStrings.addToWishList,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline2))),
+                                      Row(
+                                        children: [
+                                          Text("${AppStrings.availability} :",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3),
+                                          const SizedBox(
+                                            width: AppPadding.p8,
+                                          ),
+                                          Checkbox(
+                                            activeColor:
+                                                ColorManager.primaryOpacity70,
+                                            value: snapshot
+                                                    .data!.psdata!.quantity >
+                                                0,
+                                            onChanged: (value) {},
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  CartQuickAdd(
+                                      snapshot.data!.psdata!.combinations,
+                                      snapshot.data!.psdata!.options,
+                                      snapshot.data!.psdata!.images),
+                                  const SizedBox(
+                                    height: AppSize.s16,
+                                  ),
+                                  Text(
+                                    AppStrings.category,
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  ),
+                                  const SizedBox(
+                                    height: AppSize.s8,
+                                  ),
+                                  Wrap(
+                                      spacing: AppPadding.p12,
+                                      runSpacing: AppPadding.p8,
+                                      children: getCategories(snapshot
+                                              .data!.psdata!.category_name)
+                                          .map((category) => Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: AppPadding.p8),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    goToCategory();
+                                                  },
+                                                  child: Text(
+                                                    category,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline2,
+                                                  ),
+                                                ),
+                                              ))
+                                          .toList())
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: AppPadding.p2,
+                            ),
+                            Container(
+                              width: AppSize.s400,
+                              padding:
+                                  const EdgeInsets.only(bottom: AppPadding.p8),
+                              color: ColorManager.white,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  const SizedBox(
+                                    height: AppPadding.p8,
+                                  ),
+                                  Text(AppStrings.productDetails,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline2))),
-                          Row(
-                            children: [
-                              Text("${AppStrings.availability} :",
-                                  style: Theme.of(context).textTheme.headline3),
-                              const SizedBox(
-                                width: AppPadding.p8,
+                                          .headline3),
+                                  const SizedBox(
+                                    height: AppSize.s4,
+                                  ),
+                                  _getProductInformation(
+                                      snapshot.data!.psdata!),
+                                ],
                               ),
-                              Checkbox(
-                                activeColor: ColorManager.primaryOpacity70,
-                                value: product.product.psdata!.quantity > 0,
-                                onChanged: (value) {},
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      QuickAddBoard(product.product.psdata!.combinations,
-                          product.product.psdata!.options),
-                      Wrap(
-                          spacing: AppPadding.p12,
-                          runSpacing: AppPadding.p8,
-                          children: getCategories(
-                                  product.product.psdata!.category_name)
-                              .map((category) => Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: AppPadding.p8),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        goToCategory();
-                                      },
-                                      child: Text(
-                                        category,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2,
-                                      ),
-                                    ),
-                                  ))
-                              .toList())
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: AppPadding.p2,
-                ),
-                Container(
-                  width: AppSize.s400,
-                  padding: const EdgeInsets.only(bottom: AppPadding.p8),
-                  color: ColorManager.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(AppStrings.productDetails,
-                          style: Theme.of(context).textTheme.headline3),
-                      const SizedBox(
-                        height: AppPadding.p2,
-                      ),
-                      Text(product.product.psdata?.quantity.toString() ?? " "),
-                      Text(product.product.psdata?.float_price.toString() ??
-                          " "),
-                      Text(product.product.psdata?.minimal_quantity ?? " "),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+                            ),
+                            const SizedBox(
+                              height: AppPadding.p2,
+                            ),
+                            Container(
+                              width: AppSize.s400,
+                              padding:
+                                  const EdgeInsets.only(bottom: AppPadding.p8),
+                              color: ColorManager.white,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  _getImageList(snapshot.data!.psdata!),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                }),
           ),
         ),
       ),
@@ -175,4 +215,67 @@ class _ProductDetailState extends State<ProductDetailView> {
   void addToWishList() {}
 
   void goToCategory() {}
+
+  Widget _getProductName(Product product) {
+    return Padding(
+        padding: const EdgeInsets.only(left: AppPadding.p8),
+        child:
+            Text(product.name, style: Theme.of(context).textTheme.headline1));
+  }
+
+  Widget _getDescription(Product product) {
+    return Padding(
+        padding: const EdgeInsets.only(left: AppPadding.p8),
+        child: Text(product.description));
+  }
+
+  Widget _getDescriptionShort(Product product) {
+    return Padding(
+        padding: const EdgeInsets.only(left: AppPadding.p8),
+        child: Text(product.description_short));
+  }
+
+  Widget _getProductInformation(Product product) {
+    return Row(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: product.product_info
+              .map((info) => Container(
+                  padding: const EdgeInsets.all(AppPadding.p8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(info!.name),
+                    ],
+                  )))
+              .toList(),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: product.product_info
+              .map((info) => Container(
+                  padding: const EdgeInsets.all(AppPadding.p8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(info!.value),
+                    ],
+                  )))
+              .toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _getImageList(Product product) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: product.images
+          .map((info) => Container(
+              padding: const EdgeInsets.all(AppPadding.p8),
+              child: Image.network(info!.src)))
+          .toList(),
+    );
+  }
 }

@@ -10,8 +10,8 @@ class ProductSearchUseCase extends BaseUseCase<String, ProductSearchList> {
   ProductSearchUseCase(this._repository);
   @override
   Future<Either<Failure, ProductSearchList>> execute(String s,
-      {String resultsPerPage = "10"}) async {
-    return await _repository.getProductSearchList(s, resultsPerPage: "10");
+      {String resultsPerPage = "5"}) async {
+    return await _repository.getProductSearchList(s, resultsPerPage: "5");
   }
 }
 
@@ -31,7 +31,7 @@ class CategoryUseCase extends BaseUseCase<String, CategoryList> {
   Future<Either<Failure, CategoryList>> execute(String productId,
       {int page = 0,
       int resultsPerPage = 1,
-      bool with_category_tree = false}) async {
+      int with_category_tree = 0}) async {
     return await _repository.getCategoryList(productId,
         page: page,
         resultsPerPage: resultsPerPage,

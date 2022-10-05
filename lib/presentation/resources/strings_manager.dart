@@ -54,5 +54,10 @@ class AppStrings {
   static const String color = 'Color';
   static const String sizes = 'Sizes';
   static const String minQty = 'Min Qty';
+  static const String price = 'Price';
+  static const String cart = 'Cart';
   static const String packQuantity = 'Pack Quantity';
+  static const String opportunityProducts = 'Opportunity Products';
+  static const String bestSellingProducts = 'Best Selling Products';
+  static const String product = 'Products';
 }

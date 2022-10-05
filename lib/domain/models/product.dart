@@ -138,7 +138,7 @@ class CategoryProductItem {
   String id_product;
   String price;
   String name;
-  CategoryImage? cover;
+  CategoryImageSource? cover;
   String description;
   String description_short;
   String category_name;
@@ -192,13 +192,12 @@ class Property {
 class Filters {
   String label;
   String type;
-  int active;
-  int displayed;
+  bool active;
+  bool displayed;
   int magnitude;
   dynamic value;
-  Property? properties;
   Filters(this.label, this.type, this.active, this.displayed, this.magnitude,
-      this.value, this.properties);
+      this.value);
 }
 
 class Facets {

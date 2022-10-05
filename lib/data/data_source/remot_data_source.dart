@@ -1,6 +1,7 @@
 import '../../data/network/app_api.dart';
 import '../../data/request/request.dart';
 import '../../data/responses/responses.dart';
+import '../../domain/models/cart.dart';
 
 abstract class RemotDataSource {
   Future<AuthenticationRespons> login(LoginRequest loginRequest);
@@ -13,7 +14,16 @@ abstract class RemotDataSource {
       {String resultsPerPage = "10"});
 
   Future<CategoryListResponse> getCategoryList(String productId,
-      {int page = 0, int resultsPerPage = 1, bool with_category_tree = false});
+      {int page = 0, int resultsPerPage = 1, int with_category_tree = 0});
+
+  Future<UserCartResponse> updatCart({
+    String? update,
+    int? id_product,
+    int? id_product_attribute,
+    String? op,
+    String? action,
+    int? qty,
+  });
 }
 
 class RemotDataSourceImpilenter implements RemotDataSource {
@@ -64,10 +74,29 @@ class RemotDataSourceImpilenter implements RemotDataSource {
   Future<CategoryListResponse> getCategoryList(String productId,
       {int page = 0,
       int resultsPerPage = 1,
-      bool with_category_tree = false}) async {
+      int with_category_tree = 0}) async {
     return await _appServiceClient.getCategories(productId,
         page: page,
         resultsPerPage: resultsPerPage,
         with_category_tree: with_category_tree);
+  }
+
+  @override
+  Future<UserCartResponse> updatCart({
+    String? update,
+    int? id_product,
+    int? id_product_attribute,
+    String? op,
+    String? action,
+    int? qty,
+  }) async {
+    return await _appServiceClient.updateCart(
+      update: update,
+      id_product: id_product,
+      id_product_attribute: id_product_attribute,
+      op: op,
+      action: action,
+      qty: qty,
+    );
   }
 }

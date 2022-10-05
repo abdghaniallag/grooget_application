@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
-
+import '../../data/mapper/cart_mapper.dart';
+import '../../domain/models/cart.dart';
 import '../../domain/models/product.dart';
 import '../../domain/models/user.dart';
 import '../../domain/repository.dart';
@@ -199,7 +200,7 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, CategoryList>> getCategoryList(String productId,
       {int page = 0,
       int resultsPerPage = 1,
-      bool with_category_tree = false}) async {
+      int with_category_tree = 0}) async {
     {
       if (await _networkInfo.isConnected) {
         try {
@@ -208,6 +209,45 @@ class RepositoryImpl extends Repository {
               page: page,
               resultsPerPage: resultsPerPage,
               with_category_tree: with_category_tree);
+
+          if (response.success == ApiInternalStatus.SUCCESS) // success
+          {
+            // return data (success)
+            // return right
+            // save data to cache
+            // _localDataSource.saveHomeData(response);
+            return Right(response.toDomain());
+          } else {
+            // return biz logic error
+            // return left
+            return Left(Failure(response.code ?? ApiInternalStatus.FAILURE,
+                ResponseMessage.DEFAULT));
+          }
+        } catch (error) {
+          return (Left(ErrorHandler.handle(error).failure));
+        }
+      } else {
+        // return connection error
+        return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserCart>> updatCart(
+      UpdateCartRequest updateCartRequest) async {
+    {
+      if (await _networkInfo.isConnected) {
+        try {
+          // its safe to call the API
+          final response = await _remoteDataSource.updatCart(
+            update: updateCartRequest.update,
+            id_product: updateCartRequest.id_product,
+            id_product_attribute: updateCartRequest.id_product_attribute,
+            op: updateCartRequest.op,
+            action: updateCartRequest.action,
+            qty: updateCartRequest.qty,
+          );
 
           if (response.success == ApiInternalStatus.SUCCESS) // success
           {

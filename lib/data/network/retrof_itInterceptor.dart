@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import '../../app/functions.dart';
 import '../../app/app_preferences.dart';
@@ -14,8 +16,13 @@ class ReceivedCookiesInterceptor implements Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
+    String language = await _appPreferences.getAppLangague();
+    String test =
+        options.baseUrl.replaceAll(RegExp('/rest\$'), '/$language/rest');
+    log(test);
+    options.baseUrl = test;
     String cookie = await _appPreferences.getToken();
-    if (cookie != "") {
+    if (cookie.isNotEmpty) {
       options.headers.remove("Cookie");
       options.headers.addAll({"Cookie": "PrestaShop$cookie"});
     }
@@ -24,12 +31,11 @@ class ReceivedCookiesInterceptor implements Interceptor {
 
   @override
   onResponse(Response response, ResponseInterceptorHandler handler) async {
-    if (response.headers.value("set-cookie") != null) {
+    log(name: 'message', response.data.toString());
+    if (response.headers["set-cookie"] != null) {
       await _appPreferences
           .setToken(getCookie(response.headers["set-cookie"].toString()));
-      String token = await _appPreferences.getToken();
     }
-
     return handler.next(response);
   }
 }

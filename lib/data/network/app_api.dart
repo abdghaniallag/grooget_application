@@ -25,12 +25,22 @@ abstract class AppServiceClient {
     @Query("product_id") String productId,
   );
 
+  @GET('/cart')
+  Future<UserCartResponse> updateCart({
+    @Query("update") String? update,
+    @Query("id_product") int? id_product,
+    @Query("id_product_attribute") int? id_product_attribute,
+    @Query("op") String? op,
+    @Query("action") String? action,
+    @Query("qty") int? qty,
+  });
+
   @GET('/categoryProducts')
   Future<CategoryListResponse> getCategories(
     @Query("id_category") String productId, {
     @Query("page") int page = 0,
     @Query("resultsPerPage") int resultsPerPage = 1,
-    @Query("with_category_tree") bool with_category_tree = false,
+    @Query("with_category_tree") int with_category_tree = 0,
   });
 
   @POST('/costumers/register')

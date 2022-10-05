@@ -548,14 +548,10 @@ FiltersResponse _$FiltersResponseFromJson(Map<String, dynamic> json) =>
     FiltersResponse(
       json['label'] as String?,
       json['type'] as String?,
-      json['active'] as int?,
-      json['displayed'] as int?,
+      json['active'] as bool?,
+      json['displayed'] as bool?,
       json['magnitude'] as int?,
       json['value'],
-      json['properties'] == null
-          ? null
-          : PropertyResponse.fromJson(
-              json['properties'] as Map<String, dynamic>),
     )
       ..success = json['success'] as bool?
       ..code = json['code'] as int?;
@@ -570,7 +566,6 @@ Map<String, dynamic> _$FiltersResponseToJson(FiltersResponse instance) =>
       'displayed': instance.displayed,
       'magnitude': instance.magnitude,
       'value': instance.value,
-      'properties': instance.properties,
     };
 
 FacetsResponse _$FacetsResponseFromJson(Map<String, dynamic> json) =>
@@ -609,7 +604,7 @@ CategoryProductItemResponse _$CategoryProductItemResponseFromJson(
       json['name'] as String?,
       json['cover'] == null
           ? null
-          : CategoryImageResponse.fromJson(
+          : CategoryImageSourceResponse.fromJson(
               json['cover'] as Map<String, dynamic>),
       json['description'] as String?,
       json['description_short'] as String?,
@@ -694,4 +689,213 @@ Map<String, dynamic> _$CategoryListResponseToJson(
       'success': instance.success,
       'code': instance.code,
       'psdata': instance.psdata,
+    };
+
+TotalResponse _$TotalResponseFromJson(Map<String, dynamic> json) =>
+    TotalResponse(
+      json['type'] as String?,
+      json['label'] as String?,
+      json['amount'] as int?,
+      json['value'] as String?,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$TotalResponseToJson(TotalResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'type': instance.type,
+      'label': instance.label,
+      'amount': instance.amount,
+      'value': instance.value,
+    };
+
+TotalsResponse _$TotalsResponseFromJson(Map<String, dynamic> json) =>
+    TotalsResponse(
+      json['total'] == null
+          ? null
+          : TotalResponse.fromJson(json['total'] as Map<String, dynamic>),
+      json['total_including_tax'] == null
+          ? null
+          : TotalResponse.fromJson(
+              json['total_including_tax'] as Map<String, dynamic>),
+      json['total_excluding_tax'] == null
+          ? null
+          : TotalResponse.fromJson(
+              json['total_excluding_tax'] as Map<String, dynamic>),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$TotalsResponseToJson(TotalsResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'total': instance.total,
+      'total_including_tax': instance.total_including_tax,
+      'total_excluding_tax': instance.total_excluding_tax,
+    };
+
+SubtotalsResponse _$SubtotalsResponseFromJson(Map<String, dynamic> json) =>
+    SubtotalsResponse(
+      json['products'] == null
+          ? null
+          : TotalResponse.fromJson(json['products'] as Map<String, dynamic>),
+      json['shipping'] == null
+          ? null
+          : TotalResponse.fromJson(json['shipping'] as Map<String, dynamic>),
+      json['tax'] == null
+          ? null
+          : TotalResponse.fromJson(json['tax'] as Map<String, dynamic>),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$SubtotalsResponseToJson(SubtotalsResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'products': instance.products,
+      'shipping': instance.shipping,
+      'tax': instance.tax,
+    };
+
+LabelsResponse _$LabelsResponseFromJson(Map<String, dynamic> json) =>
+    LabelsResponse(
+      json['tax_short'] as String?,
+      json['tax_long'] as String?,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$LabelsResponseToJson(LabelsResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'tax_short': instance.tax_short,
+      'tax_long': instance.tax_long,
+    };
+
+VouchersResponse _$VouchersResponseFromJson(Map<String, dynamic> json) =>
+    VouchersResponse(
+      json['allowed'] as String?,
+      json['tax_long'] as List<dynamic>?,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$VouchersResponseToJson(VouchersResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'allowed': instance.allowed,
+      'tax_long': instance.added,
+    };
+
+ProductCartResponse _$ProductCartResponseFromJson(Map<String, dynamic> json) =>
+    ProductCartResponse(
+      json['id_product_attribute'] as String?,
+      json['id_product'] as String?,
+      json['cart_quantity'] as String?,
+      json['id_shop'] as String?,
+      json['name'] as String?,
+      json['description_short'] as String?,
+      json['id_category_default'] as String?,
+      (json['price'] as num?)?.toDouble(),
+      json['date_add'] as String?,
+      json['date_upd'] as String?,
+      json['quantity'] as int?,
+      json['total'] as int?,
+      json['total_wt'] as int?,
+      json['price_wt'] as int?,
+      json['attributes_small'] as String?,
+      json['price_with_reduction_without_tax'] as int?,
+      json['image_url'] as String?,
+      json['reference'] as String?,
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$ProductCartResponseToJson(
+        ProductCartResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'id_product_attribute': instance.id_product_attribute,
+      'id_product': instance.id_product,
+      'cart_quantity': instance.cart_quantity,
+      'id_shop': instance.id_shop,
+      'name': instance.name,
+      'description_short': instance.description_short,
+      'id_category_default': instance.id_category_default,
+      'price': instance.price,
+      'date_add': instance.date_add,
+      'date_upd': instance.date_upd,
+      'quantity': instance.quantity,
+      'total': instance.total,
+      'total_wt': instance.total_wt,
+      'price_wt': instance.price_wt,
+      'attributes_small': instance.attributes_small,
+      'price_with_reduction_without_tax':
+          instance.price_with_reduction_without_tax,
+      'image_url': instance.image_url,
+      'reference': instance.reference,
+    };
+
+CartResponse _$CartResponseFromJson(Map<String, dynamic> json) => CartResponse(
+      json['totals'] == null
+          ? null
+          : TotalsResponse.fromJson(json['totals'] as Map<String, dynamic>),
+      json['subtotals'] == null
+          ? null
+          : TotalsResponse.fromJson(json['subtotals'] as Map<String, dynamic>),
+      json['products_count'] as int?,
+      json['labels'] == null
+          ? null
+          : LabelsResponse.fromJson(json['labels'] as Map<String, dynamic>),
+      json['vouchers'] == null
+          ? null
+          : VouchersResponse.fromJson(json['vouchers'] as Map<String, dynamic>),
+      products: (json['products'] as List<dynamic>?)
+          ?.map((e) => e == null
+              ? null
+              : ProductCartResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      errors:
+          (json['errors'] as List<dynamic>?)?.map((e) => e as String?).toList(),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$CartResponseToJson(CartResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'totals': instance.totals,
+      'subtotals': instance.subtotals,
+      'products_count': instance.products_count,
+      'labels': instance.labels,
+      'vouchers': instance.vouchers,
+      'products': instance.products,
+      'errors': instance.errors,
+    };
+
+UserCartResponse _$UserCartResponseFromJson(Map<String, dynamic> json) =>
+    UserCartResponse(
+      json['psdata'] == null
+          ? null
+          : CartResponse.fromJson(json['psdata'] as Map<String, dynamic>),
+      errors:
+          (json['errors'] as List<dynamic>?)?.map((e) => e as String?).toList(),
+    )
+      ..success = json['success'] as bool?
+      ..code = json['code'] as int?;
+
+Map<String, dynamic> _$UserCartResponseToJson(UserCartResponse instance) =>
+    <String, dynamic>{
+      'success': instance.success,
+      'code': instance.code,
+      'psdata': instance.psdata,
+      'errors': instance.errors,
     };

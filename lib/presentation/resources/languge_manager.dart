@@ -8,7 +8,7 @@ extension LanguageTypeExtention on LanguageType {
   String getValue() {
     switch (this) {
       case LanguageType.ENGLISH:
-        return ARABIC;
+        return ENGLISH;
       case LanguageType.ARABIC:
         return ARABIC;
       case LanguageType.TURKY:

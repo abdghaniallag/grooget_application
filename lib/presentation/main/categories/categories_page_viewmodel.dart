@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import '../../../app/constant.dart';
 import '../../../domain/usecase/product_search_usecase.dart';
 import '../../base/base.dart';
 import '../../../domain/models/product.dart';
@@ -19,7 +18,6 @@ class CategoriesPageViewModel extends BaseViewModel
 
   CategoriesPageViewModel(this._categoryUseCase);
 
-  // inputs
   @override
   void start() {
     _getHome();
@@ -48,10 +46,11 @@ class CategoriesPageViewModel extends BaseViewModel
       _productStreamController.stream.map((product) => product);
 
   @override
-  getProducts() async {
-    for (var i = 0; i < 11; i++) {
-      (await _categoryUseCase.execute("2", resultsPerPage: 1, page: i)).fold(
-          (failure) {
+  getProducts(String categoryId, {resultsPerPage = 1, int page = 0}) async {
+    {
+      (await _categoryUseCase.execute(categoryId,
+              resultsPerPage: resultsPerPage, page: page))
+          .fold((failure) {
         inputState.add(
             ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
       }, (category) {
@@ -77,7 +76,7 @@ class CategoriesPageViewModel extends BaseViewModel
 }
 
 abstract class CategoriesPageModelInputs {
-  getProducts();
+  getProducts(String categoryId, {int page = 0});
   openProductDetail(BuildContext context, String id);
   openCategoryDetail(BuildContext context, String id);
   Sink get inputCategory;

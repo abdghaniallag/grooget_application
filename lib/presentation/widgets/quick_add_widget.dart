@@ -30,13 +30,13 @@ class _CartQuickAddState extends State<CartQuickAdd> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         getImageRow(),
-        const SizedBox(width: AppSize.s8),
+        const SizedBox(width: AppSize.s1_5),
         getColorRow(),
-        const SizedBox(width: AppSize.s8),
+        const SizedBox(width: AppSize.s4),
         getSizesRow(),
-        const SizedBox(width: AppSize.s8),
+        const SizedBox(width: AppSize.s1_5),
         getMinQuantityRow(context),
-        const SizedBox(width: AppSize.s8),
+        const SizedBox(width: AppSize.s4),
         getPriceRow(context),
         const SizedBox(width: AppSize.s1_5),
         getPackQuantityRow(context),
@@ -100,7 +100,7 @@ class _CartQuickAddState extends State<CartQuickAdd> {
               height: 70,
               child: Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(vertical: 10),
+                margin: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(item!.value, textAlign: TextAlign.justify),
               ),
             ))
@@ -163,7 +163,7 @@ class _CartQuickAddState extends State<CartQuickAdd> {
 
   Column getPackQuantityRow(BuildContext context) {
     List<SizedBox> packQuantityRow = [
-      SizedBox(child: const Text(AppStrings.packQuantity))
+      const SizedBox(child: Text(AppStrings.packQuantity)),
     ];
     packQuantityRow.addAll((widget.combinationsItems
         .map((combinationsItem) => SizedBox(

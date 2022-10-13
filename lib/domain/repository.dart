@@ -16,7 +16,11 @@ abstract class Repository {
   Future<Either<Failure, ProductSearchList>> getProductSearchList(String s,
       {String resultsPerPage = "10"});
   Future<Either<Failure, CategoryList>> getCategoryList(String productId,
-      {int page = 0, int resultsPerPage = 1, int with_category_tree = 0});
+      {int page = 0,
+      int resultsPerPage = 1,
+      String order = "product.sales.desc",
+      String q = "",
+      int with_category_tree = 0});
 
   Future<Either<Failure, UserCart>> updatCart(
       UpdateCartRequest updateCartRequest);

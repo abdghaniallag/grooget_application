@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
 import '../../../app/constant.dart';
 import '../../../domain/models/product.dart';
 import '../../main/home/home_page_viewmodel.dart';
@@ -9,7 +10,6 @@ import '../../../app/di.dart';
 import '../../resources/values_manager.dart';
 import '../../widgets/category_widget.dart';
 import '../../widgets/product_widget.dart';
-import '../../resources/routes_manager.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
         _getSection(AppStrings.category),
         _getTopCategories(),
         _getSection(''),
+        _getSocialMediaButtomBar(),
       ],
     );
   }
@@ -180,6 +181,37 @@ class _HomePageState extends State<HomePage> {
                 width: AppSize.s20,
               ),
           itemCount: Constants.categoryImages.keys.length),
+    );
+  }
+
+  _getSocialMediaButtomBar() {
+    return Row(
+      children: [
+        GFButton(
+          onPressed: () {},
+          icon: const Icon(Icons.facebook),
+          type: GFButtonType.solid,
+          fullWidthButton: true,
+        ),
+        GFButton(
+          onPressed: () {},
+          icon: const Icon(Icons.whatsapp),
+          type: GFButtonType.solid,
+          fullWidthButton: true,
+        ),
+        GFButton(
+          onPressed: () {},
+          icon: const Icon(Icons.mail),
+          type: GFButtonType.solid,
+          fullWidthButton: true,
+        ),
+        GFButton(
+          onPressed: () {},
+          icon: const Icon(Icons.youtube_searched_for),
+          type: GFButtonType.solid,
+          fullWidthButton: true,
+        ),
+      ],
     );
   }
 }

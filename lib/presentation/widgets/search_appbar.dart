@@ -17,6 +17,7 @@ class SearchAppBar {
           title: Container(
               padding: const EdgeInsets.all(AppPadding.p12),
               child: TextFormField(
+                decoration: InputDecoration(fillColor: ColorManager.white),
                 controller: controller,
               )));
 }

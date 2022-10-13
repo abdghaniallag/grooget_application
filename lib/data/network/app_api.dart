@@ -39,6 +39,8 @@ abstract class AppServiceClient {
   Future<CategoryListResponse> getCategories(
     @Query("id_category") String productId, {
     @Query("page") int page = 0,
+    @Query("order") String order = "product.sales.desc",
+    @Query("q") String q = "",
     @Query("resultsPerPage") int resultsPerPage = 1,
     @Query("with_category_tree") int with_category_tree = 0,
   });

@@ -155,7 +155,7 @@ class _ProductDetailState extends State<ProductDetailView> {
                               height: AppPadding.p2,
                             ),
                             Container(
-                              width: AppSize.s400,
+                              width: AppSize.s380,
                               padding:
                                   const EdgeInsets.only(bottom: AppPadding.p8),
                               color: ColorManager.white,
@@ -181,12 +181,11 @@ class _ProductDetailState extends State<ProductDetailView> {
                               height: AppPadding.p2,
                             ),
                             Container(
-                              width: AppSize.s400,
-                              padding:
-                                  const EdgeInsets.only(bottom: AppPadding.p8),
+                              width: AppSize.s380,
+                              padding: const EdgeInsets.all(AppPadding.p8),
                               color: ColorManager.white,
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   _getImageList(snapshot.data!.psdata!),
                                 ],

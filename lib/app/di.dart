@@ -24,6 +24,7 @@ import '../domain/usecase/login_usecase.dart';
 import '../domain/usecase/register_usecase.dart';
 import '../presentation/forgot_password/forgot_password_view_model.dart';
 import '../presentation/login/login_viewmodel.dart';
+import '../presentation/main/categories/categories_page_viewmodel.dart';
 import '../presentation/main/home/home_page_viewmodel.dart';
 import '../presentation/register/registerViewModel.dart';
 
@@ -96,9 +97,9 @@ initCategoryModule() {
   if (!GetIt.I.isRegistered<CategoryUseCase>()) {
     instance
         .registerFactory<CategoryUseCase>(() => CategoryUseCase(instance()));
-    // TODO
-    // instance.registerFactory<CategoryViewModel>(
-    //     () => CategoryViewModel( instance()));
+
+    instance.registerFactory<CategoriesPageViewModel>(
+        () => CategoriesPageViewModel(instance()));
   }
 }
 

@@ -60,4 +60,8 @@ class AppStrings {
   static const String opportunityProducts = 'Opportunity Products';
   static const String bestSellingProducts = 'Best Selling Products';
   static const String product = 'Products';
+  static const String sort = 'Sort';
+  static const String gender = 'Gender';
+  static const String size = 'Size';
+  static const String filter = 'Filter';
 }

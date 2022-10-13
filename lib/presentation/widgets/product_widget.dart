@@ -15,8 +15,8 @@ class ProductItemWidget extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.all(AppPadding.p4),
-        width: AppSize.s190,
-        height: AppSize.s300,
+        width: AppSize.s160,
+        height: AppSize.s280,
         child: Card(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

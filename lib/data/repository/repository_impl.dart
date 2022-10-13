@@ -200,6 +200,8 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, CategoryList>> getCategoryList(String productId,
       {int page = 0,
       int resultsPerPage = 1,
+      String order = "product.sales.desc",
+      String q = "",
       int with_category_tree = 0}) async {
     {
       if (await _networkInfo.isConnected) {

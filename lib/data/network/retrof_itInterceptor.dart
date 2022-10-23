@@ -19,7 +19,7 @@ class ReceivedCookiesInterceptor implements Interceptor {
     String language = await _appPreferences.getAppLangague();
     String test =
         options.baseUrl.replaceAll(RegExp('/rest\$'), '/$language/rest');
-    log(test);
+
     options.baseUrl = test;
     String cookie = await _appPreferences.getToken();
     if (cookie.isNotEmpty) {
@@ -31,7 +31,6 @@ class ReceivedCookiesInterceptor implements Interceptor {
 
   @override
   onResponse(Response response, ResponseInterceptorHandler handler) async {
-    log(name: 'message', response.data.toString());
     if (response.headers["set-cookie"] != null) {
       await _appPreferences
           .setToken(getCookie(response.headers["set-cookie"].toString()));

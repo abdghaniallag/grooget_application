@@ -779,7 +779,7 @@ Map<String, dynamic> _$LabelsResponseToJson(LabelsResponse instance) =>
 
 VouchersResponse _$VouchersResponseFromJson(Map<String, dynamic> json) =>
     VouchersResponse(
-      json['allowed'] as String?,
+      json['allowed'] as int?,
       json['tax_long'] as List<dynamic>?,
     )
       ..success = json['success'] as bool?

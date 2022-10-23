@@ -28,12 +28,8 @@ class RepositoryImpl extends Repository {
       try {
         final response = await _remoteDataSource.login(loginRequest);
         if (response.success == ApiInternalStatus.SUCCESS) {
-          log("return data ");
           return Right(response.toDomain());
         } else {
-          //return left logic biz error
-
-          log("AuthenticationRespons " + response.toString());
           return Left(Failure(response.code ?? ApiInternalStatus.FAILURE,
               ResponseMessage.DEFAULT));
         }
@@ -82,12 +78,10 @@ class RepositoryImpl extends Repository {
         if (response.success == ApiInternalStatus.SUCCESS) {
           // return data
 
-          log("return data ");
           return Right(response.toDomain());
         } else {
           //return left logic biz error
 
-          log("return left logic biz error");
           return Left(Failure(response.code ?? ApiInternalStatus.FAILURE,
               ResponseMessage.DEFAULT));
         }
@@ -249,6 +243,7 @@ class RepositoryImpl extends Repository {
             op: updateCartRequest.op,
             action: updateCartRequest.action,
             qty: updateCartRequest.qty,
+            delete: updateCartRequest.delete,
           );
 
           if (response.success == ApiInternalStatus.SUCCESS) // success

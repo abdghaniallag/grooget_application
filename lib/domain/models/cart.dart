@@ -27,7 +27,7 @@ class Labels {
 }
 
 class Vouchers {
-  String allowed;
+  int allowed;
   List<dynamic>? added;
   Vouchers(this.allowed, this.added);
 }

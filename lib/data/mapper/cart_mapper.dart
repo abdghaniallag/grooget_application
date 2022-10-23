@@ -41,7 +41,7 @@ extension VouchersMapper on VouchersResponse? {
             .cast<String>()
             .toList();
     return Vouchers(
-      this?.allowed?.orEmpty() ?? EMPTY,
+      this?.allowed?.orEmpty() ?? ZERO,
       mappedAdded,
     );
   }

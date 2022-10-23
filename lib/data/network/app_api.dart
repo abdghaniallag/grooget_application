@@ -33,6 +33,7 @@ abstract class AppServiceClient {
     @Query("op") String? op,
     @Query("action") String? action,
     @Query("qty") int? qty,
+    @Query("delete") int? delete,
   });
 
   @GET('/categoryProducts')

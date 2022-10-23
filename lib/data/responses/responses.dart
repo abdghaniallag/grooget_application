@@ -661,7 +661,7 @@ class LabelsResponse extends BaseResponse {
 @JsonSerializable()
 class VouchersResponse extends BaseResponse {
   @JsonKey(name: "allowed")
-  String? allowed;
+  int? allowed;
   @JsonKey(name: "tax_long")
   List<dynamic>? added;
   VouchersResponse(this.allowed, this.added);

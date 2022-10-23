@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/domain/models/product.dart';
+import '../../domain/models/product.dart';
 import '../../presentation/product_detal/product_detal_view.dart';
 import '../../presentation/product/product_view.dart';
 import '../../app/di.dart';

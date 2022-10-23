@@ -32,6 +32,8 @@ class AppStrings {
   static const String invalidEmail = "Invalid email";
   static const String invalidpassword = "Invalid password";
   static const String invalidUserName = "Invalid user name";
+  static const String firstName = 'First Name';
+  static const String lastName = 'Last Name';
   static const String name = 'Name';
   static const String home = 'Home';
   static const String services = 'Service';
@@ -53,15 +55,25 @@ class AppStrings {
   static const String image = 'Image';
   static const String color = 'Color';
   static const String sizes = 'Sizes';
+  static const String qty = 'Qty';
   static const String minQty = 'Min Qty';
   static const String price = 'Price';
   static const String cart = 'Cart';
+  static const String mr = 'Mr';
+  static const String mrs = 'Mrs';
   static const String packQuantity = 'Pack Quantity';
   static const String opportunityProducts = 'Opportunity Products';
   static const String bestSellingProducts = 'Best Selling Products';
+  static const String best = 'Best';
   static const String product = 'Products';
   static const String sort = 'Sort';
   static const String gender = 'Gender';
   static const String size = 'Size';
   static const String filter = 'Filter';
+  static const String relevance = 'Relevance';
+  static const String remove = 'Remove';
+  static const String account = 'Account';
+  static const String edit = 'Edit';
+  static const String signout = 'Sign out';
+  static const String socialTitle = 'Social title';
 }

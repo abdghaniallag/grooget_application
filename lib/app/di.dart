@@ -2,14 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:mvvm_first_c/domain/models/product.dart';
-import 'package:mvvm_first_c/presentation/category/category_view.dart';
-import 'package:mvvm_first_c/presentation/product_detal/product_detal_viewmodel.dart';
+import '../../presentation/main/cart/cart_page_viewmodel.dart';
+import '../../presentation/product_detal/product_detal_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../domain/usecase/cart_usecase.dart';
 import '../domain/usecase/product_search_usecase.dart';
-import '../../presentation/product/product_viewmodel.dart';
 import '../app/app_preferences.dart';
 import '../data/data_source/local_data_source.dart';
 import '../data/data_source/remot_data_source.dart';
@@ -85,6 +82,7 @@ initForgotPasswordModule() {
 initHomeModule() async {
   await initCategoryModule();
   await initProductModule();
+  await initCartModule();
   if (!GetIt.I.isRegistered<HomeUseCase>()) {
     instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
 
@@ -107,9 +105,9 @@ initCartModule() {
   initProductModule();
   if (!GetIt.I.isRegistered<CartUseCase>()) {
     instance.registerFactory<CartUseCase>(() => CartUseCase(instance()));
-    // TODO Cardviewmodel
-    // instance.registerFactory<HomePageViewModel>(
-    //     () => HomePageViewModel(instance()));
+
+    instance.registerFactory<CartPageViewModel>(
+        () => CartPageViewModel(instance()));
   }
 }
 

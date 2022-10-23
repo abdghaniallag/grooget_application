@@ -91,8 +91,7 @@ class _LoginViewState extends State<LoginView> {
                       stream: _viewModel.outputIsUserUserNameValid,
                       builder: (context, snapshut) {
                         return TextFormField(
-                          onTap: (() =>
-                              _userNameController.text = "sam@binshops.com"),
+                          onTap: (() => _userNameController.text = "s@bs.com"),
                           keyboardType: TextInputType.emailAddress,
                           controller: _userNameController,
                           decoration: InputDecoration(
@@ -113,7 +112,7 @@ class _LoginViewState extends State<LoginView> {
                       stream: _viewModel.outputIsPasswordValid,
                       builder: (context, snapshut) {
                         return TextFormField(
-                          onTap: (() => _passwordController.text = "123456789"),
+                          onTap: (() => _passwordController.text = "0000sb"),
                           keyboardType: TextInputType.visiblePassword,
                           controller: _passwordController,
                           decoration: InputDecoration(

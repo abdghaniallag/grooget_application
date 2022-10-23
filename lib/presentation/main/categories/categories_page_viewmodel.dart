@@ -26,6 +26,7 @@ class CategoriesPageViewModel extends BaseViewModel
   _getHome() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    getProducts("10");
   }
 
   @override
@@ -46,7 +47,7 @@ class CategoriesPageViewModel extends BaseViewModel
       _productStreamController.stream.map((product) => product);
 
   @override
-  getProducts(String categoryId, {resultsPerPage = 1, int page = 0}) async {
+  getProducts(String categoryId, {resultsPerPage = 20, int page = 0}) async {
     {
       (await _categoryUseCase.execute(categoryId,
               resultsPerPage: resultsPerPage, page: page))
@@ -55,7 +56,7 @@ class CategoriesPageViewModel extends BaseViewModel
             ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
       }, (category) {
         inputState.add(ContentState());
-        inputProduct.add(category.psdata!.products?.first);
+        inputCategory.add(category);
       });
     }
   }

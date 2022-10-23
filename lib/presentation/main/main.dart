@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/app/constant.dart';
-import 'package:mvvm_first_c/presentation/main/cart/cart_page.dart';
+import '../../presentation/main/cart/cart_page.dart';
 import '../../presentation/main/home/home_page.dart';
 import '../../presentation/resources/color_manager.dart';
 import '../../presentation/resources/strings_manager.dart';
@@ -33,7 +32,7 @@ class _MainViewState extends State<MainView> {
     AppStrings.cart,
     AppStrings.settings,
   ];
-  int _currentIndex = 1;
+  int _currentIndex = 4;
 
   final TextEditingController _controller = TextEditingController();
   @override
@@ -44,6 +43,7 @@ class _MainViewState extends State<MainView> {
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               pages[_currentIndex],
             ],

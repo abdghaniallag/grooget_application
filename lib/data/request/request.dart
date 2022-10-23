@@ -27,6 +27,7 @@ class UpdateCartRequest {
   String? op;
   String? action;
   int? qty;
+  int? delete;
 
   UpdateCartRequest({
     this.update,
@@ -35,5 +36,6 @@ class UpdateCartRequest {
     this.op,
     this.action,
     this.qty,
+    this.delete,
   });
 }

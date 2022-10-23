@@ -130,24 +130,26 @@ class _ProductDetailState extends State<ProductDetailView> {
                                   Wrap(
                                       spacing: AppPadding.p12,
                                       runSpacing: AppPadding.p8,
-                                      children: getCategories(snapshot
-                                              .data!.psdata!.category_name)
-                                          .map((category) => Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: AppPadding.p8),
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    goToCategory();
-                                                  },
-                                                  child: Text(
-                                                    category,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline2,
-                                                  ),
-                                                ),
-                                              ))
-                                          .toList())
+                                      children: []
+                                      //  getCategories(snapshot
+                                      //         .data!.psdata!.category_name)
+                                      //     .map((category) => Padding(
+                                      //           padding: const EdgeInsets.only(
+                                      //               left: AppPadding.p8),
+                                      //           child: GestureDetector(
+                                      //             onTap: () {
+                                      //               goToCategory();
+                                      //             },
+                                      //             child: Text(
+                                      //               category,
+                                      //               style: Theme.of(context)
+                                      //                   .textTheme
+                                      //                   .headline2,
+                                      //             ),
+                                      //           ),
+                                      //         ))
+                                      //     .toList()
+                                      )
                                 ],
                               ),
                             ),
@@ -200,16 +202,16 @@ class _ProductDetailState extends State<ProductDetailView> {
     );
   }
 
-  List<String> getCategories(String category) {
-    category = category.replaceRange(0, 1, category[0].toUpperCase());
-    List<String> categoryList = List<String>.empty(growable: true);
-    for (List<String> categoryTree in Constants.categoryTree) {
-      if (categoryTree.contains(category)) {
-        categoryList.addAll(categoryTree);
-      }
-    }
-    return categoryList.toSet().toList();
-  }
+  // List<String> getCategories(String category) {
+  //   category = category.replaceRange(0, 1, category[0].toUpperCase());
+  //   List<dynamic> categoryList = List<dynamic>.empty(growable: true);
+  //   for (List<dynamic> categoryTree in Constants.categoryTree) {
+  //     if (categoryTree. contains(category)) {
+  //       categoryList.addAll(categoryTree);
+  //     }
+  //   }
+  //   return categoryList.toSet().toList();
+  // }
 
   void addToWishList() {}
 

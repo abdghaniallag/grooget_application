@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/presentation/resources/routes_manager.dart';
+import '../../resources/routes_manager.dart';
 
 import '../../../domain/models/product.dart';
 import '../../../domain/usecase/product_search_usecase.dart';

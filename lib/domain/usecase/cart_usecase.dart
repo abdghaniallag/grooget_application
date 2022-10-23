@@ -17,6 +17,7 @@ class CartUseCase implements BaseUseCase<CartUseCaseInupt, UserCart> {
       op: input.op,
       action: input.action,
       qty: input.qty,
+      delete: input.delete,
     ));
   }
 }
@@ -28,6 +29,7 @@ class CartUseCaseInupt {
   String? op;
   String? action;
   int? qty;
+  int? delete;
 
   CartUseCaseInupt({
     this.update,
@@ -36,5 +38,6 @@ class CartUseCaseInupt {
     this.op,
     this.action,
     this.qty,
+    this.delete,
   });
 }

@@ -83,7 +83,13 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<UserCartResponse> updateCart(
-      {update, id_product, id_product_attribute, op, action, qty}) async {
+      {update,
+      id_product,
+      id_product_attribute,
+      op,
+      action,
+      qty,
+      delete}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'update': update,
@@ -91,7 +97,8 @@ class _AppServiceClient implements AppServiceClient {
       r'id_product_attribute': id_product_attribute,
       r'op': op,
       r'action': action,
-      r'qty': qty
+      r'qty': qty,
+      r'delete': delete
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

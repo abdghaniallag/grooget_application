@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../app/constant.dart';
 import '../../../app/di.dart';
 import '../../../domain/models/product.dart';
@@ -23,58 +22,70 @@ class _CategoriesPageState extends State<CategoriesPage> {
       return index == 0;
     }),
   );
+  @override
+  void initState() {
+    _bind();
+    super.initState();
+  }
+
+  _bind() {
+    _viewModel.start();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        getTopCategoryList(),
-        _getFilterList(),
-        getContent(),
-      ],
-    );
+    return getContent();
   }
 
   getContent() {
     List<CategoryProductItem?>? products = [];
-    return Text(Constants.mainCategoris[_currentIndex].values.first);
-    // return StreamBuilder<CategoryProductItem>(
-    //     stream: _viewModel.outputProduct,
-    //     builder: (context, snapshot) {
-    //       int index = 0;
-    //       if (snapshot.data != null) {
-    //         products.add(snapshot.data);
-    //       }
-    //       return Center(
-    //         child: Wrap(
-    //           children: products.map((product) {
-    //             index++;
-    //             final Cover cover = Cover(product!.cover!.url.toString(),
-    //                 product.cover!.width!, product.cover!.height!);
-    //             final ProductItem productItem = ProductItem(
-    //                 product.id_product,
-    //                 product.price,
-    //                 product.name,
-    //                 cover,
-    //                 product.description,
-    //                 product.description_short,
-    //                 product.category_name);
-    //             if (index % 2 != 0) {
-    //               return ProductItemWidget(productItem);
-    //             } else {
-    //               return Column(
-    //                 children: [
-    //                   const SizedBox(
-    //                     height: 20,
-    //                   ),
-    //                   ProductItemWidget(productItem)
-    //                 ],
-    //               );
-    //             }
-    //           }).toList(),
-    //         ),
-    //       );
-    //     });
+    return StreamBuilder<CategoryList>(
+        stream: _viewModel.outputCategory,
+        builder: (context, snapshot) {
+          int index = 0;
+          if (snapshot.data != null) {
+            products.addAll(snapshot.data!.psdata!.products!.toList());
+          }
+          return Column(
+            children: [
+              getTopCategoryList(),
+              _getFilterList(snapshot.data!.psdata!.facets),
+              Wrap(
+                children: products.map((product) {
+                  index++;
+                  final Cover cover = Cover(product!.cover!.url.toString(),
+                      product.cover!.width!, product.cover!.height!);
+                  final ProductItem productItem = ProductItem(
+                      product.id_product,
+                      product.price,
+                      product.name,
+                      cover,
+                      product.description,
+                      product.description_short,
+                      product.category_name);
+                  if (index % 2 != 0) {
+                    return GestureDetector(
+                        onTap: () => _viewModel.openCategoryDetail(
+                            context, product.id_product),
+                        child: ProductItemWidget(productItem));
+                  } else {
+                    return Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        GestureDetector(
+                            onTap: () => _viewModel.openCategoryDetail(
+                                context, product.id_product),
+                            child: ProductItemWidget(productItem))
+                      ],
+                    );
+                  }
+                }).toList(),
+              ),
+            ],
+          );
+        });
   }
 
   selectCategory(int index) {
@@ -92,6 +103,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
           direction: Axis.horizontal,
           onPressed: (int index) {
             setState(() {
+              _viewModel.getProducts(
+                  Constants.mainCategoris[index].keys.first.toString());
               _currentIndex = index;
               for (int i = 0; i < _selectedCategory.length; i++) {
                 _selectedCategory[i] = i == index;
@@ -120,7 +133,37 @@ class _CategoriesPageState extends State<CategoriesPage> {
   }
 }
 
-_getFilterList() {
+_getFilterList(List<Facets?>? facets) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      PopupMenuButton(
+        child: Text(" Filter"),
+        itemBuilder: (BuildContext context) {
+          List<PopupMenuEntry> filterList = [];
+          filterList.addAll(
+            facets!.map((filter) {
+              return PopupMenuItem(
+                child: Text(filter?.label ?? ''),
+              );
+            }).toList(),
+          );
+
+          return filterList;
+        },
+      ),
+      SizedBox(
+        width: 20,
+      ),
+      SizedBox(
+        width: 350,
+        child: _getSortList(),
+      ),
+    ],
+  );
+}
+
+_getSortList() {
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,
     child: Row(
@@ -129,27 +172,20 @@ _getFilterList() {
         ElevatedButton.icon(
           onPressed: (() {}),
           icon: const Icon(Icons.arrow_downward_rounded),
-          label: const Text(AppStrings.sort),
-        ),
-        ElevatedButton.icon(
-          onPressed: (() {}),
-          icon: const Icon(Icons.arrow_downward_rounded),
-          label: const Text(AppStrings.gender),
-        ),
-        ElevatedButton.icon(
-          onPressed: (() {}),
-          icon: const Icon(Icons.arrow_downward_rounded),
-          label: const Text(AppStrings.color),
+          label: const Text(AppStrings.price),
         ),
         ElevatedButton.icon(
           onPressed: (() {}),
           icon: const Icon(Icons.arrow_downward_rounded),
           label: const Text(AppStrings.size),
         ),
-        ElevatedButton.icon(
+        ElevatedButton(
           onPressed: (() {}),
-          icon: const Icon(Icons.arrow_downward_rounded),
-          label: const Text(AppStrings.filter),
+          child: const Text(AppStrings.best),
+        ),
+        ToggleButtons(
+          isSelected: [],
+          children: [const Text(AppStrings.relevance)],
         ),
       ],
     ),

@@ -23,6 +23,7 @@ abstract class RemotDataSource {
     String? op,
     String? action,
     int? qty,
+    int? delete,
   });
 }
 
@@ -89,6 +90,7 @@ class RemotDataSourceImpilenter implements RemotDataSource {
     String? op,
     String? action,
     int? qty,
+    int? delete,
   }) async {
     return await _appServiceClient.updateCart(
       update: update,
@@ -97,6 +99,7 @@ class RemotDataSourceImpilenter implements RemotDataSource {
       op: op,
       action: action,
       qty: qty,
+      delete: delete,
     );
   }
 }

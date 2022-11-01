@@ -38,17 +38,11 @@ class _CartPageState extends State<CartPage> {
           if (snapshot.data != null) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                const SizedBox(
-                  height: AppSize.s8,
-                ),
-                ProductcartWidget(snapshot.data!.psdata!.products!.first!),
-                ProductcartWidget(snapshot.data!.psdata!.products!.first!),
-                ProductcartWidget(snapshot.data!.psdata!.products!.first!),
-                ProductcartWidget(snapshot.data!.psdata!.products!.first!),
-                ProductcartWidget(snapshot.data!.psdata!.products!.first!),
-                ProductcartWidget(snapshot.data!.psdata!.products!.first!),
-              ],
+              children:  
+                snapshot.data!.psdata!.products!.map(
+                  (product) => ProductcartWidget(product!)
+                ).toList(),
+                
             );
           } else {
             return Text("Loading");

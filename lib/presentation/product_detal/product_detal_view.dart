@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../app/app_preferences.dart';
-import '../../app/constant.dart';
 import '../../app/di.dart';
 import '../../domain/models/product.dart';
 import '../../presentation/resources/color_manager.dart';
@@ -37,6 +36,7 @@ class _ProductDetailState extends State<ProductDetailView> {
     _viewModel.getProduct(productId.id);
     return Scaffold(
       body: Container(
+        padding: const EdgeInsets.only(top: AppPadding.p30),
         decoration: BoxDecoration(color: Colors.grey[300]),
         child: SingleChildScrollView(
           child: Center(
@@ -161,16 +161,20 @@ class _ProductDetailState extends State<ProductDetailView> {
                               padding:
                                   const EdgeInsets.only(bottom: AppPadding.p8),
                               color: ColorManager.white,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  const SizedBox(
-                                    height: AppPadding.p8,
-                                  ),
+                              child: ExpansionTile(
+                                title: 
                                   Text(AppStrings.productDetails,
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline3),
+                                collapsedIconColor: ColorManager.black,
+                                collapsedTextColor: ColorManager.black,
+                                iconColor: ColorManager.primary,
+                                textColor: ColorManager.primary,
+                                children: [
+                                  const SizedBox(
+                                    height: AppPadding.p8,
+                                  ), 
                                   const SizedBox(
                                     height: AppSize.s4,
                                   ),
@@ -186,8 +190,16 @@ class _ProductDetailState extends State<ProductDetailView> {
                               width: AppSize.s380,
                               padding: const EdgeInsets.all(AppPadding.p8),
                               color: ColorManager.white,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                              child: ExpansionTile(
+                                title: 
+                                  Text(AppStrings.image,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3),
+                                collapsedIconColor: ColorManager.black,
+                                collapsedTextColor: ColorManager.black,
+                                iconColor: ColorManager.primary,
+                                textColor: ColorManager.primary,
                                 children: [
                                   _getImageList(snapshot.data!.psdata!),
                                 ],

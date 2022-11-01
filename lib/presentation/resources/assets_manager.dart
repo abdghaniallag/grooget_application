@@ -3,6 +3,9 @@ const String JSON_PATH = 'assets/json';
 
 class ImageAssets {
   static const String splashTitle = '$IMAGE_PATH/title.png';
+  static const String tr = '$IMAGE_PATH/tr.jpg'; 
+  static const String ar= '$IMAGE_PATH/ar.jpg'; 
+  static const String en = '$IMAGE_PATH/en.png';
   static const String splashLogo = '$IMAGE_PATH/splash_logo.png';
   static const String onBoardingLogo1 = '$IMAGE_PATH/on_boarding_logo1.svg';
   static const String onBoardingLogo2 = '$IMAGE_PATH/on_boarding_logo2.svg';

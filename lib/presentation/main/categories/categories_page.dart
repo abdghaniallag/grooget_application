@@ -49,7 +49,9 @@ class _CategoriesPageState extends State<CategoriesPage> {
           return Column(
             children: [
               getTopCategoryList(),
-              _getFilterList(snapshot.data!.psdata!.facets),
+              snapshot.data != null
+                  ? _getFilterList(snapshot.data!.psdata!.facets)
+                  :const SizedBox(),
               Wrap(
                 children: products.map((product) {
                   index++;
@@ -133,12 +135,12 @@ class _CategoriesPageState extends State<CategoriesPage> {
   }
 }
 
-_getFilterList(List<Facets?>? facets) {
+Widget _getFilterList(List<Facets?>? facets) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       PopupMenuButton(
-        child: Text(" Filter"),
+        child: Text("Filter"),
         itemBuilder: (BuildContext context) {
           List<PopupMenuEntry> filterList = [];
           filterList.addAll(
@@ -153,10 +155,10 @@ _getFilterList(List<Facets?>? facets) {
         },
       ),
       SizedBox(
-        width: 20,
+        width: 16,
       ),
       SizedBox(
-        width: 350,
+        width: 300,
         child: _getSortList(),
       ),
     ],
@@ -183,10 +185,7 @@ _getSortList() {
           onPressed: (() {}),
           child: const Text(AppStrings.best),
         ),
-        ToggleButtons(
-          isSelected: [],
-          children: [const Text(AppStrings.relevance)],
-        ),
+         
       ],
     ),
   );

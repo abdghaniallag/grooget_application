@@ -74,6 +74,12 @@ class AppStrings {
   static const String remove = 'Remove';
   static const String account = 'Account';
   static const String edit = 'Edit';
+  static const String save= 'Save';
+  static const String language = 'Language';
+  static const String cuerrcy = 'Cuerrcy';
+  static const String checkout = 'Checkout';
+  static const String myWishlist= 'My wishlist';
   static const String signout = 'Sign out';
+  static const String description = 'Description';
   static const String socialTitle = 'Social title';
 }

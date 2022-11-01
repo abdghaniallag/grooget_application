@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm_first_c/domain/models/cart.dart';
 import '../../presentation/resources/values_manager.dart';
-
-import '../../data/responses/responses.dart';
 import '../resources/color_manager.dart';
 
 class ProductcartWidget extends StatelessWidget {
@@ -10,9 +8,8 @@ class ProductcartWidget extends StatelessWidget {
   final Product _productItem;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: AppSize.s400,
-      height: AppSize.s180,
+    return Container( 
+      padding: const EdgeInsets.all(AppPadding.p8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

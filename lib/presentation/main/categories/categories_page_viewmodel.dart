@@ -48,7 +48,9 @@ class CategoriesPageViewModel extends BaseViewModel
 
   @override
   getProducts(String categoryId, {resultsPerPage = 20, int page = 0}) async {
-    {
+    { inputState.add(
+        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+ 
       (await _categoryUseCase.execute(categoryId,
               resultsPerPage: resultsPerPage, page: page))
           .fold((failure) {

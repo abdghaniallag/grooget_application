@@ -94,6 +94,9 @@ flutter:
      - assets/images/title.svg
      - assets/images/men.png
      - assets/images/title.png
+     - assets/images/en.png
+     - assets/images/tr.jpg
+     - assets/images/ar.jpg
      - assets/json/loading.json
      - assets/json/error.json 
      - assets/json/not_found.json

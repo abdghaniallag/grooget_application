@@ -43,9 +43,7 @@ class _HomePageState extends State<HomePage> {
         _getSection(AppStrings.product),
         _getTopProducts(),
         _getSection(AppStrings.category),
-        _getTopCategories(),
-        _getSection(''),
-        _getSocialMediaButtomBar(),
+        _getTopCategories(), 
       ],
     );
   }
@@ -60,15 +58,16 @@ class _HomePageState extends State<HomePage> {
 
   Widget _getTopProducts() {
     List<CategoryProductItem?>? products = [];
-    return StreamBuilder<CategoryProductItem>(
+    _viewModel.getProducts(20);
+    return StreamBuilder<CategoryList>(
         stream: _viewModel.outputProduct,
         builder: (context, snapshot) {
           int index = 0;
           if (snapshot.data != null) {
-            products.add(snapshot.data);
+            products.addAll(snapshot.data!.psdata!.products!);
           }
           return Center(
-            child: Wrap(
+            child: Wrap( 
               children: products.map((product) {
                 index++;
                 final Cover cover = Cover(product!.cover!.url.toString(),
@@ -183,35 +182,5 @@ class _HomePageState extends State<HomePage> {
           itemCount: Constants.categoryImages.keys.length),
     );
   }
-
-  _getSocialMediaButtomBar() {
-    return Row(
-      children: [
-        GFButton(
-          onPressed: () {},
-          icon: const Icon(Icons.facebook),
-          type: GFButtonType.solid,
-          fullWidthButton: true,
-        ),
-        GFButton(
-          onPressed: () {},
-          icon: const Icon(Icons.whatsapp),
-          type: GFButtonType.solid,
-          fullWidthButton: true,
-        ),
-        GFButton(
-          onPressed: () {},
-          icon: const Icon(Icons.mail),
-          type: GFButtonType.solid,
-          fullWidthButton: true,
-        ),
-        GFButton(
-          onPressed: () {},
-          icon: const Icon(Icons.youtube_searched_for),
-          type: GFButtonType.solid,
-          fullWidthButton: true,
-        ),
-      ],
-    );
-  }
+ 
 }

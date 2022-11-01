@@ -15,7 +15,7 @@ class HomePageViewModel extends BaseViewModel
   CategoryUseCase _categoryUseCase;
   StreamController _categoryStreamController = BehaviorSubject<CategoryList>();
   StreamController _productStreamController =
-      BehaviorSubject<CategoryProductItem>();
+      BehaviorSubject<CategoryList>();
 
   HomePageViewModel(this._categoryUseCase);
 
@@ -30,8 +30,7 @@ class HomePageViewModel extends BaseViewModel
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
 
     _getCategories();
-
-    getProducts();
+ 
   }
 
   @override
@@ -51,7 +50,7 @@ class HomePageViewModel extends BaseViewModel
       _categoryStreamController.stream.map((cactegory) => cactegory);
 
   @override
-  Stream<CategoryProductItem> get outputProduct =>
+  Stream<CategoryList> get outputProduct =>
       _productStreamController.stream.map((product) => product);
 
   void _getCategories() async {
@@ -67,18 +66,18 @@ class HomePageViewModel extends BaseViewModel
         inputCategory.add(category);
       });
     }
-  }
-
+  } 
   @override
-  getProducts() async {
-    for (var i = 0; i < 11; i++) {
-      (await _categoryUseCase.execute("2", resultsPerPage: 1, page: i)).fold(
+  getProducts(int resultsPerPage) async {inputState.add(
+        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+      {String mainCategory='2';
+      (await _categoryUseCase.execute(mainCategory,resultsPerPage: resultsPerPage)).fold(
           (failure) {
-        inputState.add(
-            ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
+        inputState.add(ErrorState(
+            StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
       }, (category) {
         inputState.add(ContentState());
-        inputProduct.add(category.psdata!.products?.first);
+        inputProduct.add(category);
       });
     }
   }
@@ -95,7 +94,7 @@ class HomePageViewModel extends BaseViewModel
 }
 
 abstract class HomeViewModelInputs {
-  getProducts();
+  getProducts(int resultsPerPage);
   openProductDetail(BuildContext context, String id);
   openCategoryDetail(BuildContext context, String id);
   Sink get inputCategory;
@@ -104,5 +103,5 @@ abstract class HomeViewModelInputs {
 
 abstract class HomeViewModelOutputs {
   Stream<CategoryList> get outputCategory;
-  Stream<CategoryProductItem> get outputProduct;
+  Stream<CategoryList> get outputProduct;
 }

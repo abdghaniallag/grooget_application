@@ -62,9 +62,7 @@ class OnboardingViewModel extends BaseViewModel
         SliderObject(AppStrings.onBoardingTitle2,
             AppStrings.onBoardingSubTitle2, ImageAssets.onBoardingLogo2),
         SliderObject(AppStrings.onBoardingTitle3,
-            AppStrings.onBoardingSubTitle3, ImageAssets.onBoardingLogo3),
-        SliderObject(AppStrings.onBoardingTitle4,
-            AppStrings.onBoardingSubTitle4, ImageAssets.onBoardingLogo4),
+            AppStrings.onBoardingSubTitle3, ImageAssets.onBoardingLogo3), 
       ];
 
   void _postDataToView() {

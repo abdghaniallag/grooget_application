@@ -78,7 +78,7 @@ class _ProductViewState extends State<ProductView> {
                           IdArguments(product.psdata!.id_product.toString()));
                 });
               },
-              child: ProductItemWidget(index)))
+              child: ProductItemWidget(index )))
           .toList();
     } else {
       return List<SizedBox>.generate(1, (index) => const SizedBox());

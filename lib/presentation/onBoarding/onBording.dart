@@ -82,10 +82,10 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           child: Column(
             children: [
               Align(
-                alignment: Alignment.centerRight,
+                alignment: Alignment.center,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                    Navigator.pushReplacementNamed(context, Routes.mainRoute);
                   },
                   child: Text(
                     AppStrings.skip,
@@ -112,55 +112,22 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   Widget _getBottomSheetWidget(SliderViewObject sliderViewObject) {
     return Container(
-      color: ColorManager.primary,
+      color: ColorManager.primaryOpacity70,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          //left arrow
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.p14),
-            child: GestureDetector(
-              child: SizedBox(
-                height: AppSize.s20,
-                width: AppSize.s20,
-                child: SvgPicture.asset(ImageAssets.leftArrow),
-              ),
-              onTap: () {
-                _pageController.animateToPage(_viewModel.goPrevious(),
-                    duration:
-                        const Duration(milliseconds: DurationConstant.d300),
-                    curve: Curves.bounceInOut);
-              },
-            ),
-          ),
-          Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+         
             children: [
               for (var i = 0; i < sliderViewObject.numOfSlides; i++)
                 Padding(
-                  padding: const EdgeInsets.all(AppPadding.p8),
+                  padding: const EdgeInsets.only(
+                      left: AppPadding.p16,
+                      right: AppPadding.p16,
+                      bottom: AppPadding.p8, top: AppPadding.p8),
                   child: _getProperCircle(i, sliderViewObject.currentIndex),
                 )
             ],
           ),
-          //right arrow
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.p14),
-            child: GestureDetector(
-              child: SizedBox(
-                height: AppSize.s20,
-                width: AppSize.s20,
-                child: SvgPicture.asset(ImageAssets.rightArrow),
-              ),
-              onTap: () {
-                _pageController.animateToPage(_viewModel.goNext(),
-                    duration:
-                        const Duration(milliseconds: DurationConstant.d300),
-                    curve: Curves.bounceInOut);
-              },
-            ),
-          )
-        ],
-      ),
+       
     );
   }
 }
@@ -194,7 +161,7 @@ class OnboardingPage extends StatelessWidget {
         const SizedBox(
           height: AppSize.s60,
         ),
-        SvgPicture.asset(_sliderObject.image),
+        Image.asset(_sliderObject.image),
       ],
     );
   }

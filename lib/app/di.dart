@@ -87,7 +87,7 @@ initHomeModule() async {
     instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
 
     instance.registerFactory<HomePageViewModel>(
-        () => HomePageViewModel(instance()));
+        () => HomePageViewModel(instance(),instance()));
   }
 }
 

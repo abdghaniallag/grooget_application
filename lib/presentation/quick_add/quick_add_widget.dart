@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../presentation/resources/color_manager.dart';
-import '../../presentation/resources/strings_manager.dart';
-import '../../presentation/resources/values_manager.dart';
-
+import '../resources/color_manager.dart';
+import '../resources/strings_manager.dart';
+import '../resources/values_manager.dart';
 import '../../domain/models/product.dart';
 
 class CartQuickAdd extends StatefulWidget {
@@ -18,19 +17,28 @@ class CartQuickAdd extends StatefulWidget {
 }
 
 class _CartQuickAddState extends State<CartQuickAdd> {
-  int packQuantity = 0;
+  late List<int> packQuantity;
+  @override
+  void initState() {
+    packQuantity = List<int>.filled(widget.combinationsItems.length, 0);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return getGridBoard(context);
+    return Column(
+      children: [
+        getGridBoard(context),
+        TextButton(onPressed: (() {
+          
+        }), child:const Text(AppStrings.ok))
+      ],
+    );
   }
 
   Widget getGridBoard(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        getImageRow(),
-        const SizedBox(width: AppSize.s1_5),
+    return Wrap( direction: Axis.horizontal,
+      children: [ 
         getColorRow(),
         const SizedBox(width: AppSize.s4),
         getSizesRow(),
@@ -165,18 +173,18 @@ class _CartQuickAddState extends State<CartQuickAdd> {
     List<SizedBox> packQuantityRow = [
       const SizedBox(child: Text(AppStrings.packQuantity)),
     ];
-    packQuantityRow.addAll((widget.combinationsItems
-        .map((combinationsItem) => SizedBox(
-            width: 100,
-            height: 70,
-            child: getAddRemoveWidget(combinationsItem, context)))
-        .toList()));
+    for (var i = 0; i < widget.combinationsItems.length; i++) {
+      packQuantityRow.add(SizedBox(
+          width: 100,
+          height: 70,
+          child: getAddRemoveWidget(i, widget.combinationsItems[i], context)));
+    }
 
     return Column(children: packQuantityRow);
   }
 
   SizedBox getAddRemoveWidget(
-      CombinationsItem? combinationsItem, BuildContext context) {
+      int index, CombinationsItem? combinationsItem, BuildContext context) {
     return SizedBox(
       width: 100,
       height: 70,
@@ -186,12 +194,12 @@ class _CartQuickAddState extends State<CartQuickAdd> {
         children: [
           Positioned(
             left: 60,
-            child: Container(
+            child: SizedBox(
               width: 50,
               height: 70,
               child: TextButton.icon(
                 onPressed: () {
-                  _addToCart(combinationsItem);
+                  _addToCart(combinationsItem!.minimal_quantity, index);
                 },
                 icon:
                     Icon(Icons.arrow_upward_rounded, color: ColorManager.green),
@@ -201,12 +209,12 @@ class _CartQuickAddState extends State<CartQuickAdd> {
           ),
           Positioned(
             right: 50,
-            child: Container(
+            child: SizedBox(
               width: 50,
               height: 70,
               child: TextButton.icon(
                 onPressed: () {
-                  _removeFromCart(combinationsItem);
+                  _removeFromCart(combinationsItem!.minimal_quantity, index);
                 },
                 icon: Icon(Icons.arrow_downward_rounded,
                     color: ColorManager.primary),
@@ -216,12 +224,18 @@ class _CartQuickAddState extends State<CartQuickAdd> {
           ),
           Align(
             alignment: Alignment.center,
-            child: Container(
+            child: SizedBox(
                 width: 60,
                 height: 20,
-                child: Text(
-                  "$packQuantity  ",
-                  textAlign: TextAlign.center,
+                child: StreamBuilder<int>(
+                  stream: null,
+                  builder: (context, snapshot) {
+                    
+                    return Text(
+                      "${packQuantity[index]}  ",
+                      textAlign: TextAlign.center,
+                    );
+                  }
                 )),
           ),
         ],
@@ -229,15 +243,18 @@ class _CartQuickAddState extends State<CartQuickAdd> {
     );
   }
 
-  void _addToCart(CombinationsItem? combinationsItem) {
+  void _addToCart(int minQty, int index) {
     setState(() {
-      packQuantity++;
+      packQuantity[index] += minQty;
     });
   }
 
-  void _removeFromCart(CombinationsItem? combinationsItem) {
+  void _removeFromCart(int minQty, int index) {
     setState(() {
-      packQuantity--;
+      packQuantity[index] -= minQty;
+      if (packQuantity[index] < 0) {
+        packQuantity[index] = 0;
+      }
     });
   }
 }

@@ -54,6 +54,7 @@ dependencies:
   floating_action_bubble: ^1.1.4
   dropdown_button2: ^1.7.2
   getwidget: ^3.0.1
+  popup_card: ^0.1.0
   
   
 
@@ -81,10 +82,9 @@ flutter:
   assets:
      - assets/images/splash_logo.png
      - assets/images/logo_ic.svg
-     - assets/images/on_boarding_logo1.svg
-     - assets/images/on_boarding_logo2.svg
-     - assets/images/on_boarding_logo3.svg
-     - assets/images/on_boarding_logo4.svg
+     - assets/images/on_boarding_logo1.png
+     - assets/images/on_boarding_logo2.png
+     - assets/images/on_boarding_logo3.png 
      - assets/images/solid_circle_ic.svg
      - assets/images/logo_ic.svg
      - assets/images/empty_circle_ic.svg
@@ -102,6 +102,7 @@ flutter:
      - assets/json/not_found.json
      - assets/json/empty.json
      - assets/json/success.json
+     - assets/json/loading_ball.json
                
 
   # An image asset can refer to one or more resolution-specific "variants", see

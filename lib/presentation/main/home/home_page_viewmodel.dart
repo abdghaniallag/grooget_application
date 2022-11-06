@@ -13,11 +13,13 @@ import 'package:rxdart/rxdart.dart';
 class HomePageViewModel extends BaseViewModel
     with HomeViewModelInputs, HomeViewModelOutputs {
   CategoryUseCase _categoryUseCase;
+  ProductDetailUseCase _productUseCase;
   StreamController _categoryStreamController = BehaviorSubject<CategoryList>();
-  StreamController _productStreamController =
-      BehaviorSubject<CategoryList>();
 
-  HomePageViewModel(this._categoryUseCase);
+  StreamController _productDetailStreamController =
+      StreamController<ProductInformation>.broadcast () ;
+
+  HomePageViewModel(this._categoryUseCase, this._productUseCase);
 
   // inputs
   @override
@@ -30,12 +32,12 @@ class HomePageViewModel extends BaseViewModel
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
 
     _getCategories();
- 
   }
 
   @override
   void dispose() {
     _categoryStreamController.close();
+    _productDetailStreamController.close();
     super.dispose();
   }
 
@@ -43,15 +45,20 @@ class HomePageViewModel extends BaseViewModel
   Sink get inputCategory => _categoryStreamController.sink;
 
   @override
-  Sink get inputProduct => _productStreamController.sink;
+  Sink get inputProduct => _categoryStreamController.sink;
+  @override
+  Sink get inputProductDetail => _productDetailStreamController.sink;
 
   @override
   Stream<CategoryList> get outputCategory =>
       _categoryStreamController.stream.map((cactegory) => cactegory);
+  @override
+  Stream<ProductInformation> get outputProductDetail =>
+      _productDetailStreamController.stream.map((cactegory) => cactegory);
 
   @override
   Stream<CategoryList> get outputProduct =>
-      _productStreamController.stream.map((product) => product);
+      _categoryStreamController.stream.map((product) => product);
 
   void _getCategories() async {
     inputState.add(
@@ -66,18 +73,35 @@ class HomePageViewModel extends BaseViewModel
         inputCategory.add(category);
       });
     }
-  } 
+  }
+
   @override
-  getProducts(int resultsPerPage) async {inputState.add(
+  getProducts(int resultsPerPage) async {
+    inputState.add(
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
-      {String mainCategory='2';
-      (await _categoryUseCase.execute(mainCategory,resultsPerPage: resultsPerPage)).fold(
-          (failure) {
+    {
+      String mainCategory = '2';
+      (await _categoryUseCase.execute(mainCategory,
+              resultsPerPage: resultsPerPage))
+          .fold((failure) {
         inputState.add(ErrorState(
             StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
       }, (category) {
         inputState.add(ContentState());
         inputProduct.add(category);
+      });
+    }
+  }
+
+  @override
+  getProductdetail(String id) async {
+    {
+      (await _productUseCase.execute(id)).fold((failure) {
+        inputState.add(ErrorState(
+            StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
+      }, (product) {
+        inputState.add(ContentState());
+        inputProductDetail.add(product);
       });
     }
   }
@@ -95,13 +119,16 @@ class HomePageViewModel extends BaseViewModel
 
 abstract class HomeViewModelInputs {
   getProducts(int resultsPerPage);
+  getProductdetail(String id);
   openProductDetail(BuildContext context, String id);
   openCategoryDetail(BuildContext context, String id);
   Sink get inputCategory;
   Sink get inputProduct;
+  Sink get inputProductDetail;
 }
 
 abstract class HomeViewModelOutputs {
   Stream<CategoryList> get outputCategory;
   Stream<CategoryList> get outputProduct;
+  Stream<ProductInformation> get outputProductDetail;
 }

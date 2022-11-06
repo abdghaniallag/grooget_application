@@ -69,7 +69,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     return GestureDetector(
                         onTap: () => _viewModel.openCategoryDetail(
                             context, product.id_product),
-                        child: ProductItemWidget(productItem));
+                        child: ProductItemWidget(productItem ));
                   } else {
                     return Column(
                       children: [
@@ -79,7 +79,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         GestureDetector(
                             onTap: () => _viewModel.openCategoryDetail(
                                 context, product.id_product),
-                            child: ProductItemWidget(productItem))
+                            child: ProductItemWidget(productItem ))
                       ],
                     );
                   }

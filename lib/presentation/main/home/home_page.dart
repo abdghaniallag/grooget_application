@@ -1,9 +1,11 @@
+ 
+
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
+import 'package:flutter/material.dart';  
 import '../../../app/constant.dart';
 import '../../../domain/models/product.dart';
 import '../../main/home/home_page_viewmodel.dart';
+import '../../quick_add/quick_add_widget.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../../app/di.dart';
@@ -43,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         _getSection(AppStrings.product),
         _getTopProducts(),
         _getSection(AppStrings.category),
-        _getTopCategories(), 
+        _getTopCategories(),
       ],
     );
   }
@@ -67,7 +69,7 @@ class _HomePageState extends State<HomePage> {
             products.addAll(snapshot.data!.psdata!.products!);
           }
           return Center(
-            child: Wrap( 
+            child: Wrap(
               children: products.map((product) {
                 index++;
                 final Cover cover = Cover(product!.cover!.url.toString(),
@@ -81,7 +83,21 @@ class _HomePageState extends State<HomePage> {
                     product.description_short,
                     product.category_name);
                 if (index % 2 != 0) {
-                  return ProductItemWidget(productItem);
+                  return Stack(
+                    children: [
+                      ProductItemWidget(productItem),
+                      Positioned(
+                        right: -15,
+                        bottom: -10,
+                        child: ElevatedButton(
+                          child: const Icon(Icons.add_rounded),
+                          onPressed: () {
+                            getQuickAddPopup(product);
+                          },
+                        ),
+                      ),
+                    ],
+                  );
                 } else {
                   return Column(
                     children: [
@@ -182,5 +198,44 @@ class _HomePageState extends State<HomePage> {
           itemCount: Constants.categoryImages.keys.length),
     );
   }
- 
+
+  getQuickAddPopup(CategoryProductItem productItem) {
+    {
+      _viewModel.getProductdetail(productItem.id_product);
+      _viewModel.outputProductDetail.listen((data) {
+        _showPopup(
+            context,
+            CartQuickAdd(data.psdata!.combinations, data.psdata!.options,
+                data.psdata!.images));
+      });
+    }
+  }
+}
+
+_showPopup(BuildContext context, Widget widget, {String title = ""}) {
+  if (ModalRoute.of(context)?.isCurrent != true) {
+    Navigator.of(context, rootNavigator: true).pop(true);
+  }
+  showDialog(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSize.s14)),
+            elevation: AppSize.s1_5,
+            backgroundColor: Colors.transparent,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: ColorManager.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(AppSize.s14),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: AppSize.s12,
+                        offset: Offset(AppSize.s0, AppSize.s12))
+                  ]),
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical, child: widget),
+            ),
+          ));
 }

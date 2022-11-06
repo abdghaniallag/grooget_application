@@ -5,9 +5,9 @@ import '../../domain/models/product.dart';
 import '../../presentation/resources/color_manager.dart';
 import '../../presentation/resources/strings_manager.dart';
 import '../../presentation/resources/values_manager.dart';
+import '../quick_add/quick_add_widget.dart';
 import '../resources/routes_manager.dart';
-import '../widgets/image_slider.dart';
-import '../widgets/quick_add_widget.dart';
+import '../widgets/image_slider.dart'; 
 import 'product_detal_viewmodel.dart';
 
 class ProductDetailView extends StatefulWidget {

@@ -7,10 +7,9 @@ class ImageAssets {
   static const String ar= '$IMAGE_PATH/ar.jpg'; 
   static const String en = '$IMAGE_PATH/en.png';
   static const String splashLogo = '$IMAGE_PATH/splash_logo.png';
-  static const String onBoardingLogo1 = '$IMAGE_PATH/on_boarding_logo1.svg';
-  static const String onBoardingLogo2 = '$IMAGE_PATH/on_boarding_logo2.svg';
-  static const String onBoardingLogo3 = '$IMAGE_PATH/on_boarding_logo3.svg';
-  static const String onBoardingLogo4 = '$IMAGE_PATH/on_boarding_logo4.svg';
+  static const String onBoardingLogo1 = '$IMAGE_PATH/on_boarding_logo1.png';
+  static const String onBoardingLogo2 = '$IMAGE_PATH/on_boarding_logo2.png';
+  static const String onBoardingLogo3 = '$IMAGE_PATH/on_boarding_logo3.png'; 
   static const String solidCircle = '$IMAGE_PATH/solid_circle_ic.svg';
   static const String cameraIc = '$IMAGE_PATH/camera.svg';
   static const String emptyCircle = '$IMAGE_PATH/empty_circle_ic.svg';
@@ -42,4 +41,5 @@ class JsonAssets {
   static const String notFound = '$JSON_PATH/not_found.json';
   static const String empty = '$JSON_PATH/empty.json';
   static const String success = '$JSON_PATH/success.json';
+  static const String loadingBall = '$JSON_PATH/loading_ball.json';
 }

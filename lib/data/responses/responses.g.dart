@@ -695,7 +695,7 @@ TotalResponse _$TotalResponseFromJson(Map<String, dynamic> json) =>
     TotalResponse(
       json['type'] as String?,
       json['label'] as String?,
-      json['amount'] as int?,
+      json['amount'] as double?,
       json['value'] as String?,
     )
       ..success = json['success'] as bool?
@@ -806,11 +806,11 @@ ProductCartResponse _$ProductCartResponseFromJson(Map<String, dynamic> json) =>
       json['date_add'] as String?,
       json['date_upd'] as String?,
       json['quantity'] as int?,
-      json['total'] as int?,
-      json['total_wt'] as int?,
-      json['price_wt'] as int?,
+      json['total'] as dynamic ,
+      json['total_wt'] as dynamic ,
+      json['price_wt'] as dynamic,
       json['attributes_small'] as String?,
-      json['price_with_reduction_without_tax'] as int?,
+      json['price_with_reduction_without_tax'] as dynamic,
       json['image_url'] as String?,
       json['reference'] as String?,
     )

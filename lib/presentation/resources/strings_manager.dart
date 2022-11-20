@@ -61,7 +61,7 @@ class AppStrings {
   static const String cart = 'Cart';
   static const String mr = 'Mr';
   static const String mrs = 'Mrs';
-  static const String packQuantity = 'Pack Quantity';
+  static const String packQuantity = 'QTY';
   static const String opportunityProducts = 'Opportunity Products';
   static const String bestSellingProducts = 'Best Selling Products';
   static const String best = 'Best';

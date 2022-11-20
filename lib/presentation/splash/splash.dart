@@ -57,9 +57,8 @@ class _SplashViewState extends State<SplashView> {
     {
       {
         _appPreferences.isOnbordingViewed().then((isOnbordingViewed) {
-          if (isOnbordingViewed) {
-            Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
-            // Navigator.pushReplacementNamed(context, Routes.mainRoute);
+          if (isOnbordingViewed) { 
+            Navigator.pushReplacementNamed(context, Routes.mainRoute);
           } else {
             Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
           }

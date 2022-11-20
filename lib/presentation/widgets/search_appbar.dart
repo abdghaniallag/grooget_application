@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
 import '../../presentation/resources/color_manager.dart';
 import '../resources/values_manager.dart';
 
@@ -15,9 +16,10 @@ class SearchAppBar {
                 label: const Text(""))
           ],
           title: Container(
-              padding: const EdgeInsets.all(AppPadding.p12),
+              decoration: BoxDecoration(color: ColorManager.white,
+                  borderRadius: BorderRadius.circular(AppSize.s8)),
               child: TextFormField(
-                decoration: InputDecoration(fillColor: ColorManager.white),
+                decoration: InputDecoration(hintText: AppStrings.search, fillColor: ColorManager.white),
                 controller: controller,
               )));
 }

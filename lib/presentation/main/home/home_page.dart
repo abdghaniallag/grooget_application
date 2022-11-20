@@ -1,7 +1,8 @@
- 
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';  
+import 'package:flutter/material.dart';
+import 'package:mvvm_first_c/presentation/resources/routes_manager.dart';
+import 'package:mvvm_first_c/presentation/widgets/shimmer_loading.dart';
+import '../../../app/app_preferences.dart';
 import '../../../app/constant.dart';
 import '../../../domain/models/product.dart';
 import '../../main/home/home_page_viewmodel.dart';
@@ -65,76 +66,129 @@ class _HomePageState extends State<HomePage> {
         stream: _viewModel.outputProduct,
         builder: (context, snapshot) {
           int index = 0;
-          if (snapshot.data != null) {
+          if (snapshot.hasData) {
             products.addAll(snapshot.data!.psdata!.products!);
-          }
-          return Center(
-            child: Wrap(
-              children: products.map((product) {
-                index++;
-                final Cover cover = Cover(product!.cover!.url.toString(),
-                    product.cover!.width!, product.cover!.height!);
-                final ProductItem productItem = ProductItem(
-                    product.id_product,
-                    product.price,
-                    product.name,
-                    cover,
-                    product.description,
-                    product.description_short,
-                    product.category_name);
-                if (index % 2 != 0) {
-                  return Stack(
-                    children: [
-                      ProductItemWidget(productItem),
-                      Positioned(
-                        right: -15,
-                        bottom: -10,
-                        child: ElevatedButton(
-                          child: const Icon(Icons.add_rounded),
-                          onPressed: () {
-                            getQuickAddPopup(product);
-                          },
+
+            return Center(
+              child: Wrap(
+                children: products.map((product) {
+                  index++;
+                  final Cover cover = Cover(product!.cover!.url.toString(),
+                      product.cover!.width!, product.cover!.height!);
+                  final ProductItem productItem = ProductItem(
+                      product.id_product,
+                      product.price,
+                      product.name,
+                      cover,
+                      product.description,
+                      product.description_short,
+                      product.category_name);
+                  if (index % 2 != 0) {
+                    return Stack(
+                      children: [
+                        ProductItemWidget(productItem),
+                        Positioned(
+                          right: AppPadding.p14,
+                          bottom: AppPadding.p20,
+                          child: ElevatedButton(
+                            child: const Icon(Icons.add_rounded),
+                            onPressed: () {
+                              getQuickAddPopup(product);
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ProductItemWidget(productItem)
-                    ],
-                  );
-                }
-              }).toList(),
-            ),
-          );
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Stack(
+                          children: [
+                            ProductItemWidget(productItem),
+                            Positioned(
+                              right: AppPadding.p14,
+                              bottom: AppPadding.p20,
+                              child: ElevatedButton(
+                                child: const Icon(Icons.add_rounded),
+                                onPressed: () {
+                                  getQuickAddPopup(product);
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    );
+                  }
+                }).toList(),
+              ),
+            );
+          } else {
+            return Center(
+              child: Wrap(
+                  children: List<int>.generate(10, (index) => index)
+                      .map((e) {
+                        return Column(
+                          children: [
+                              SizedBox(
+                              height: e % 2==0 ?AppSize.s20:0,
+                            )  ,
+                            Padding(padding: const EdgeInsets.all(AppPadding.p4),
+                              child: Card(
+                                child: ShimmerWidget(
+                                    width: AppSize.s160,
+                                    height: AppSize.s280,
+                                    shapeBorder: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(AppSize.s4))),
+                              ),
+                            )
+                          ],
+                        );
+                      })
+                      .cast<Column>()
+                      .toList()),
+            );
+          }
         });
   }
 
   Widget _getBanners() {
     return CarouselSlider(
-      items: Constants.bannarImages.values
-          .map((banner) => SizedBox(
-                width: double.infinity,
-                child: Card(
-                  elevation: AppSize.s1_5,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSize.s12),
-                      side: BorderSide(
-                          color: ColorManager.white, width: AppSize.s1_5)),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(AppSize.s12),
-                    child: Image.network(
-                      banner,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ))
-          .toList(),
+      items: Constants.bannarImages.values.map((banner) {
+        Image image = Image.network(
+          errorBuilder: (context, child, loadingProgress) => ShimmerWidget(
+              height: double.infinity,
+              width: double.infinity,
+              shapeBorder: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSize.s12))),
+          loadingBuilder: (context, child, loadingProgress) => ShimmerWidget(
+              height: double.infinity,
+              width: double.infinity,
+              shapeBorder: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSize.s12))),
+          banner,
+          fit: BoxFit.cover,
+        );
+
+        return SizedBox(
+          width: double.infinity,
+          child: Card(
+            elevation: AppSize.s1_5,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSize.s12),
+                side:
+                    BorderSide(color: ColorManager.white, width: AppSize.s1_5)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(AppSize.s12),
+              child: image,
+            ),
+          ),
+        );
+      }).toList(),
       options: CarouselOptions(
           height: AppSize.s180,
           autoPlay: true,
@@ -199,16 +253,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  getQuickAddPopup(CategoryProductItem productItem) {
-    {
-      _viewModel.getProductdetail(productItem.id_product);
-      _viewModel.outputProductDetail.listen((data) {
-        _showPopup(
-            context,
-            CartQuickAdd(data.psdata!.combinations, data.psdata!.options,
-                data.psdata!.images));
-      });
-    }
+  getQuickAddPopup(CategoryProductItem productItem) async {
+    instance<AppPreferences>().isUserLoggedIn().then((isUserLoggedIn) {
+      if (isUserLoggedIn) {
+        _viewModel.getProductdetail(productItem.id_product);
+        _viewModel.outputProductDetail.listen((data) {
+          _showPopup(
+              context,
+              CartQuickAdd(data.psdata!.id_product, data.psdata!.combinations,
+                  data.psdata!.options, data.psdata!.images));
+        });
+      } else {
+        Navigator.pushNamed(context, Routes.loginRoute);
+      }
+    });
   }
 }
 

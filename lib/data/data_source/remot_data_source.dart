@@ -1,7 +1,6 @@
 import '../../data/network/app_api.dart';
 import '../../data/request/request.dart';
-import '../../data/responses/responses.dart';
-import '../../domain/models/cart.dart';
+import '../../data/responses/responses.dart'; 
 
 abstract class RemotDataSource {
   Future<AuthenticationRespons> login(LoginRequest loginRequest);

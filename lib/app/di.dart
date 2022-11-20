@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:mvvm_first_c/presentation/quick_add/quick_add_viewmodel.dart';
 import '../../presentation/main/cart/cart_page_viewmodel.dart';
 import '../../presentation/product_detal/product_detal_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -108,6 +109,9 @@ initCartModule() {
 
     instance.registerFactory<CartPageViewModel>(
         () => CartPageViewModel(instance()));
+        
+    instance.registerFactory<CartQuickAddViewModel>(
+        () => CartQuickAddViewModel(instance()));
   }
 }
 

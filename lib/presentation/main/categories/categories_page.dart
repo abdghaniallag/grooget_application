@@ -5,6 +5,7 @@ import '../../../domain/models/product.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/values_manager.dart';
 import '../../widgets/product_widget.dart';
+import '../../widgets/shimmer_loading.dart';
 import 'categories_page_viewmodel.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -43,9 +44,9 @@ class _CategoriesPageState extends State<CategoriesPage> {
         stream: _viewModel.outputCategory,
         builder: (context, snapshot) {
           int index = 0;
-          if (snapshot.data != null) {
+          if (snapshot. hasData) {
             products.addAll(snapshot.data!.psdata!.products!.toList());
-          }
+          
           return Column(
             children: [
               getTopCategoryList(),
@@ -87,7 +88,38 @@ class _CategoriesPageState extends State<CategoriesPage> {
               ),
             ],
           );
-        });
+       }else {
+            return Center(
+              child: Column(
+                children: [
+              getTopCategoryList(),
+                  Wrap(
+                      children: List<int>.generate(10, (index) => index)
+                          .map((e) {
+                            return Column(
+                              children: [
+                                  SizedBox(
+                                  height: e % 2==0 ?AppSize.s20:0,
+                                )  ,
+                                Padding(padding: const EdgeInsets.all(AppPadding.p4),
+                                  child: Card(
+                                    child: ShimmerWidget(
+                                        width: AppSize.s160,
+                                        height: AppSize.s280,
+                                        shapeBorder: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(AppSize.s4 ))),
+                                  ),
+                                )
+                              ],
+                            );
+                          })
+                          .cast<Column>()
+                          .toList()),
+                ],
+              ),
+            );
+          } });
   }
 
   selectCategory(int index) {

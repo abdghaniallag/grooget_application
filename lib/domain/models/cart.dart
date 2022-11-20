@@ -1,7 +1,7 @@
 class Total {
   String type;
   String label;
-  int amount;
+  double amount;
   String value;
   Total(this.type, this.label, this.amount, this.value);
 }
@@ -44,11 +44,11 @@ class Product {
   String date_add;
   String date_upd;
   int quantity;
-  int total;
-  int total_wt;
-  int price_wt;
+  dynamic total;
+  dynamic total_wt;
+  dynamic price_wt;
   String attributes_small;
-  int price_with_reduction_without_tax;
+  dynamic price_with_reduction_without_tax;
   String image_url;
   String reference;
   Product(

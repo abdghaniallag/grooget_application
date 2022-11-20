@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/domain/models/cart.dart';
 import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
+import '../../../domain/models/cart.dart';
 import '../../widgets/product_cart_widget.dart';
 
 import '../../../app/di.dart';
@@ -28,24 +28,47 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: _getContentWidgets());
+    return Center(child: _getContentWidgets(context));
   }
 
-  Widget _getContentWidgets() {
+  Widget _getContentWidgets(BuildContext context) {
+    List<Widget> products = List<Widget>.empty(growable: true);
+    products.add(Text(''));
+    double totals = 0;
+    int productCount = 0;
     return StreamBuilder<UserCart>(
         stream: _viewModel.outputCart,
         builder: (context, snapshot) {
-          if (snapshot.data != null) {
+          if (snapshot.hasData) {
+            totals = snapshot.data!.psdata!.totals!.total_including_tax!.amount;
+            productCount = snapshot.data!.psdata!.products_count;
+            products.addAll(snapshot.data!.psdata!.products!
+                .map((product) => ProductcartWidget(product!))
+                .toList());
+          }
+          {
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children:  
-                snapshot.data!.psdata!.products!.map(
-                  (product) => ProductcartWidget(product!)
-                ).toList(),
-                
+              children: [
+                const SizedBox(
+                  height: AppSize.s8,
+                ),
+                Text(
+                  productCount.toString(),
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                const SizedBox(
+                  height: AppSize.s8,
+                ),
+                Text(totals.toString()),
+                const SizedBox(
+                  height: AppSize.s8,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: products,
+                ),
+              ],
             );
-          } else {
-            return Text("Loading");
           }
         });
   }

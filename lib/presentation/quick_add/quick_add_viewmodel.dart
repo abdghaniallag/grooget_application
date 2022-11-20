@@ -18,8 +18,8 @@ class CartQuickAddViewModel extends BaseViewModel
     (await _cartUseCase.execute(CartUseCaseInupt(
             action: 'update',
             delete: 1,
-            id_product: itemAttributId,
-            id_product_attribute: itemId,
+            id_product: itemId,
+            id_product_attribute: itemAttributId,
             op: 'up',
             qty: qty,
             update: '1')))
@@ -66,6 +66,7 @@ class CartQuickAddViewModel extends BaseViewModel
   @override
   void start() {
     inputState.add(ContentState());
+    
   }
 }
 

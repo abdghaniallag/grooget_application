@@ -113,6 +113,7 @@ class _ProductDetailState extends State<ProductDetailView> {
                                     ],
                                   ),
                                   CartQuickAdd(
+                                      snapshot.data!.psdata!.id_product,
                                       snapshot.data!.psdata!.combinations,
                                       snapshot.data!.psdata!.options,
                                       snapshot.data!.psdata!.images),

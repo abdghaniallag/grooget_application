@@ -608,7 +608,7 @@ class TotalResponse extends BaseResponse {
   @JsonKey(name: "label")
   String? label;
   @JsonKey(name: "amount")
-  int? amount;
+  double? amount;
   @JsonKey(name: "value")
   String? value;
   TotalResponse(this.type, this.label, this.amount, this.value);
@@ -695,15 +695,15 @@ class ProductCartResponse extends BaseResponse {
   @JsonKey(name: "quantity")
   int? quantity;
   @JsonKey(name: "total")
-  int? total;
+  dynamic? total;
   @JsonKey(name: "total_wt")
-  int? total_wt;
+  dynamic? total_wt;
   @JsonKey(name: "price_wt")
-  int? price_wt;
+  dynamic price_wt;
   @JsonKey(name: "attributes_small")
   String? attributes_small;
   @JsonKey(name: "price_with_reduction_without_tax")
-  int? price_with_reduction_without_tax;
+  dynamic price_with_reduction_without_tax;
   @JsonKey(name: "image_url")
   String? image_url;
   @JsonKey(name: "reference")

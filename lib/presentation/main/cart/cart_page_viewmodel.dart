@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
+
 import '../../../domain/models/cart.dart';
 import '../../../domain/usecase/cart_usecase.dart';
 import '../../../presentation/base/base.dart';
@@ -10,13 +12,14 @@ class CartPageViewModel extends BaseViewModel
     with CartViewModelInputs, CartViewModelOutputs {
   CartUseCase _cartUseCase;
 
-  StreamController _cartObjectStreamController = BehaviorSubject<UserCart>();
+  StreamController _cartObjectStreamController = BehaviorSubject<UserCart> ();
 
   CartPageViewModel(this._cartUseCase);
 
   // inputs
   @override
   void start() {
+      inputState.add(ContentState());
     _getCart();
   }
 

@@ -32,7 +32,7 @@ class _MainViewState extends State<MainView> {
     AppStrings.cart,
     AppStrings.settings,
   ];
-  int _currentIndex = 4;
+  int _currentIndex = 3;
 
   final TextEditingController _controller = TextEditingController();
   @override

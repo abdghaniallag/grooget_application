@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm_first_c/presentation/quick_add/quick_add_viewmodel.dart';
+import '../../app/di.dart';
 import '../resources/color_manager.dart';
 import '../resources/strings_manager.dart';
 import '../resources/values_manager.dart';
 import '../../domain/models/product.dart';
 
 class CartQuickAdd extends StatefulWidget {
+  int productId;
   List<ImageSource?> images;
   List<CombinationsItem?> combinationsItems;
   List<Option?> options;
 
-  CartQuickAdd(this.combinationsItems, this.options, this.images, {Key? key})
+  CartQuickAdd(
+      this.productId, this.combinationsItems, this.options, this.images,
+      {Key? key})
       : super(key: key);
 
   @override
@@ -18,9 +23,16 @@ class CartQuickAdd extends StatefulWidget {
 
 class _CartQuickAddState extends State<CartQuickAdd> {
   late List<int> packQuantity;
+  CartQuickAddViewModel _viewModel = instance<CartQuickAddViewModel>();
+
+  _bind() {
+    _viewModel.start();
+  }
+
   @override
   void initState() {
     packQuantity = List<int>.filled(widget.combinationsItems.length, 0);
+    _bind();
     super.initState();
   }
 
@@ -29,26 +41,24 @@ class _CartQuickAddState extends State<CartQuickAdd> {
     return Column(
       children: [
         getGridBoard(context),
-        TextButton(onPressed: (() {
-          
-        }), child:const Text(AppStrings.ok))
       ],
     );
   }
 
   Widget getGridBoard(BuildContext context) {
-    return Wrap( direction: Axis.horizontal,
-      children: [ 
-        getColorRow(),
-        const SizedBox(width: AppSize.s4),
-        getSizesRow(),
-        const SizedBox(width: AppSize.s1_5),
-        getMinQuantityRow(context),
-        const SizedBox(width: AppSize.s4),
-        getPriceRow(context),
-        const SizedBox(width: AppSize.s1_5),
-        getPackQuantityRow(context),
-      ],
+    return Center(
+      child: Wrap(
+        direction: Axis.horizontal,
+        children: [
+          getColorRow(),
+          const SizedBox(width: AppSize.s4),
+          getSizesRow(),
+          const SizedBox(width: AppSize.s4),
+          getMinQuantityRow(context), 
+          const SizedBox(width: AppSize.s1_5),
+          getPackQuantityRow(context),
+        ],
+      ),
     );
   }
 
@@ -109,7 +119,9 @@ class _CartQuickAddState extends State<CartQuickAdd> {
               child: Container(
                 alignment: Alignment.center,
                 margin: const EdgeInsets.symmetric(vertical: 10),
-                child: Text(item!.value, textAlign: TextAlign.justify),
+                child: Text(item!.value
+                    .replaceAll(RegExp(r'\s'), ',')
+                    .replaceAll(RegExp(r'/'), '')),
               ),
             ))
         .toList()));
@@ -177,21 +189,45 @@ class _CartQuickAddState extends State<CartQuickAdd> {
       packQuantityRow.add(SizedBox(
           width: 100,
           height: 70,
-          child: getAddRemoveWidget(i, widget.combinationsItems[i], context)));
+          child: getAddRemoveWidget(
+              widget.productId, i, widget.combinationsItems[i], context)));
     }
 
     return Column(children: packQuantityRow);
   }
 
-  SizedBox getAddRemoveWidget(
-      int index, CombinationsItem? combinationsItem, BuildContext context) {
+  SizedBox getAddRemoveWidget(int productId, int index,
+      CombinationsItem? combinationsItem, BuildContext context) {
     return SizedBox(
       width: 100,
-      height: 70,
+      height: 100,
       child: Stack(
         fit: StackFit.expand,
         alignment: Alignment.center,
         children: [
+          Align(alignment:Alignment.topCenter ,
+            child: Positioned(  top: 0,
+                width: 50,
+                height: 70,
+                child: Text(
+                  combinationsItem!.price,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  maxLines: 1,
+                )),
+          ),Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+                width: 60,
+                height: 20,
+                child: StreamBuilder<int>(
+                    stream: null,
+                    builder: (context, snapshot) {
+                      return Text(
+                        "${packQuantity[index]}  ",
+                        textAlign: TextAlign.center,
+                      );
+                    })),
+          ),
           Positioned(
             left: 60,
             child: SizedBox(
@@ -199,7 +235,13 @@ class _CartQuickAddState extends State<CartQuickAdd> {
               height: 70,
               child: TextButton.icon(
                 onPressed: () {
-                  _addToCart(combinationsItem!.minimal_quantity, index);
+                  _addToCart(combinationsItem.minimal_quantity, index);
+                  _viewModel.addItem(
+                      productId,
+                      combinationsItem.minimal_quantity,
+                      combinationsItem.id_product_attribute,
+                      packQuantity[index],
+                      index);
                 },
                 icon:
                     Icon(Icons.arrow_upward_rounded, color: ColorManager.green),
@@ -214,7 +256,7 @@ class _CartQuickAddState extends State<CartQuickAdd> {
               height: 70,
               child: TextButton.icon(
                 onPressed: () {
-                  _removeFromCart(combinationsItem!.minimal_quantity, index);
+                  _removeFromCart(combinationsItem.minimal_quantity, index);
                 },
                 icon: Icon(Icons.arrow_downward_rounded,
                     color: ColorManager.primary),
@@ -222,22 +264,7 @@ class _CartQuickAddState extends State<CartQuickAdd> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-                width: 60,
-                height: 20,
-                child: StreamBuilder<int>(
-                  stream: null,
-                  builder: (context, snapshot) {
-                    
-                    return Text(
-                      "${packQuantity[index]}  ",
-                      textAlign: TextAlign.center,
-                    );
-                  }
-                )),
-          ),
+          
         ],
       ),
     );

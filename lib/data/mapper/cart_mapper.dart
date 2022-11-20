@@ -22,11 +22,11 @@ extension ProductCartMapper on ProductCartResponse? {
       this?.date_add?.orEmpty() ?? EMPTY,
       this?.date_upd?.orEmpty() ?? EMPTY,
       this?.quantity?.orEmpty() ?? ZERO,
-      this?.total?.orEmpty() ?? ZERO,
-      this?.total_wt?.orEmpty() ?? ZERO,
-      this?.price_wt?.orEmpty() ?? ZERO,
+      this?.total ,
+      this?.total_wt ,
+      this?.price_wt ,
       this?.attributes_small?.orEmpty() ?? EMPTY,
-      this?.price_with_reduction_without_tax?.orEmpty() ?? ZERO,
+      this?.price_with_reduction_without_tax ,
       this?.image_url?.orEmpty() ?? EMPTY,
       this?.reference?.orEmpty() ?? EMPTY,
     );
@@ -61,7 +61,7 @@ extension TotalMapper on TotalResponse? {
     return Total(
       this?.type?.orEmpty() ?? EMPTY,
       this?.label?.orEmpty() ?? EMPTY,
-      this?.amount?.orEmpty() ?? ZERO,
+      this?.amount?.orEmpty() ?? DZERO,
       this?.value?.orEmpty() ?? EMPTY,
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/domain/models/cart.dart';
+import '../../domain/models/cart.dart';
+import '../../presentation/resources/strings_manager.dart';
 import '../../presentation/resources/values_manager.dart';
 import '../resources/color_manager.dart';
 
@@ -8,7 +9,13 @@ class ProductcartWidget extends StatelessWidget {
   final Product _productItem;
   @override
   Widget build(BuildContext context) {
-    return Container( 
+    String color=_productItem.attributes_small.replaceRange(
+                      _productItem.attributes_small.indexOf('-'),
+                      _productItem.attributes_small.length,'');
+    String size=_productItem.attributes_small.replaceRange(0,
+                      _productItem.attributes_small.indexOf('-')+2,
+                      '');
+    return Container(
       padding: const EdgeInsets.all(AppPadding.p8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -24,9 +31,9 @@ class ProductcartWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Men Minimalist Slip On Chelsea Boots'),
-                  Text('Color: Black'),
-                  Text('Sizes: 40 41 41 42 42 43 43 44'),
+                  SizedBox(width:AppSize.s200 , child: Text(_productItem.name)),
+                  Text('${AppStrings.color} : $color'),
+                  Text('${AppStrings.size } : $size '),
                 ],
               ),
             ],
@@ -34,9 +41,10 @@ class ProductcartWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text('Price \$15.99'),
+              Text(
+                  '${AppStrings.price}: ${_productItem.price_with_reduction_without_tax}'),
               getQTYAdjust(),
-              Text('Total \$15.99'),
+              Text('${AppStrings.total}: ${_productItem.total_wt}'),
               TextButton(
                   onPressed: (() => _deleteFromCart('product')),
                   child: Icon(
@@ -84,7 +92,7 @@ class ProductcartWidget extends StatelessWidget {
                 },
                 icon: Icon(Icons.arrow_downward_rounded,
                     color: ColorManager.primary),
-                label: const Text(''),
+                label: const SizedBox(),
               ),
             ),
           ),
@@ -94,7 +102,7 @@ class ProductcartWidget extends StatelessWidget {
                 width: 60,
                 height: 20,
                 child: Text(
-                  "8",
+                  ' ${_productItem.quantity}',
                   textAlign: TextAlign.center,
                 )),
           ),
@@ -103,9 +111,9 @@ class ProductcartWidget extends StatelessWidget {
     );
   }
 
-  _removeFromCart(String product, int qty) {}
+  _removeFromCart(String productId, int qty) {}
 
-  _addToCart(String product, int qty) {}
+  _addToCart(String productId, int qty) {}
 
-  _deleteFromCart(String product) {}
+  _deleteFromCart(String productId) {}
 }

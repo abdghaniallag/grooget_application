@@ -116,8 +116,8 @@ class _AppServiceClient implements AppServiceClient {
   @override
   Future<CategoryListResponse> getCategories(productId,
       {page = 0,
-      order = "product.sales.desc",
-      q = "",
+      order  ,
+      q ,
       resultsPerPage = 1,
       with_category_tree = 0}) async {
     const _extra = <String, dynamic>{};

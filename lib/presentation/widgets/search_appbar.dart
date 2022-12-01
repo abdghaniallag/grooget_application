@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/presentation/resources/strings_manager.dart';
+import '../../presentation/resources/strings_manager.dart';
 import '../../presentation/resources/color_manager.dart';
 import '../resources/values_manager.dart';
 

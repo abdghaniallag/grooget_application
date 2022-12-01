@@ -10,9 +10,10 @@ class ProductItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double? width=(MediaQuery.of(context).size.width/2)-8;
     return Container(
       padding: const EdgeInsets.all(AppPadding.p4),
-      width: AppSize.s160,
+      width: width,
       height: AppSize.s280,
       child: Card(
         child: GestureDetector(

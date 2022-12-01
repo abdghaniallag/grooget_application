@@ -4,10 +4,9 @@ import '../../presentation/main/home/home_page.dart';
 import '../../presentation/resources/color_manager.dart';
 import '../../presentation/resources/strings_manager.dart';
 import '../../presentation/resources/values_manager.dart';
-
-import '../widgets/search_appbar.dart';
 import 'categories/categories_page.dart';
 import 'search/search.dart';
+import 'wish_list/wish_list.dart';
 import 'settings/setting.dart';
 
 class MainView extends StatefulWidget {
@@ -22,6 +21,7 @@ class _MainViewState extends State<MainView> {
     HomePage(),
     CategoriesPage(),
     SearchPage(),
+    WishListPage(),
     CartPage(),
     SettingPage()
   ];
@@ -29,25 +29,34 @@ class _MainViewState extends State<MainView> {
     AppStrings.home,
     AppStrings.category,
     AppStrings.search,
+    AppStrings.wishList,
     AppStrings.cart,
     AppStrings.settings,
   ];
-  int _currentIndex = 3;
+  int _currentIndex = 0;
 
   final TextEditingController _controller = TextEditingController();
+
+  late FocusNode _focusNode;
+  @override
+  void initState() {
+    _focusNode = FocusNode();
+    super.initState();
+  }
+@override
+  void dispose() { _focusNode.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 243, 243, 243),
-        appBar: SearchAppBar().getAppBar(_controller, search),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              pages[_currentIndex],
-            ],
-          ),
+        appBar: getAppBar(_controller),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            pages[_currentIndex],
+          ],
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
@@ -62,27 +71,54 @@ class _MainViewState extends State<MainView> {
             onTap: onTap,
             items: const [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home), label: AppStrings.home),
+                  icon: Icon(Icons.home_outlined), label: AppStrings.home),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.category_rounded),
+                  icon: Icon(Icons.category_outlined),
                   label: AppStrings.category),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: AppStrings.search),
+                  icon: Icon(Icons.search_outlined), label: AppStrings.search),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite_outline_rounded),
+                  label: AppStrings.wishList),
               BottomNavigationBarItem(
                   icon: Icon(Icons.card_travel_rounded),
                   label: AppStrings.cart),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), label: AppStrings.settings),
+                  icon: Icon(Icons.settings_outlined),
+                  label: AppStrings.settings),
             ],
           ),
         ));
   }
 
   onTap(int index) {
+    if (index == 2) {
+      _focusNode.requestFocus();
+    }
     setState(() {
       _currentIndex = index;
     });
   }
 
-  search() {}
+  AppBar getAppBar(TextEditingController controller) => AppBar(
+      title: Container(
+          decoration: BoxDecoration(
+              color: ColorManager.white,
+              borderRadius: BorderRadius.circular(AppSize.s8)),
+          child: TextFormField(
+            style: TextStyle(color: ColorManager.darkPrimary),
+            onTap: () => setState(() {
+              _currentIndex = 2;
+            }),focusNode: _focusNode,
+            onEditingComplete: () {},
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.search_outlined,
+                color: ColorManager.primary,
+              ),
+              hintText: AppStrings.search,
+            ),
+            textCapitalization: TextCapitalization.characters,
+            controller: controller,
+          )));
 }

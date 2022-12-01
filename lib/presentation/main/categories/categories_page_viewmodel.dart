@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -15,23 +16,30 @@ class CategoriesPageViewModel extends BaseViewModel
   StreamController _categoryStreamController = BehaviorSubject<CategoryList>();
   StreamController _productStreamController =
       BehaviorSubject<CategoryProductItem>();
-
+  bool _isResponsRecived=false;
+  late ScrollController scrollViewController;
   CategoriesPageViewModel(this._categoryUseCase);
-
+  String categoryId='10';
+  int resultPage=1;
   @override
   void start() {
+    scrollViewController = ScrollController()
+      ..addListener(() {
+        _loadProducts();
+      });
     _getHome();
   }
 
   _getHome() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
-    getProducts("10");
+    getProducts("10" ); 
   }
 
   @override
   void dispose() {
     _categoryStreamController.close();
+    scrollViewController.dispose();
     super.dispose();
   }
 
@@ -45,18 +53,26 @@ class CategoriesPageViewModel extends BaseViewModel
   @override
   Stream<CategoryProductItem> get outputProduct =>
       _productStreamController.stream.map((product) => product);
-
+_loadProducts()  {
+  log(_isResponsRecived.toString());
+    if (scrollViewController.position.extentAfter < 500 && _isResponsRecived)   {
+        getProducts(categoryId,resultsPerPage:20, page: resultPage );
+    }
+  }
   @override
-  getProducts(String categoryId, {resultsPerPage = 20, int page = 0}) async {
+  getProducts(String categoryId, {resultsPerPage = 20, int page = 1}) async {
     { inputState.add(
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
- 
+      
+        _isResponsRecived=false;
       (await _categoryUseCase.execute(categoryId,
               resultsPerPage: resultsPerPage, page: page))
           .fold((failure) {
+        _isResponsRecived=true;
         inputState.add(
             ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message));
       }, (category) {
+        _isResponsRecived=true;
         inputState.add(ContentState());
         inputCategory.add(category);
       });

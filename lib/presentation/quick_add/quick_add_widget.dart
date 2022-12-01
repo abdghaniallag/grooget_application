@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/presentation/quick_add/quick_add_viewmodel.dart';
+import '../../presentation/quick_add/quick_add_viewmodel.dart';
 import '../../app/di.dart';
 import '../resources/color_manager.dart';
 import '../resources/strings_manager.dart';

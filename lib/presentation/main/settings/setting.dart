@@ -14,12 +14,11 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  String language =  LanguageType.TURKY.getValue();
-  String currency =CurrencyType.DZDINAR.getValue();
+  String language = LanguageType.TURKY.getValue();
+  String currency = CurrencyType.DZDINAR.getValue();
   int? gender = 1;
   @override
   Widget build(BuildContext context) {
-    
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,6 +55,7 @@ class _SettingPageState extends State<SettingPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                //  TODO
                 Text('Costumer Name'),
                 ElevatedButton(
                   onPressed: () {},
@@ -270,7 +270,7 @@ class _SettingPageState extends State<SettingPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-           GestureDetector(
+          GestureDetector(
             onTap: changeCurrencyToDZDINAR,
             child: Text(CurrencyType.DZDINAR.getValue(),
                 style: CurrencyType.DZDINAR.getValue() == currency
@@ -280,18 +280,19 @@ class _SettingPageState extends State<SettingPage> {
           GestureDetector(
             onTap: changeCurrencyToEURO,
             child: Text(CurrencyType.EURO.getValue(),
-                style:
-                    CurrencyType.EURO.getValue() == currency ? active : inactive),
+                style: CurrencyType.EURO.getValue() == currency
+                    ? active
+                    : inactive),
           ),
           GestureDetector(
-            onTap:  changeCurrencyToLIRATURKY,
+            onTap: changeCurrencyToLIRATURKY,
             child: Text(CurrencyType.LIRATURKY.getValue(),
                 style: CurrencyType.LIRATURKY.getValue() == currency
                     ? active
                     : inactive),
           ),
           GestureDetector(
-            onTap:()=>changeCurrencyToUSDOLLAR(),
+            onTap: () => changeCurrencyToUSDOLLAR(),
             child: Text(CurrencyType.USDOLLAR.getValue(),
                 style: CurrencyType.USDOLLAR.getValue() == currency
                     ? active
@@ -320,22 +321,26 @@ class _SettingPageState extends State<SettingPage> {
     });
   }
 
-  void changeCurrencyToDZDINAR() { setState(() {
+  void changeCurrencyToDZDINAR() {
+    setState(() {
       currency = CurrencyType.DZDINAR.getValue();
     });
   }
 
-  void changeCurrencyToUSDOLLAR() {setState(() {
+  void changeCurrencyToUSDOLLAR() {
+    setState(() {
       currency = CurrencyType.USDOLLAR.getValue();
     });
   }
 
-  void changeCurrencyToLIRATURKY() {setState(() {
+  void changeCurrencyToLIRATURKY() {
+    setState(() {
       currency = CurrencyType.LIRATURKY.getValue();
     });
   }
 
-  void changeCurrencyToEURO() {setState(() {
+  void changeCurrencyToEURO() {
+    setState(() {
       currency = CurrencyType.EURO.getValue();
     });
   }

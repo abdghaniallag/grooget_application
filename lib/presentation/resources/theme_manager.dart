@@ -42,6 +42,7 @@ ThemeData getAplicationTheme() {
       ),
     ),
 // Text theme
+    
     textTheme: TextTheme(
       headline1:
           getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s20),
@@ -57,7 +58,7 @@ ThemeData getAplicationTheme() {
       bodyText1: getBoldStyle(color: ColorManager.gray),
     ),
 // input decoration theme(text form field )
-    inputDecorationTheme: InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme( 
       contentPadding:const  EdgeInsets.all(AppPadding.p8),
       hintStyle: getRegularStyle(color: ColorManager.gray1),
       labelStyle: getMediumStyle(color: ColorManager.darkGray),

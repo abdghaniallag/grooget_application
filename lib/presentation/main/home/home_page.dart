@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/presentation/resources/routes_manager.dart';
-import 'package:mvvm_first_c/presentation/widgets/shimmer_loading.dart';
+import '../../resources/routes_manager.dart';
+import '../../widgets/shimmer_loading.dart';
 import '../../../app/app_preferences.dart';
 import '../../../app/constant.dart';
 import '../../../domain/models/product.dart';
@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomePageViewModel _viewModel = instance<HomePageViewModel>();
+   
   @override
   void initState() {
     _bind();
@@ -34,25 +35,28 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidgets();
+    return SizedBox(
+     height: MediaQuery.of(context).size.height-148, child: _getContentWidgets());
   }
 
   Widget _getContentWidgets() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _getBanners(),
-        _getCategoryList(),
-        _getSection(AppStrings.product),
-        _getTopProducts(),
-        _getSection(AppStrings.category),
-        _getTopCategories(),
-      ],
+    return SingleChildScrollView(controller: _viewModel.scrollViewController,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _getBanners(),
+          _getCategoryList(),
+          _getSection(AppStrings.product),
+          _getTopProducts(),
+          _getSection(AppStrings.category),
+          // _getTopCategories(),
+        ],
+      ),
     );
   }
 
   Widget _getTopCategories() {
-    return Column(
+    return Wrap(
         children: Constants.mainCategoris
             .map((category) => CategoryWidget(category.keys.first.toString(),
                 Constants.categoryImages[category.values.first]!))
@@ -61,7 +65,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _getTopProducts() {
     List<CategoryProductItem?>? products = [];
-    _viewModel.getProducts(20);
+    // _viewModel.getProducts(20);
     return StreamBuilder<CategoryList>(
         stream: _viewModel.outputProduct,
         builder: (context, snapshot) {
@@ -159,17 +163,12 @@ class _HomePageState extends State<HomePage> {
   Widget _getBanners() {
     return CarouselSlider(
       items: Constants.bannarImages.values.map((banner) {
-        Image image = Image.network(
-          errorBuilder: (context, child, loadingProgress) => ShimmerWidget(
-              height: double.infinity,
-              width: double.infinity,
-              shapeBorder: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppSize.s12))),
-          loadingBuilder: (context, child, loadingProgress) => ShimmerWidget(
-              height: double.infinity,
-              width: double.infinity,
-              shapeBorder: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppSize.s12))),
+        Image image = Image.network( 
+          // loadingBuilder: (context, child, loadingProgress) => ShimmerWidget(
+          //     height: double.infinity,
+          //     width: double.infinity,
+          //     shapeBorder: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(AppSize.s12))),
           banner,
           fit: BoxFit.cover,
         );

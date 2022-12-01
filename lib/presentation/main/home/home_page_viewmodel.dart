@@ -17,25 +17,39 @@ class HomePageViewModel extends BaseViewModel
   StreamController _categoryStreamController = BehaviorSubject<CategoryList>();
 
   StreamController _productDetailStreamController =
-      StreamController<ProductInformation>.broadcast () ;
+      StreamController<ProductInformation>.broadcast();
+
+  late ScrollController scrollViewController;
 
   HomePageViewModel(this._categoryUseCase, this._productUseCase);
-
+  int resultPageNumber = 0;
+  int resultPagesCaount = 0;
   // inputs
   @override
   void start() {
+    scrollViewController = ScrollController()
+      ..addListener(() {
+        _loadProducts();
+      });
     _getHome();
   }
 
   _getHome() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    getProducts(50);
+    // _getCategories();
+  }
 
-    _getCategories();
+  _loadProducts() {
+    if (scrollViewController.position.extentAfter < 500) {
+      getProducts(50);
+    }
   }
 
   @override
   void dispose() {
+    scrollViewController.dispose();
     _categoryStreamController.close();
     _productDetailStreamController.close();
     super.dispose();
@@ -81,15 +95,22 @@ class HomePageViewModel extends BaseViewModel
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
     {
       String mainCategory = '2';
+      if (resultPageNumber<=resultPagesCaount) {
       (await _categoryUseCase.execute(mainCategory,
-              resultsPerPage: resultsPerPage))
+              resultsPerPage: resultsPerPage, page: resultPageNumber))
           .fold((failure) {
         inputState.add(ErrorState(
             StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
       }, (category) {
+        if (resultPagesCaount == 0) {
+          resultPagesCaount = category.psdata?.pagination?.pages_count ?? 0;
+        }
+        resultPageNumber++;
         inputState.add(ContentState());
         inputProduct.add(category);
       });
+        
+      }
     }
   }
 

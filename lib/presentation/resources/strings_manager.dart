@@ -36,6 +36,7 @@ class AppStrings {
   static const String lastName = 'Last Name';
   static const String name = 'Name';
   static const String home = 'Home';
+  static const String wishList = 'Wish List';
   static const String services = 'Service';
   static const String stories = 'Stores';
   static const String settings = 'Settings';
@@ -75,6 +76,7 @@ class AppStrings {
   static const String account = 'Account';
   static const String edit = 'Edit';
   static const String save= 'Save';
+  static const String total= 'Total';
   static const String language = 'Language';
   static const String cuerrcy = 'Cuerrcy';
   static const String checkout = 'Checkout';

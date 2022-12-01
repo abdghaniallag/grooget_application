@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm_first_c/presentation/resources/values_manager.dart';
+import '../../resources/values_manager.dart';
 import '../../../domain/models/cart.dart';
 import '../../widgets/product_cart_widget.dart';
 
@@ -28,7 +28,11 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: _getContentWidgets(context));
+    return SizedBox(
+      height: MediaQuery.of(context).size.height - 148,
+      child: Center(
+          child: SingleChildScrollView(child: _getContentWidgets(context))),
+    );
   }
 
   Widget _getContentWidgets(BuildContext context) {

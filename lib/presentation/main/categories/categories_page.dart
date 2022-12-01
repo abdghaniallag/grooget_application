@@ -40,86 +40,91 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   getContent() {
     List<CategoryProductItem?>? products = [];
-    return StreamBuilder<CategoryList>(
-        stream: _viewModel.outputCategory,
-        builder: (context, snapshot) {
-          int index = 0;
-          if (snapshot. hasData) {
-            products.addAll(snapshot.data!.psdata!.products!.toList());
-          
-          return Column(
-            children: [
-              getTopCategoryList(),
-              snapshot.data != null
-                  ? _getFilterList(snapshot.data!.psdata!.facets)
-                  :const SizedBox(),
-              Wrap(
-                children: products.map((product) {
-                  index++;
-                  final Cover cover = Cover(product!.cover!.url.toString(),
-                      product.cover!.width!, product.cover!.height!);
-                  final ProductItem productItem = ProductItem(
-                      product.id_product,
-                      product.price,
-                      product.name,
-                      cover,
-                      product.description,
-                      product.description_short,
-                      product.category_name);
-                  if (index % 2 != 0) {
-                    return GestureDetector(
-                        onTap: () => _viewModel.openCategoryDetail(
-                            context, product.id_product),
-                        child: ProductItemWidget(productItem ));
-                  } else {
-                    return Column(
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        GestureDetector(
+    return  SizedBox(
+     height: MediaQuery.of(context).size.height-148,
+      child: SingleChildScrollView(
+        child: StreamBuilder<CategoryList>(
+            stream: _viewModel.outputCategory,
+            builder: (context, snapshot) {
+              int index = 0;
+              if (snapshot. hasData) {
+                products.addAll(snapshot.data!.psdata!.products!.toList());
+              
+              return Column(
+                children: [
+                  getTopCategoryList(),
+                  snapshot.data != null
+                      ? _getFilterList(snapshot.data!.psdata!.facets)
+                      :const SizedBox(),
+                  Wrap(
+                    children: products.map((product) {
+                      index++;
+                      final Cover cover = Cover(product!.cover!.url.toString(),
+                          product.cover!.width!, product.cover!.height!);
+                      final ProductItem productItem = ProductItem(
+                          product.id_product,
+                          product.price,
+                          product.name,
+                          cover,
+                          product.description,
+                          product.description_short,
+                          product.category_name);
+                      if (index % 2 != 0) {
+                        return GestureDetector(
                             onTap: () => _viewModel.openCategoryDetail(
                                 context, product.id_product),
-                            child: ProductItemWidget(productItem ))
-                      ],
-                    );
-                  }
-                }).toList(),
-              ),
-            ],
-          );
-       }else {
-            return Center(
-              child: Column(
-                children: [
-              getTopCategoryList(),
-                  Wrap(
-                      children: List<int>.generate(10, (index) => index)
-                          .map((e) {
-                            return Column(
-                              children: [
-                                  SizedBox(
-                                  height: e % 2==0 ?AppSize.s20:0,
-                                )  ,
-                                Padding(padding: const EdgeInsets.all(AppPadding.p4),
-                                  child: Card(
-                                    child: ShimmerWidget(
-                                        width: AppSize.s160,
-                                        height: AppSize.s280,
-                                        shapeBorder: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(AppSize.s4 ))),
-                                  ),
-                                )
-                              ],
-                            );
-                          })
-                          .cast<Column>()
-                          .toList()),
+                            child: ProductItemWidget(productItem ));
+                      } else {
+                        return Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            GestureDetector(
+                                onTap: () => _viewModel.openCategoryDetail(
+                                    context, product.id_product),
+                                child: ProductItemWidget(productItem ))
+                          ],
+                        );
+                      }
+                    }).toList(),
+                  ),
                 ],
-              ),
-            );
-          } });
+              );
+           }else {
+                return Center(
+                  child: Column(
+                    children: [
+                  getTopCategoryList(),
+                      Wrap(
+                          children: List<int>.generate(10, (index) => index)
+                              .map((e) {
+                                return Column(
+                                  children: [
+                                      SizedBox(
+                                      height: e % 2==0 ?AppSize.s20:0,
+                                    )  ,
+                                    Padding(padding: const EdgeInsets.all(AppPadding.p4),
+                                      child: Card(
+                                        child: ShimmerWidget(
+                                            width: AppSize.s160,
+                                            height: AppSize.s280,
+                                            shapeBorder: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(AppSize.s4 ))),
+                                      ),
+                                    )
+                                  ],
+                                );
+                              })
+                              .cast<Column>()
+                              .toList()),
+                    ],
+                  ),
+                );
+              } }),
+      ),
+    );
   }
 
   selectCategory(int index) {

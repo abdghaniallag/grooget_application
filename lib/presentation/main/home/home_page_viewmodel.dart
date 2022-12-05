@@ -37,8 +37,7 @@ class HomePageViewModel extends BaseViewModel
   _getHome() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
-    getProducts(50);
-    // _getCategories();
+    getProducts(50); 
   }
 
   _loadProducts() {
@@ -74,7 +73,7 @@ class HomePageViewModel extends BaseViewModel
   Stream<CategoryList> get outputProduct =>
       _categoryStreamController.stream.map((product) => product);
 
-  void _getCategories() async {
+    _getCategories() async {
     inputState.add(
         LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
     for (var element in Constants.mainCategoris) {
@@ -132,17 +131,18 @@ class HomePageViewModel extends BaseViewModel
     Navigator.pushNamed(context, Routes.productDetailRoute, arguments: id);
   }
 
-  @override
-  openCategoryDetail(BuildContext context, String id) {
-    Navigator.pushNamed(context, Routes.categoriesRoute, arguments: id);
-  }
+  // @override
+  // openCategoryDetail(BuildContext context, String id) {
+  //   Navigator.pushNamed(context, Routes.categoriesRoute, arguments: id);
+  // }
+  
 }
 
 abstract class HomeViewModelInputs {
   getProducts(int resultsPerPage);
   getProductdetail(String id);
   openProductDetail(BuildContext context, String id);
-  openCategoryDetail(BuildContext context, String id);
+  // openCategoryDetail(BuildContext context, String id);
   Sink get inputCategory;
   Sink get inputProduct;
   Sink get inputProductDetail;

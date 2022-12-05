@@ -1,209 +1,119 @@
 {
-    "success": true,
-    "code": 200,
-    "psdata": {
-        "id_product": 700,
-        "name": "Men Solid Button Up Shirt",
-        "available_for_order": "1",
-        "show_price": "1",
-        "new_products": "0",
-        "on_sale_products": "0",
-        "quantity": 10000,
-        "minimal_quantity": "5",
-        "allow_out_of_stock": "1",
-        "float_price": 10,
-        "price": "$10.00",
-        "discount_price": "",
-        "discount_percentage": "",
-        "images": [
-            {
-                "src": "https://www.grooget.com/3149-large_default/new-.jpg"
-            },
-            {
-                "src": "https://www.grooget.com/3150-large_default/new-.jpg"
-            },
-            {
-                "src": "https://www.grooget.com/3151-large_default/new-.jpg"
-            },
-            {
-                "src": "https://www.grooget.com/3152-large_default/new-.jpg"
-            }
-        ],
-        "cover_image": "https://www.grooget.com/3149-large_default/new-.jpg",
-        "combinations": [
-            {
-                "id_product_attribute": 4124,
-                "quantity": 2500,
-                "price": "$10.00",
-                "float_price": 10,
-                "minimal_quantity": 5,
-                "combination_code": "11_34"
-            },
-            {
-                "id_product_attribute": 4123,
-                "quantity": 2500,
-                "price": "$10.00",
-                "float_price": 10,
-                "minimal_quantity": 5,
-                "combination_code": "17_34"
-            },
-            {
-                "id_product_attribute": 4122,
-                "quantity": 2500,
-                "price": "$10.00",
-                "float_price": 10,
-                "minimal_quantity": 5,
-                "combination_code": "8_34"
-            },
-            {
-                "id_product_attribute": 4125,
-                "quantity": 2500,
-                "price": "$10.00",
-                "float_price": 10,
-                "minimal_quantity": 5,
-                "combination_code": "9_34"
-            }
-        ],
-        "options": [
-            {
-                "id": 2,
-                "title": "Color",
-                "is_color_option": 1,
-                "items": [
-                    {
-                        "id": 11,
-                        "value": "Black",
-                        "hex_value": "#434A54"
-                    },
-                    {
-                        "id": 17,
-                        "value": "Brown",
-                        "hex_value": "#964B00"
-                    },
-                    {
-                        "id": 8,
-                        "value": "White",
-                        "hex_value": "#ffffff"
-                    },
-                    {
-                        "id": 9,
-                        "value": "Off White",
-                        "hex_value": "#faebd7"
-                    }
-                ]
-            },
-            {
-                "id": 1,
-                "title": "Sizes",
-                "is_color_option": 0,
-                "items": [
-                    {
-                        "id": 34,
-                        "value": "S M L XL XXL"
-                    }
-                ]
-            }
-        ],
-        "description": "",
-        "description_short": "",
-        "reference": "782R5727",
-        "category_name": "shirts",
-        "manufacturer_name": false,
-        "product_info": [
-            {
-                "name": "SKU",
-                "value": "782R5727"
-            },
-            {
-                "name": "Condition",
-                "value": "New"
-            },
-            {
-                "name": "Origin Country",
-                "value": "Turkey"
-            },
-            {
-                "name": "Age",
-                "value": "More than 15 years old"
-            },
-            {
-                "name": "Season",
-                "value": "Autumn"
-            },
-            {
-                "name": "Gender ",
-                "value": "Male"
-            },
-            {
-                "name": "Fabric Type",
-                "value": "Cotton"
-            }
-        ],
-        "accessories": [],
-        "customization_fields": {
-            "is_customizable": "0",
-            "customizable_items": []
+    "combinations": [
+        {
+            "id_product_attribute": 7226,
+            "quantity": 6534654,
+            "price": "$3.25",
+            "float_price": 3.25,
+            "minimal_quantity": 3,
+            "combination_code": "11_170"
         },
-        "pack_products": [],
-        "seller_info": [],
-        "product_attachments_array": [],
-        "product_url": "https://www.grooget.com/en/shirts/700-new-.html",
-        "groups": {
-            "2": {
-                "group_name": "Color",
-                "name": "Color",
-                "group_type": "color",
-                "default": 8,
-                "attributes": {
-                    "11": {
-                        "name": "Black",
-                        "html_color_code": "#434A54",
-                        "texture": "",
-                        "selected": false
-                    },
-                    "17": {
-                        "name": "Brown",
-                        "html_color_code": "#964B00",
-                        "texture": "",
-                        "selected": false
-                    },
-                    "8": {
-                        "name": "White",
-                        "html_color_code": "#ffffff",
-                        "texture": "",
-                        "selected": false
-                    },
-                    "9": {
-                        "name": "Off White",
-                        "html_color_code": "#faebd7",
-                        "texture": "",
-                        "selected": false
-                    }
-                },
-                "attributes_quantity": {
-                    "11": 2500,
-                    "17": 2500,
-                    "8": 2500,
-                    "9": 2500
-                }
-            },
-            "1": {
-                "group_name": "Sizes By Letters",
-                "name": "Sizes",
-                "group_type": "select",
-                "default": 34,
-                "attributes": {
-                    "34": {
-                        "name": "S M L XL XXL",
-                        "html_color_code": "",
-                        "texture": "",
-                        "selected": false
-                    }
-                },
-                "attributes_quantity": {
-                    "34": 10000
-                }
-            }
+        {
+            "id_product_attribute": 7223,
+            "quantity": 6534654,
+            "price": "$3.25",
+            "float_price": 3.25,
+            "minimal_quantity": 3,
+            "combination_code": "11_168"
+        },
+        {
+            "id_product_attribute": 7229,
+            "quantity": 6534654,
+            "price": "$3.25",
+            "float_price": 3.25,
+            "minimal_quantity": 3,
+            "combination_code": "11_169"
+        },
+        {
+            "id_product_attribute": 7227,
+            "quantity": 6534654,
+            "price": "$3.25",
+            "float_price": 3.25,
+            "minimal_quantity": 3,
+            "combination_code": "5_170"
+        },
+        {
+            "id_product_attribute": 7224,
+            "quantity": 6534654,
+            "price": "$3.25",
+            "float_price": 3.25,
+            "minimal_quantity": 3,
+            "combination_code": "5_168"
+        },
+        {
+            "id_product_attribute": 7230,
+            "quantity": 6534654,
+            "price": "$3.25",
+            "float_price": 3.25,
+            "minimal_quantity": 3,
+            "combination_code": "5_169"
+        },
+        {
+            "id_product_attribute": 7228,
+            "quantity": 6534654,
+            "price": "$3.25",
+            "float_price": 3.25,
+            "minimal_quantity": 3,
+            "combination_code": "8_170"
+        },
+        {
+            "id_product_attribute": 7225,
+            "quantity": 6534654,
+            "price": "$3.25",
+            "float_price": 3.25,
+            "minimal_quantity": 3,
+            "combination_code": "8_168"
+        },
+        {
+            "id_product_attribute": 7231,
+            "quantity": 6534654,
+            "price": "$3.25",
+            "float_price": 3.25,
+            "minimal_quantity": 3,
+            "combination_code": "8_169"
         }
-    }
+    ],
+    "options": [
+        {
+            "id": 2,
+            "title": "Color",
+            "is_color_option": 1,
+            "items": [
+                {
+                    "id": 11,
+                    "value": "Black",
+                    "hex_value": "#434A54"
+                },
+                {
+                    "id": 5,
+                    "value": "Grey",
+                    "hex_value": "#AAB2BD"
+                },
+                {
+                    "id": 8,
+                    "value": "White",
+                    "hex_value": "#ffffff"
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "title": "Sizes",
+            "is_color_option": 0,
+            "items": [
+                {
+                    "id": 168,
+                    "value": "S"
+                },
+                {
+                    "id": 170,
+                    "value": "M"
+                },
+                {
+                    "id": 169,
+                    "value": "L"
+                }
+            ]
+        }
+    ]
 }

@@ -1,5 +1,7 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 import '../../resources/routes_manager.dart';
 import '../../widgets/shimmer_loading.dart';
 import '../../../app/app_preferences.dart';
@@ -22,7 +24,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomePageViewModel _viewModel = instance<HomePageViewModel>();
-   
+
   @override
   void initState() {
     _bind();
@@ -36,11 +38,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-     height: MediaQuery.of(context).size.height-148, child: _getContentWidgets());
+        height: MediaQuery.of(context).size.height - 148,
+        child: _getContentWidgets());
   }
 
   Widget _getContentWidgets() {
-    return SingleChildScrollView(controller: _viewModel.scrollViewController,
+    return SingleChildScrollView(
+      controller: _viewModel.scrollViewController,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -93,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                         ProductItemWidget(productItem),
                         Positioned(
                           right: AppPadding.p14,
-                          bottom: AppPadding.p20,
+                          top: AppPadding.p20,
                           child: ElevatedButton(
                             child: const Icon(Icons.add_rounded),
                             onPressed: () {
@@ -114,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                             ProductItemWidget(productItem),
                             Positioned(
                               right: AppPadding.p14,
-                              bottom: AppPadding.p20,
+                              top: AppPadding.p20,
                               child: ElevatedButton(
                                 child: const Icon(Icons.add_rounded),
                                 onPressed: () {
@@ -137,10 +141,11 @@ class _HomePageState extends State<HomePage> {
                       .map((e) {
                         return Column(
                           children: [
-                              SizedBox(
-                              height: e % 2==0 ?AppSize.s20:0,
-                            )  ,
-                            Padding(padding: const EdgeInsets.all(AppPadding.p4),
+                            SizedBox(
+                              height: e % 2 == 0 ? AppSize.s20 : 0,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(AppPadding.p4),
                               child: Card(
                                 child: ShimmerWidget(
                                     width: AppSize.s160,
@@ -163,13 +168,21 @@ class _HomePageState extends State<HomePage> {
   Widget _getBanners() {
     return CarouselSlider(
       items: Constants.bannarImages.values.map((banner) {
-        Image image = Image.network( 
-          // loadingBuilder: (context, child, loadingProgress) => ShimmerWidget(
-          //     height: double.infinity,
-          //     width: double.infinity,
-          //     shapeBorder: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(AppSize.s12))),
+        Image image = Image.network(
           banner,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            }
+            return loadingProgress.expectedTotalBytes != null
+                ? ShimmerWidget(
+                    height: double.infinity,
+                    width: double.infinity,
+                    shapeBorder: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppSize.s12)))
+                : child;
+            
+          },
           fit: BoxFit.cover,
         );
 
@@ -256,7 +269,8 @@ class _HomePageState extends State<HomePage> {
     instance<AppPreferences>().isUserLoggedIn().then((isUserLoggedIn) {
       if (isUserLoggedIn) {
         _viewModel.getProductdetail(productItem.id_product);
-        _viewModel.outputProductDetail.listen((data) {
+        _viewModel.outputProductDetail.listen((data) { 
+          log( name:'combinations' ,data.psdata!.combinations .length.toString());
           _showPopup(
               context,
               CartQuickAdd(data.psdata!.id_product, data.psdata!.combinations,

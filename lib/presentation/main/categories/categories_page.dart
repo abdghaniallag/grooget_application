@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../../app/app_preferences.dart';
 import '../../../app/constant.dart';
 import '../../../app/di.dart';
 import '../../../domain/models/product.dart';
+import '../../quick_add/quick_add_widget.dart';
+import '../../resources/color_manager.dart';
+import '../../resources/routes_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/values_manager.dart';
 import '../../widgets/product_widget.dart';
@@ -70,23 +74,45 @@ class _CategoriesPageState extends State<CategoriesPage> {
                           product.description_short,
                           product.category_name);
                       if (index % 2 != 0) {
-                        return GestureDetector(
-                            onTap: () => _viewModel.openCategoryDetail(
-                                context, product.id_product),
-                            child: ProductItemWidget(productItem ));
-                      } else {
-                        return Column(
+                        return Stack(
+                      children: [
+                        ProductItemWidget(productItem),
+                        Positioned(
+                          right: AppPadding.p14,
+                          top: AppPadding.p20,
+                          child: ElevatedButton(
+                            child: const Icon(Icons.add_rounded),
+                            onPressed: () {
+                              getQuickAddPopup(product);
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Stack(
                           children: [
-                            const SizedBox(
-                              height: 20,
+                            ProductItemWidget(productItem),
+                            Positioned(
+                              right: AppPadding.p14,
+                              top: AppPadding.p20,
+                              child: ElevatedButton(
+                                child: const Icon(Icons.add_rounded),
+                                onPressed: () {
+                                  getQuickAddPopup(product);
+                                },
+                              ),
                             ),
-                            GestureDetector(
-                                onTap: () => _viewModel.openCategoryDetail(
-                                    context, product.id_product),
-                                child: ProductItemWidget(productItem ))
                           ],
-                        );
-                      }
+                        )
+                      ],
+                    );
+                  }
                     }).toList(),
                   ),
                 ],
@@ -170,6 +196,51 @@ class _CategoriesPageState extends State<CategoriesPage> {
       ),
     );
   }
+
+  getQuickAddPopup(CategoryProductItem productItem) async {
+    instance<AppPreferences>().isUserLoggedIn().then((isUserLoggedIn) {
+      if (isUserLoggedIn) {
+        // _viewModel.getProductdetail(productItem.id_product);
+        // _viewModel.outputProductDetail.listen((data) {
+          _showPopup(
+              context ,Text(productItem.name)
+              // CartQuickAdd(data.psdata!.id_product, data.psdata!.combinations,
+              //     data.psdata!.options, data.psdata!.images)
+                  );
+        // });
+      } else {
+        Navigator.pushNamed(context, Routes.loginRoute);
+      }
+    });
+  }
+ 
+_showPopup(BuildContext context, Widget widget, {String title = ""}) {
+  if (ModalRoute.of(context)?.isCurrent != true) {
+    Navigator.of(context, rootNavigator: true).pop(true);
+  }
+  showDialog(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppSize.s14)),
+            elevation: AppSize.s1_5,
+            backgroundColor: Colors.transparent,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: ColorManager.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(AppSize.s14),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: AppSize.s12,
+                        offset: Offset(AppSize.s0, AppSize.s12))
+                  ]),
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical, child: widget),
+            ),
+          ));
+}
 }
 
 Widget _getFilterList(List<Facets?>? facets) {

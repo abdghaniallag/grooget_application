@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import '../../app/functions.dart';
 import '../../presentation/quick_add/quick_add_viewmodel.dart';
 import '../../app/di.dart';
 import '../resources/color_manager.dart';
@@ -11,6 +14,8 @@ class CartQuickAdd extends StatefulWidget {
   List<ImageSource?> images;
   List<CombinationsItem?> combinationsItems;
   List<Option?> options;
+  late List<OptionItem?> colorOptions;
+  late List<OptionItem?> sizeOptions;
 
   CartQuickAdd(
       this.productId, this.combinationsItems, this.options, this.images,
@@ -26,6 +31,15 @@ class _CartQuickAddState extends State<CartQuickAdd> {
   CartQuickAddViewModel _viewModel = instance<CartQuickAddViewModel>();
 
   _bind() {
+    log(widget.combinationsItems.length.toString());
+    widget.colorOptions =
+        (widget.options.where((option) => option!.is_color_option == 1))
+            .map((e) => e!.items)
+            .first;
+    widget.sizeOptions =
+        (widget.options.where((option) => option!.is_color_option != 1))
+            .map((e) => e!.items)
+            .first;
     _viewModel.start();
   }
 
@@ -54,7 +68,7 @@ class _CartQuickAddState extends State<CartQuickAdd> {
           const SizedBox(width: AppSize.s4),
           getSizesRow(),
           const SizedBox(width: AppSize.s4),
-          getMinQuantityRow(context), 
+          getMinQuantityRow(context),
           const SizedBox(width: AppSize.s1_5),
           getPackQuantityRow(context),
         ],
@@ -80,59 +94,59 @@ class _CartQuickAddState extends State<CartQuickAdd> {
 
   Column getColorRow() {
     List<SizedBox> colorRow = [SizedBox(child: Text(AppStrings.color))];
-    colorRow.addAll((widget.options
-        .where((option) => option!.is_color_option == 1)
-        .first!
-        .items
-        .map((item) => SizedBox(
-            width: 50,
-            height: 70,
-            child: Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-              decoration: BoxDecoration(
-                  border: Border.all(color: ColorManager.black),
-                  borderRadius: BorderRadius.circular(50),
-                  color: HexColor.fromHex(item!.hex_value)),
-            )))
-        .toList()));
-    // if (colorRow.length < 2) {
-    //   colorRow.clear();
-    // } else {
-    //   SizedBox item = colorRow[1];
-    //   for (int i = 0; i < combinationsItems.length - 1; i++) {
-    //     colorRow.add(item);
-    //   }
-    // }
+    colorRow.addAll(widget.combinationsItems
+        .map((item) { 
+          String colorCode = widget.colorOptions
+                  .where((element) =>
+                      element!.id.toString() ==
+                      splitCombinationCode(item!.combination_code, true))
+                  .first
+                  ?.hex_value
+                  .toString() ??
+              '#FFFFFF';
+          return SizedBox(
+              width: 50,
+              height: 70,
+              child: Container(
+                  alignment: Alignment.center,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: ColorManager.black),
+                      borderRadius: BorderRadius.circular(50),
+                      color: HexColor.fromHex(colorCode))));
+        })
+        .cast<SizedBox>()
+        .toList());
     return Column(children: colorRow);
   }
 
   Column getSizesRow() {
     List<SizedBox> sizesRow = [SizedBox(child: Text(AppStrings.sizes))];
-    sizesRow.addAll((widget.options
-        .where((option) => option!.is_color_option == 0)
-        .first!
-        .items
-        .map((item) => SizedBox(
-              width: 50,
-              height: 70,
-              child: Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: Text(item!.value
-                    .replaceAll(RegExp(r'\s'), ',')
-                    .replaceAll(RegExp(r'/'), '')),
-              ),
-            ))
-        .toList()));
-    if (sizesRow.length < 2) {
-      sizesRow.clear();
-    } else {
-      SizedBox item = sizesRow[1];
-      for (int i = 0; i < widget.combinationsItems.length - 1; i++) {
-        sizesRow.add(item);
-      }
-    }
+    sizesRow.addAll(widget.combinationsItems
+        .map((item) { 
+          String sizeCode = widget.sizeOptions
+                  .where((element) =>
+                      element!.id.toString() ==
+                      splitCombinationCode(item!.combination_code, false))
+                  .first
+                  ?.value
+                  .toString() ??
+              '';
+          return SizedBox(
+            width: 50,
+            height: 70,
+            child: Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: Text(sizeCode
+                  .replaceAll(RegExp(r'\s'), ',')
+                  .replaceAll(RegExp(r'/'), '') .replaceAll(RegExp(r',,'), ',') ),
+            ),
+          );
+        })
+        .cast<SizedBox>()
+        .toList());
     return Column(children: sizesRow);
   }
 
@@ -205,8 +219,10 @@ class _CartQuickAddState extends State<CartQuickAdd> {
         fit: StackFit.expand,
         alignment: Alignment.center,
         children: [
-          Align(alignment:Alignment.topCenter ,
-            child: Positioned(  top: 0,
+          Align(
+            alignment: Alignment.topCenter,
+            child: Positioned(
+                top: 0,
                 width: 50,
                 height: 70,
                 child: Text(
@@ -214,7 +230,8 @@ class _CartQuickAddState extends State<CartQuickAdd> {
                   style: Theme.of(context).textTheme.bodyText1,
                   maxLines: 1,
                 )),
-          ),Align(
+          ),
+          Align(
             alignment: Alignment.center,
             child: SizedBox(
                 width: 60,
@@ -264,7 +281,6 @@ class _CartQuickAddState extends State<CartQuickAdd> {
               ),
             ),
           ),
-          
         ],
       ),
     );

@@ -2,38 +2,56 @@ import 'package:flutter/material.dart';
 import '../../domain/models/cart.dart';
 import '../../presentation/resources/strings_manager.dart';
 import '../../presentation/resources/values_manager.dart';
+import '../main/cart/cart_page_viewmodel.dart';
 import '../resources/color_manager.dart';
 
 class ProductcartWidget extends StatelessWidget {
-  const ProductcartWidget(this._productItem, {Key? key}) : super(key: key);
+  const ProductcartWidget(this._productItem, this._viewModel, {Key? key})
+      : super(key: key);
+
   final Product _productItem;
+  final CartPageViewModel _viewModel;
   @override
   Widget build(BuildContext context) {
-    String color=_productItem.attributes_small.replaceRange(
-                      _productItem.attributes_small.indexOf('-'),
-                      _productItem.attributes_small.length,'');
-    String size=_productItem.attributes_small.replaceRange(0,
-                      _productItem.attributes_small.indexOf('-')+2,
-                      '');
+    String color = _productItem.attributes_small.replaceRange(
+        _productItem.attributes_small.indexOf('-'),
+        _productItem.attributes_small.length,
+        '');
+    String size = _productItem.attributes_small
+        .replaceRange(0, _productItem.attributes_small.indexOf('-') + 2, '');
     return Container(
+      color: ColorManager.white,
       padding: const EdgeInsets.all(AppPadding.p8),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
                 width: AppSize.s80,
                 height: AppSize.s100,
                 child: Card(child: Image.network(_productItem.image_url)),
               ),
+              SizedBox(
+                width: AppSize.s16,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(width:AppSize.s200 , child: Text(_productItem.name)),
-                  Text('${AppStrings.color} : $color'),
-                  Text('${AppStrings.size } : $size '),
+                  SizedBox(width: AppSize.s200, child: Text(_productItem.name)),
+                  SizedBox(
+                    height: AppSize.s4,
+                  ),
+                  SizedBox(
+                      width: AppSize.s200,
+                      child: Text('${AppStrings.color} : $color')),
+                  SizedBox(
+                    height: AppSize.s4,
+                  ),
+                  SizedBox(
+                      width: AppSize.s200,
+                      child: Text('${AppStrings.size} : $size ')),
                 ],
               ),
             ],
@@ -46,7 +64,11 @@ class ProductcartWidget extends StatelessWidget {
               getQTYAdjust(),
               Text('${AppStrings.total}: ${_productItem.total_wt}'),
               TextButton(
-                  onPressed: (() => _deleteFromCart('product')),
+                  onPressed: () {
+                    _viewModel.deletItem(
+                        _productItem.id_product,
+                        _productItem.id_product_attribute );
+                  },
                   child: Icon(
                     Icons.remove_shopping_cart_rounded,
                     color: ColorManager.gray,
@@ -72,9 +94,10 @@ class ProductcartWidget extends StatelessWidget {
               width: 50,
               height: 70,
               child: TextButton.icon(
-                onPressed: () {
-                  _addToCart('combinationsItem', 8);
-                },
+                onPressed: (){  _viewModel.addItem(
+                        _productItem.id_product,
+                        _productItem.id_product_attribute,
+                        int.parse(_productItem.minimal_quantity));},
                 icon:
                     Icon(Icons.arrow_upward_rounded, color: ColorManager.green),
                 label: const Text(""),
@@ -87,9 +110,10 @@ class ProductcartWidget extends StatelessWidget {
               width: 50,
               height: 70,
               child: TextButton.icon(
-                onPressed: () {
-                  _removeFromCart('combinationsItem', 8);
-                },
+                onPressed: () {  _viewModel.removeItem(
+                        _productItem.id_product,
+                        _productItem.id_product_attribute,
+                        int.parse(_productItem.minimal_quantity));},
                 icon: Icon(Icons.arrow_downward_rounded,
                     color: ColorManager.primary),
                 label: const SizedBox(),
@@ -110,10 +134,4 @@ class ProductcartWidget extends StatelessWidget {
       ),
     );
   }
-
-  _removeFromCart(String productId, int qty) {}
-
-  _addToCart(String productId, int qty) {}
-
-  _deleteFromCart(String productId) {}
 }

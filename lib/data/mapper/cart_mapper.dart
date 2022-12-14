@@ -25,6 +25,7 @@ extension ProductCartMapper on ProductCartResponse? {
       this?.total ,
       this?.total_wt ,
       this?.price_wt ,
+      this?.minimal_quantity ,
       this?.attributes_small?.orEmpty() ?? EMPTY,
       this?.price_with_reduction_without_tax ,
       this?.image_url?.orEmpty() ?? EMPTY,

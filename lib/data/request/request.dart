@@ -10,14 +10,16 @@ class ForgotPasswordRequest {
 }
 
 class RegisterRequest {
-  String countryMobileCode;
-  String userName;
   String email;
   String password;
-  String mobile_number;
-  String profilePicture;
-  RegisterRequest(this.countryMobileCode, this.userName, this.email,
-      this.password, this.mobile_number, this.profilePicture);
+  String firstName;
+  String lastName;
+  RegisterRequest(
+    this.email,
+    this.password,
+    this.lastName,
+    this.firstName,
+  );
 }
 
 class UpdateCartRequest {

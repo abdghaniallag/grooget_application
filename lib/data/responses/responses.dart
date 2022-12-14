@@ -700,6 +700,8 @@ class ProductCartResponse extends BaseResponse {
   dynamic? total_wt;
   @JsonKey(name: "price_wt")
   dynamic price_wt;
+  @JsonKey(name: "minimal_quantity")
+  dynamic minimal_quantity;
   @JsonKey(name: "attributes_small")
   String? attributes_small;
   @JsonKey(name: "price_with_reduction_without_tax")

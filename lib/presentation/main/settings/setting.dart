@@ -1,8 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
+import '../../../app/app_preferences.dart';
+import '../../../app/di.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/currency_manager.dart';
 import '../../resources/languge_manager.dart';
 import '../../resources/color_manager.dart';
+import '../../resources/routes_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/values_manager.dart';
 
@@ -28,6 +31,7 @@ class _SettingPageState extends State<SettingPage> {
             padding: const EdgeInsets.all(AppPadding.p8),
             child: Text(AppStrings.account),
           ),
+          
           _getAccountInformation(),
           Padding(
             padding: const EdgeInsets.all(AppPadding.p8),
@@ -58,7 +62,8 @@ class _SettingPageState extends State<SettingPage> {
                 //  TODO
                 Text('Costumer Name'),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {instance<AppPreferences>().setUserLoggedOut();
+                   Navigator.pushReplacementNamed(context, Routes.mainRoute);},
                   child: const Text(AppStrings.signout),
                 ),
               ],
@@ -343,5 +348,12 @@ class _SettingPageState extends State<SettingPage> {
     setState(() {
       currency = CurrencyType.EURO.getValue();
     });
+  }
+
+  GestureDetector _logOut() {
+    return GestureDetector(
+      child: Text('logout'),
+      onTap: () => instance<AppPreferences>().setUserLoggedOut(),
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 import '../../resources/routes_manager.dart';
 import '../../widgets/shimmer_loading.dart';
 import '../../../app/app_preferences.dart';
@@ -52,19 +52,24 @@ class _HomePageState extends State<HomePage> {
           _getCategoryList(),
           _getSection(AppStrings.product),
           _getTopProducts(),
-          _getSection(AppStrings.category),
-          // _getTopCategories(),
+          _getSection(' '),
+          _getSocialMedia(),
         ],
       ),
     );
   }
 
-  Widget _getTopCategories() {
-    return Wrap(
-        children: Constants.mainCategoris
-            .map((category) => CategoryWidget(category.keys.first.toString(),
-                Constants.categoryImages[category.values.first]!))
-            .toList());
+  Widget _getSocialMedia() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text('Facebook'),
+        Text('Twiter'),
+        Text('Instagram'),
+        Text('Youtube'),
+        Text('Gmail'),
+      ],
+    );
   }
 
   Widget _getTopProducts() {
@@ -181,7 +186,6 @@ class _HomePageState extends State<HomePage> {
                     shapeBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(AppSize.s12)))
                 : child;
-            
           },
           fit: BoxFit.cover,
         );
@@ -250,10 +254,12 @@ class _HomePageState extends State<HomePage> {
                         ],
                         borderRadius: BorderRadius.circular(AppPadding.p2)),
                     child: Center(
-                      child: Text(
-                        Constants.categoryImages.keys.toList()[index],
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            Constants.categoryImages.keys.toList()[index],
+                            style: Theme.of(context).textTheme.headline1,
+                          )),
                     ),
                   ),
                 ],
@@ -269,8 +275,10 @@ class _HomePageState extends State<HomePage> {
     instance<AppPreferences>().isUserLoggedIn().then((isUserLoggedIn) {
       if (isUserLoggedIn) {
         _viewModel.getProductdetail(productItem.id_product);
-        _viewModel.outputProductDetail.listen((data) { 
-          log( name:'combinations' ,data.psdata!.combinations .length.toString());
+        _viewModel.outputProductDetail.listen((data) {
+          log(
+              name: 'combinations',
+              data.psdata!.combinations.length.toString());
           _showPopup(
               context,
               CartQuickAdd(data.psdata!.id_product, data.psdata!.combinations,

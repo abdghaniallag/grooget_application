@@ -695,7 +695,7 @@ TotalResponse _$TotalResponseFromJson(Map<String, dynamic> json) =>
     TotalResponse(
       json['type'] as String?,
       json['label'] as String?,
-      json['amount'] as double?,
+      (json['amount'] as num?)?.toDouble(),
       json['value'] as String?,
     )
       ..success = json['success'] as bool?
@@ -806,16 +806,17 @@ ProductCartResponse _$ProductCartResponseFromJson(Map<String, dynamic> json) =>
       json['date_add'] as String?,
       json['date_upd'] as String?,
       json['quantity'] as int?,
-      json['total'] as dynamic ,
-      json['total_wt'] as dynamic ,
-      json['price_wt'] as dynamic,
+      json['total'],
+      json['total_wt'],
+      json['price_wt'],
       json['attributes_small'] as String?,
-      json['price_with_reduction_without_tax'] as dynamic,
+      json['price_with_reduction_without_tax'],
       json['image_url'] as String?,
       json['reference'] as String?,
     )
       ..success = json['success'] as bool?
-      ..code = json['code'] as int?;
+      ..code = json['code'] as int?
+      ..minimal_quantity = json['minimal_quantity'];
 
 Map<String, dynamic> _$ProductCartResponseToJson(
         ProductCartResponse instance) =>
@@ -836,6 +837,7 @@ Map<String, dynamic> _$ProductCartResponseToJson(
       'total': instance.total,
       'total_wt': instance.total_wt,
       'price_wt': instance.price_wt,
+      'minimal_quantity': instance.minimal_quantity,
       'attributes_small': instance.attributes_small,
       'price_with_reduction_without_tax':
           instance.price_with_reduction_without_tax,

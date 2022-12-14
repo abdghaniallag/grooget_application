@@ -30,7 +30,8 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height - 148,
-      child: Center(
+      child: Align(
+          alignment: Alignment.topLeft,
           child: SingleChildScrollView(child: _getContentWidgets(context))),
     );
   }
@@ -47,7 +48,7 @@ class _CartPageState extends State<CartPage> {
             totals = snapshot.data!.psdata!.totals!.total_including_tax!.amount;
             productCount = snapshot.data!.psdata!.products_count;
             products.addAll(snapshot.data!.psdata!.products!
-                .map((product) => ProductcartWidget(product!))
+                .map((product) => ProductcartWidget(product!, _viewModel))
                 .toList());
           }
           {
@@ -76,4 +77,5 @@ class _CartPageState extends State<CartPage> {
           }
         });
   }
+ 
 }

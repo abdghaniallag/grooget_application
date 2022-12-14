@@ -54,12 +54,10 @@ class RemotDataSourceImpilenter implements RemotDataSource {
   Future<AuthenticationRespons> register(
       RegisterRequest registerRequest) async {
     return await _appServiceClient.register(
-      registerRequest.countryMobileCode,
-      registerRequest.userName,
       registerRequest.email,
       registerRequest.password,
-      registerRequest.mobile_number,
-      registerRequest.profilePicture,
+      registerRequest. firstName,
+      registerRequest. lastName, 
     );
   }
 

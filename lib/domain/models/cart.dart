@@ -47,6 +47,7 @@ class Product {
   dynamic total;
   dynamic total_wt;
   dynamic price_wt;
+  dynamic minimal_quantity;
   String attributes_small;
   dynamic price_with_reduction_without_tax;
   String image_url;
@@ -66,6 +67,7 @@ class Product {
     this.total,
     this.total_wt,
     this.price_wt,
+    this.minimal_quantity,
     this.attributes_small,
     this.price_with_reduction_without_tax,
     this.image_url,

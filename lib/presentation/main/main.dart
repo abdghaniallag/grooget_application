@@ -1,4 +1,7 @@
-import 'package:flutter/material.dart'; 
+import 'package:binding/binding.dart';
+import 'package:flutter/material.dart';
+import '../../app/di.dart';
+import '../../domain/models/app_models.dart';
 import '../../presentation/main/cart/cart_page.dart';
 import '../../presentation/main/home/home_page.dart';
 import '../../presentation/resources/color_manager.dart';
@@ -6,6 +9,7 @@ import '../../presentation/resources/strings_manager.dart';
 import '../../presentation/resources/values_manager.dart';
 import 'categories/categories_page.dart';
 import 'search/search.dart';
+import 'search/search_viewmodel.dart';
 import 'wish_list/wish_list.dart';
 import 'settings/setting.dart';
 
@@ -19,7 +23,8 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   final TextEditingController _controller = TextEditingController();
 
-  late List<Widget> pages;
+  ProductViewModel _viewModel = instance<ProductViewModel>();
+  late final List<Widget> pages;
   List<String> titles = [
     AppStrings.home,
     AppStrings.category,
@@ -34,16 +39,22 @@ class _MainViewState extends State<MainView> {
   late TextFormField appBar;
   String searchText = '';
   @override
-  void initState() { _focusNode = FocusNode();
+  void initState() {
+    _focusNode = FocusNode();
     appBar = getSearchField(_controller);
-   
+    const HomePage homePage = HomePage();
+    const CategoriesPage categoriesPage = CategoriesPage();
+    SearchPage searchPage = SearchPage(_viewModel);
+    const WishListPage wishListPage = WishListPage();
+    const CartPage cartPage = CartPage();
+    const SettingPage settingPage = SettingPage();
     pages = [
-      HomePage(),
-      CategoriesPage(),
-      SearchPage(searchText),
-      WishListPage(),
-      CartPage(),
-      SettingPage()
+      homePage,
+      categoriesPage,
+      searchPage,
+      wishListPage,
+      cartPage,
+      settingPage,
     ];
     super.initState();
   }
@@ -51,51 +62,59 @@ class _MainViewState extends State<MainView> {
   @override
   void dispose() {
     _focusNode.dispose();
+
+    _viewModel.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 243, 243, 243),
-        appBar: getAppBar(appBar),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            pages[_currentIndex],
-          ],
-        ),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(color: ColorManager.black, spreadRadius: AppSize.s1_5)
+    return BindingProvider(
+        child: BindingSource<SearchModel>(
+      instance: SearchModel(),
+      child: Scaffold(
+          backgroundColor: const Color.fromARGB(255, 243, 243, 243),
+          appBar: getAppBar(appBar),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              pages[_currentIndex],
             ],
           ),
-          child: BottomNavigationBar(
-            selectedItemColor: ColorManager.primary,
-            unselectedItemColor: ColorManager.gray,
-            currentIndex: _currentIndex,
-            onTap: onTap,
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined), label: AppStrings.home),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.category_outlined),
-                  label: AppStrings.category),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.search_outlined), label: AppStrings.search),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_outline_rounded),
-                  label: AppStrings.wishList),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.card_travel_rounded),
-                  label: AppStrings.cart),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.settings_outlined),
-                  label: AppStrings.settings),
-            ],
-          ),
-        ));
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(color: ColorManager.black, spreadRadius: AppSize.s1_5)
+              ],
+            ),
+            child: BottomNavigationBar(
+              selectedItemColor: ColorManager.primary,
+              unselectedItemColor: ColorManager.gray,
+              currentIndex: _currentIndex,
+              onTap: onTap,
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home_outlined), label: AppStrings.home),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.category_outlined),
+                    label: AppStrings.category),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.search_outlined),
+                    label: AppStrings.search),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite_outline_rounded),
+                    label: AppStrings.wishList),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.card_travel_rounded),
+                    label: AppStrings.cart),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.settings_outlined),
+                    label: AppStrings.settings),
+              ],
+            ),
+          )),
+    ));
   }
 
   onTap(int index) {
@@ -114,9 +133,8 @@ class _MainViewState extends State<MainView> {
           _currentIndex = 2;
         }),
         onChanged: (value) {
-          if (value.length > 3) { setState(() {
-            searchText=value;
-          });
+          if (value.length > 2) {
+            _viewModel.search(value);
           }
         },
         focusNode: _focusNode,

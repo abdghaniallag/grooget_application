@@ -9,10 +9,10 @@ class LoginObject with _$LoginObject {
 @freezed
 class RegisterObject with _$RegisterObject {
   factory RegisterObject(
-      String userName,
-      String countryCode,
-      String mobile_number,
+     
+      String lastName,
       String email,
       String password,
-      String profilePicture) = _RegisterObject;
+      String firstName
+      ) = _RegisterObject;
 }

@@ -54,6 +54,7 @@ class ProductItemWidget extends StatelessWidget {
                 _productItem.description_short
                     .replaceAll(r'<p>', '')
                     .replaceAll(r'</p>', ''),
+                    maxLines: 2,
                 style: Theme.of(context).textTheme.headline2,
               ),
             ],

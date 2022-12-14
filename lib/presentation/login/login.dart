@@ -152,29 +152,15 @@ class _LoginViewState extends State<LoginView> {
                         top: AppPadding.p8,
                         left: AppPadding.p28,
                         right: AppPadding.p28),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Routes.forgotPasswordRoute);
-                            },
-                            child: Text(
-                              AppStrings.forgotPassword,
-                              style: Theme.of(context).textTheme.subtitle2,
-                            )),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Routes.registerRoute);
-                            },
-                            child: Text(
-                              AppStrings.register,
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ))
-                      ],
-                    ),
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, Routes.registerRoute);
+                        },
+                        child: Text(
+                          AppStrings.register,
+                          style: Theme.of(context).textTheme.subtitle2,
+                        )),
                   )
                 ],
               ),

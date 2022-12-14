@@ -46,16 +46,13 @@ abstract class AppServiceClient {
     @Query("with_category_tree") int with_category_tree = 0,
   });
 
-  @POST('/costumers/register')
-  Future<AuthenticationRespons> register(
-    @Field("country_mobile_code") String countryMobileCode,
-    @Field("user_name") String userName,
+  @POST('/register')
+  Future<AuthenticationRespons> register( 
     @Field("email") String email,
     @Field("password") String password,
-    @Field("mobile_number") String mobile_number,
-    @Field("profile_picture") String profilePicture,
-  );
-//TODO
+    @Field("firstName") String firstName,
+    @Field("lastName") String lastName,
+  ); 
   @GET('/productSearch')
   Future<ProductSearchListResponse> getProductSearchList(@Query("s") String s,
       {@Query("resultsPerPage") String resultsPerPage = "10"});

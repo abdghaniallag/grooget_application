@@ -24,8 +24,7 @@ class ProductViewModel extends BaseViewModel
 
   @override
   void start() {
-    inputState.add(ContentState());
-    search("bat");
+    inputState.add(ContentState()); 
   }
  
   @override

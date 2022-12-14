@@ -115,11 +115,7 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<CategoryListResponse> getCategories(productId,
-      {page = 0,
-      order  ,
-      q ,
-      resultsPerPage = 1,
-      with_category_tree = 0}) async {
+      {page = 0, order, q, resultsPerPage = 1, with_category_tree = 0}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'id_category': productId,
@@ -129,6 +125,7 @@ class _AppServiceClient implements AppServiceClient {
       r'resultsPerPage': resultsPerPage,
       r'with_category_tree': with_category_tree
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -142,23 +139,21 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<AuthenticationRespons> register(countryMobileCode, userName, email,
-      password, mobile_number, profilePicture) async {
+  Future<AuthenticationRespons> register(
+      email, password, firstName, lastName) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {
-      'country_mobile_code': countryMobileCode,
-      'user_name': userName,
       'email': email,
       'password': password,
-      'mobile_number': mobile_number,
-      'profile_picture': profilePicture
+      'firstName': firstName,
+      'lastName': lastName
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AuthenticationRespons>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/costumers/register',
+                .compose(_dio.options, '/register',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = AuthenticationRespons.fromJson(_result.data!);
